@@ -113,19 +113,19 @@ public class mailController {
      * Toggle star status of an email
      * PUT /api/mail/{id}/star
      */
-    @PutMapping("/{id}/star")
-    public ResponseEntity<String> toggleStar(@PathVariable int id, @RequestParam String folder) {
-        try {
-            boolean success = mailService.toggleStar(id, folder);
-            if (success) {
-                return ResponseEntity.ok("Star toggled successfully");
-            }
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to toggle star");
-        }
-    }
+    // @PutMapping("/{id}/star")
+    // public ResponseEntity<String> toggleStar(@PathVariable int id, @RequestParam String folder) {
+    //     try {
+    //         boolean success = mailService.toggleStar(id, folder);
+    //         if (success) {
+    //             return ResponseEntity.ok("Star toggled successfully");
+    //         }
+    //         return ResponseEntity.notFound().build();
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    //                 .body("Failed to toggle star");
+    //     }
+    // }
 
     /**
      * Delete an email (move to trash)
