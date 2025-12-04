@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "to": ["dummy@gmail.com"],
+    "subject": "Q4 Report Review",
+    "body": "Please review the attached Q4 financial report and provide your feedback by EOD. We need to finalize the numbers before presenting to the board next week.",
+    "preview": "Please review the attached Q4 financial report and provide your feedback by EOD...",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2024-12-03T10:30:00",
+    "priority": 3,
+    "attachments": ["Q4_Report.pdf"]
+  },
+  {
+    "id": 2,
+    "to": ["dummy@gmail.com"],
+    "subject": "Weekly Team Update",
+    "body": "Here are this week's highlights and upcoming milestones for the project. Great progress on the frontend components!",
+    "preview": "Here are this week's highlights and upcoming milestones for the project...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-03T09:15:00",
+    "priority": 4,
+    "attachments": []
+  },
+  {
+    "id": 3,
+    "to": ["dummy@gmail.com"],
+    "subject": "Project Proposal Discussion",
+    "body": "I'd like to schedule a meeting to discuss the new project proposal. Are you available this Thursday afternoon?",
+    "preview": "I'd like to schedule a meeting to discuss the new project proposal...",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2024-12-02T14:20:00",
+    "priority": 1,
+    "attachments": ["proposal.docx"]
+  },
+  {
+    "id": 4,
+    "to": ["dummy@gmail.com"],
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don't forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don't forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 5,
+    "to": ["dummy@gmail.com"],
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don't forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don't forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 6,
+    "to": ["dummy@gmail.com"],
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don't forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don't forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 7,
+    "to": ["dummy@gmail.com"],
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don't forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don't forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  }
+]
