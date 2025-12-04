@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.example.backend.DTOS.mailDTO;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-
-@AllArgsConstructor
+@Getter
+@Setter
 public class mailService {
-    private String senderEmail = "dummy@gmailcom";
-    private final String BasePath = "data/users";
+    private String senderEmail = "dummy@gmail.com";
+    private final String BasePath = "data/users/";
     private final FileService fileService;
 
     public mailService(FileService fileService) {
@@ -18,19 +19,19 @@ public class mailService {
 
     }
 
+    // add factory to create files
     public void composeMail(mailDTO mail) {
         String sentPath = BasePath + senderEmail + "/sent.json";
-        List<String> recieverList =mail.getTo() ;
-        for(var reciever : recieverList){
-            String path = BasePath+reciever+"/inbox.json";
-            List<mailDTO> mails = fileService.readMailsFromFile(sentPath) ;
-            mails.add(mail) ;
-            fileService.writeMailsToFile(path, mails) ;
-
+        List<String> recieverList = mail.getTo();
+        // Queue needed here 
+        for (var reciever : recieverList) {
+            String path = BasePath + reciever + "/inbox.json";
+            List<mailDTO> inboxMails = fileService.readMailsFromFile(path);
+            inboxMails.add(mail);
+            fileService.writeMailsToFile(path, inboxMails);
         }
         List<mailDTO> sentMails = fileService.readMailsFromFile(sentPath);
         sentMails.add(mail);
         fileService.writeMailsToFile(sentPath, sentMails);
-
     }
 }

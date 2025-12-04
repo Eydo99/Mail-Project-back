@@ -1,5 +1,6 @@
 package com.example.backend.DTOS;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -9,10 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class mailDTO {
-    private long id;
+    private int id   ;
     private List<String> to;
     private String subject;
     private String body;
-    private String time;
+    private String preview ;
+    private boolean isStared;
+    private LocalDateTime timestamp;
+    private int priority;
     private List<String> attachments;
 } 

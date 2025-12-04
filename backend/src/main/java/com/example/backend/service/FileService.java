@@ -109,7 +109,7 @@ public class FileService {
             System.out.println("Created user folder: " + userPath);
 
             // Create default folder files (inbox, sent, trash, spam)
-            String[] folders = { "inbox.json", "sent.json", "trash.json", "spam.json" };
+            String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json" };
 
             for (String folder : folders) {
                 File file = new File(userPath.toString(), folder);
