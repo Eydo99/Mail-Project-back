@@ -1,8 +1,10 @@
 package com.example.backend.service;
+
 import com.example.backend.DTOS.mailDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -14,6 +16,7 @@ import java.util.List;
  * FileService handles all file I/O operations for the mail system
  * Responsibilities: Read/Write JSON files, Create folders, Manage file paths
  */
+@Service
 public class FileService {
 
     // Gson instance for JSON serialization/deserialization
@@ -24,7 +27,7 @@ public class FileService {
 
     /**
      * Reads mails from a JSON file and converts them to List<Mail>
-     * 
+     *
      * @param filePath Path to the JSON file (e.g.,
      *                 "data/users/omar@mail.com/inbox.json")
      * @return List of Mail objects, or empty list if file doesn't exist or error
@@ -45,6 +48,7 @@ public class FileService {
             }.getType();
 
             // Convert JSON to List<Mail>
+            System.out.println("trying to read file: " + filePath);
             List<mailDTO> mails = gson.fromJson(reader, mailListType);
 
             // Return the list or empty list if null
@@ -59,7 +63,7 @@ public class FileService {
 
     /**
      * Writes a list of mails to a JSON file
-     * 
+     *
      * @param filePath Path to the JSON file
      * @param mails    List of Mail objects to write
      * @return true if successful, false otherwise
@@ -86,7 +90,7 @@ public class FileService {
 
     /**
      * Checks if a file exists
-     * 
+     *
      * @param filePath Path to check
      * @return true if file exists, false otherwise
      */
@@ -96,8 +100,8 @@ public class FileService {
 
     /**
      * Creates a user folder structure with default JSON files
-     * Creates: inbox.json, sent.json, trash.json, spam.json
-     * 
+     * Creates: inbox.json, sent.json, trash.json, draft.json
+     *
      * @param email User's email address
      * @return true if successful, false otherwise
      */
@@ -108,7 +112,7 @@ public class FileService {
             Files.createDirectories(userPath);
             System.out.println("Created user folder: " + userPath);
 
-            // Create default folder files (inbox, sent, trash, spam)
+            // Create default folder files (inbox, sent, trash, draft)
             String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json" };
 
             for (String folder : folders) {
@@ -132,9 +136,9 @@ public class FileService {
 
     /**
      * Builds the full path to a user's folder file
-     * 
+     *
      * @param email  User's email
-     * @param folder Folder name (inbox, sent, trash, spam)
+     * @param folder Folder name (inbox, sent, trash, draft)
      * @return Full file path (e.g., "data/users/omar@mail.com/inbox.json")
      */
     public String getUserFolderPath(String email, String folder) {
@@ -143,7 +147,7 @@ public class FileService {
 
     /**
      * Gets the base directory path for a user
-     * 
+     *
      * @param email User's email
      * @return Base directory path (e.g., "data/users/omar@mail.com/")
      */
@@ -153,7 +157,7 @@ public class FileService {
 
     /**
      * Deletes a file
-     * 
+     *
      * @param filePath Path to the file to delete
      * @return true if successful, false otherwise
      */
@@ -173,7 +177,7 @@ public class FileService {
 
     /**
      * Checks if a user folder exists
-     * 
+     *
      * @param email User's email
      * @return true if folder exists, false otherwise
      */
