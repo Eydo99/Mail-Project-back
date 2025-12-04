@@ -15,8 +15,9 @@ public class mailDTO {
     private String subject;
     private String body;
     private String preview ;
-    private boolean isStared;
-    private LocalDateTime timestamp;
+    private boolean starred;
+    private boolean hasAttachment;
+    private String timestamp;
     private int priority;
     private List<String> attachments;
 } 
