@@ -1,6 +1,5 @@
 package com.example.backend.service;
-
-import com.example.backend.model.mailDTO;
+import com.example.backend.DTOS.mailDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

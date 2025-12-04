@@ -2,7 +2,8 @@ package com.example.backend.service;
 
 import java.util.List;
 
-import com.example.backend.model.mailDTO;
+import com.example.backend.DTOS.mailDTO;
+
 import lombok.AllArgsConstructor;
 
 
