@@ -17,45 +17,55 @@ import lombok.Setter;
 @Getter
 @Setter
 public class mailService {
-
     private String senderEmail = "dummy@gmail.com";
     private final String BasePath = "data/users/";
     private final JsonFileManager jsonFileManager;
-
+    
+    // Type token for List<mailDTO> - needed for generic FileService methods
     private static final Type MAIL_LIST_TYPE = new TypeToken<List<mailDTO>>(){}.getType();
-
-    private final Object trashLock = new Object();
-    private final Object folderLock = new Object();
 
     public mailService(JsonFileManager jsonFileManager) {
         this.jsonFileManager = jsonFileManager;
     }
 
+    /**
+     * Get all emails from inbox
+     */
     public List<mailDTO> getInboxEmails() {
         String inboxPath = BasePath + senderEmail + "/inbox.json";
         return jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
     }
 
+    /**
+     * Get all sent emails
+     */
     public List<mailDTO> getSentEmails() {
         String sentPath = BasePath + senderEmail + "/sent.json";
         return jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
     }
 
+    /**
+     * Get all draft emails
+     */
     public List<mailDTO> getDraftEmails() {
         String draftPath = BasePath + senderEmail + "/draft.json";
         return jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
     }
 
+    /**
+     * Get all trash emails
+     */
     public List<mailDTO> getTrashEmails() {
         String trashPath = BasePath + senderEmail + "/trash.json";
         return jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
     }
 
+    /**
+     * Get specific email by ID from a folder
+     */
     public mailDTO getEmailById(int id, String folder) {
         String folderPath = BasePath + senderEmail + "/" + folder + ".json";
         List<mailDTO> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
-
-        if (emails == null) return null;
 
         return emails.stream()
                 .filter(email -> email.getId() == id)
@@ -63,69 +73,92 @@ public class mailService {
                 .orElse(null);
     }
 
+    /**
+     * Compose and send a new email
+     */
+
+
+    //factory is needed
     public void composeMail(mailDTO mail) {
-
+        String sentPath = BasePath + senderEmail + "/sent.json";
         List<String> receiverList = mail.getTo();
-
+        
+        // Send to all receivers
         for (String receiver : receiverList) {
             String path = BasePath + receiver + "/inbox.json";
             List<mailDTO> inboxMails = jsonFileManager.readListFromFile(path, MAIL_LIST_TYPE);
-
-            if (inboxMails == null) {
-                inboxMails = new ArrayList<>();
-            }
-
             inboxMails.add(mail);
             jsonFileManager.writeListToFile(path, inboxMails);
         }
-
-        String sentPath = BasePath + senderEmail + "/sent.json";
+        
+        // Add to sent folder
         List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
-
-        if (sentMails == null) {
-            sentMails = new ArrayList<>();
-        }
-
         sentMails.add(mail);
         jsonFileManager.writeListToFile(sentPath, sentMails);
     }
-
-    public void saveDraft(mailDTO mail) {
-
+    public void saveDraft(mailDTO mail){
         String draftPath = BasePath + senderEmail + "/draft.json";
-
         List<mailDTO> draftMails = jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
-
-        if (draftMails == null) {
-            draftMails = new ArrayList<>();
-        }
-
         draftMails.add(mail);
         jsonFileManager.writeListToFile(draftPath, draftMails);
+
     }
 
-    // ================= DELETE EMAIL =================
+    // /**
+    //  * Toggle star status of an email
+    //  */
+    // public boolean toggleStar(int id, String folder) {
+    //     String folderPath = BasePath + senderEmail + "/" + folder + ".json";
+    //     List<mailDTO> emails = fileService.readListFromFile()(folderPath, MAIL_LIST_TYPE);
+
+    //     boolean found = false;
+    //     for (mailDTO email : emails) {
+    //         if (email.getId() == id) {
+    //             email.setStared(!email.isStared());
+    //             found = true;
+    //             break;
+    //         }
+    //     }
+
+    //     if (found) {
+    //         fileService.writeListToFile()(folderPath, emails);
+    //     }
+
+    //     return found;
+    // }
+
+    /**
+     * Delete an email (move to trash)
+     */
+// Add this at the class level
+    private final Object trashLock = new Object();
+    private final Object folderLock = new Object();
 
     public boolean deleteEmail(int id, String folder) {
+        System.out.println("=== DELETE EMAIL START ===");
+        System.out.println("Email ID: " + id);
+        System.out.println("Folder: " + folder);
 
         try {
             if (folder.equals("trash")) {
+                // Permanently delete from trash
                 return permanentlyDeleteEmail(id);
             }
 
             String folderPath = BasePath + senderEmail + "/" + folder + ".json";
-            String trashPath  = BasePath + senderEmail + "/trash.json";
+            String trashPath = BasePath + senderEmail + "/trash.json";
 
+            // Synchronize to prevent concurrent modification
             synchronized (folderLock) {
-
                 List<mailDTO> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
 
-                if (emails == null || emails.isEmpty()) {
-                    return false;
+                // Handle null or empty list
+                if (emails == null) {
+                    emails = new ArrayList<>();
                 }
 
+                // Find and remove the email
                 mailDTO emailToDelete = null;
-
                 for (mailDTO email : emails) {
                     if (email.getId() == id) {
                         emailToDelete = email;
@@ -134,44 +167,62 @@ public class mailService {
                 }
 
                 if (emailToDelete == null) {
+                    System.out.println("Email not found with ID: " + id);
                     return false;
                 }
 
-                // remove from folder
+                // Remove from source folder
                 emails.remove(emailToDelete);
-                jsonFileManager.writeListToFile(folderPath, emails);
+                boolean writeSuccess = jsonFileManager.writeListToFile(folderPath, emails);
 
-                // add to trash
+                if (!writeSuccess) {
+                    System.err.println("Failed to write to folder: " + folderPath);
+                    return false;
+                }
+
+                // Add to trash (synchronized separately)
                 synchronized (trashLock) {
                     List<mailDTO> trashEmails = jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
 
+                    // Initialize trash list if null
                     if (trashEmails == null) {
                         trashEmails = new ArrayList<>();
                     }
 
                     trashEmails.add(emailToDelete);
-                    jsonFileManager.writeListToFile(trashPath, trashEmails);
+                    boolean trashWriteSuccess = jsonFileManager.writeListToFile(trashPath, trashEmails);
+
+                    if (!trashWriteSuccess) {
+                        System.err.println("Failed to write to trash: " + trashPath);
+                        // TODO: Consider rolling back the folder deletion
+                        return false;
+                    }
                 }
 
+                System.out.println("=== DELETE EMAIL SUCCESS ===");
                 return true;
             }
 
         } catch (Exception e) {
+            System.err.println("=== DELETE EMAIL ERROR ===");
+            System.err.println("Error deleting email: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("Failed to delete email", e);
         }
     }
 
     private boolean permanentlyDeleteEmail(int id) {
-
         String trashPath = BasePath + senderEmail + "/trash.json";
+        System.out.println("Attempting to delete email " + id + " from: " + trashPath);
 
         try {
             synchronized (trashLock) {
-
                 List<mailDTO> emails = jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
 
-                if (emails == null || emails.isEmpty()) {
-                    return false;
+                // Handle case where trash file doesn't exist or is null
+                if (emails == null) {
+                    emails = new ArrayList<>();
+                    return false; // Email not found
                 }
 
                 List<mailDTO> filteredEmails = emails.stream()
@@ -185,8 +236,9 @@ public class mailService {
 
                 return false;
             }
-
         } catch (Exception e) {
+            System.err.println("Error permanently deleting email: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("Failed to permanently delete email", e);
         }
     }

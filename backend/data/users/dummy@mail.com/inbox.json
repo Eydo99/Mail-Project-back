@@ -1,20 +1,23 @@
 [
   {
-    "id": 9,
+    "id": 3,
     "to": [
       "belal@gmail.com",
       "dummy@mail.com"
     ],
-    "subject": "Project Update",
-    "body": "Hello team, here is the latest update about the project progress...",
-    "preview": "Hello team, here is the latest...",
+    "subject": "Project Meeting",
+    "body": "We will discuss the project updates tomorrow at 10 AM in the main hall.",
+    "preview": "We will discuss the project...",
     "starred": true,
     "hasAttachment": true,
-    "timestamp": "2025-12-05 09:30:00",
     "priority": 1,
     "attachments": [
-      "project_plan.pdf",
-      "diagram.png"
+      {
+        "filename": "report.pdf",
+        "filePath": "data/files/report.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 204800
+      }
     ]
   }
 ]
