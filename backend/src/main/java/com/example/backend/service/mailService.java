@@ -18,13 +18,13 @@ import lombok.Setter;
 public class mailService {
     private String senderEmail = "dummy@gmail.com";
     private final String BasePath = "data/users/";
-    private final FileService fileService;
+    private final JsonFileManager jsonFileManager;
     
     // Type token for List<mailDTO> - needed for generic FileService methods
     private static final Type MAIL_LIST_TYPE = new TypeToken<List<mailDTO>>(){}.getType();
 
-    public mailService(FileService fileService) {
-        this.fileService = fileService;
+    public mailService(JsonFileManager jsonFileManager) {
+        this.jsonFileManager = jsonFileManager;
     }
 
     /**
@@ -32,7 +32,7 @@ public class mailService {
      */
     public List<mailDTO> getInboxEmails() {
         String inboxPath = BasePath + senderEmail + "/inbox.json";
-        return fileService.readMailsFromFile(inboxPath, MAIL_LIST_TYPE);
+        return jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
     }
 
     /**
@@ -40,7 +40,7 @@ public class mailService {
      */
     public List<mailDTO> getSentEmails() {
         String sentPath = BasePath + senderEmail + "/sent.json";
-        return fileService.readMailsFromFile(sentPath, MAIL_LIST_TYPE);
+        return jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
     }
 
     /**
@@ -48,7 +48,7 @@ public class mailService {
      */
     public List<mailDTO> getDraftEmails() {
         String draftPath = BasePath + senderEmail + "/draft.json";
-        return fileService.readMailsFromFile(draftPath, MAIL_LIST_TYPE);
+        return jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
     }
 
     /**
@@ -56,7 +56,7 @@ public class mailService {
      */
     public List<mailDTO> getTrashEmails() {
         String trashPath = BasePath + senderEmail + "/trash.json";
-        return fileService.readMailsFromFile(trashPath, MAIL_LIST_TYPE);
+        return jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
     }
 
     /**
@@ -64,7 +64,7 @@ public class mailService {
      */
     public mailDTO getEmailById(int id, String folder) {
         String folderPath = BasePath + senderEmail + "/" + folder + ".json";
-        List<mailDTO> emails = fileService.readMailsFromFile(folderPath, MAIL_LIST_TYPE);
+        List<mailDTO> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
 
         return emails.stream()
                 .filter(email -> email.getId() == id)
@@ -85,15 +85,15 @@ public class mailService {
         // Send to all receivers
         for (String receiver : receiverList) {
             String path = BasePath + receiver + "/inbox.json";
-            List<mailDTO> inboxMails = fileService.readMailsFromFile(path, MAIL_LIST_TYPE);
+            List<mailDTO> inboxMails = jsonFileManager.readListFromFile(path, MAIL_LIST_TYPE);
             inboxMails.add(mail);
-            fileService.writeMailsToFile(path, inboxMails);
+            jsonFileManager.writeListToFile(path, inboxMails);
         }
 
         // Add to sent folder
-        List<mailDTO> sentMails = fileService.readMailsFromFile(sentPath, MAIL_LIST_TYPE);
+        List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
         sentMails.add(mail);
-        fileService.writeMailsToFile(sentPath, sentMails);
+        jsonFileManager.writeListToFile(sentPath, sentMails);
     }
 
     // /**
@@ -101,7 +101,7 @@ public class mailService {
     //  */
     // public boolean toggleStar(int id, String folder) {
     //     String folderPath = BasePath + senderEmail + "/" + folder + ".json";
-    //     List<mailDTO> emails = fileService.readMailsFromFile(folderPath, MAIL_LIST_TYPE);
+    //     List<mailDTO> emails = fileService.readListFromFile()(folderPath, MAIL_LIST_TYPE);
 
     //     boolean found = false;
     //     for (mailDTO email : emails) {
@@ -113,7 +113,7 @@ public class mailService {
     //     }
 
     //     if (found) {
-    //         fileService.writeMailsToFile(folderPath, emails);
+    //         fileService.writeListToFile()(folderPath, emails);
     //     }
 
     //     return found;
@@ -129,7 +129,7 @@ public class mailService {
         }
 
         String folderPath = BasePath + senderEmail + "/" + folder + ".json";
-        List<mailDTO> emails = fileService.readMailsFromFile(folderPath, MAIL_LIST_TYPE);
+        List<mailDTO> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
 
         // Find and remove the email
         mailDTO emailToDelete = null;
@@ -142,13 +142,13 @@ public class mailService {
 
         if (emailToDelete != null) {
             emails.remove(emailToDelete);
-            fileService.writeMailsToFile(folderPath, emails);
+            jsonFileManager.writeListToFile(folderPath, emails);
 
             // Add to trash
             String trashPath = BasePath + senderEmail + "/trash.json";
-            List<mailDTO> trashEmails = fileService.readMailsFromFile(trashPath, MAIL_LIST_TYPE);
+            List<mailDTO> trashEmails = jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
             trashEmails.add(emailToDelete);
-            fileService.writeMailsToFile(trashPath, trashEmails);
+            jsonFileManager.writeListToFile(trashPath, trashEmails);
 
             return true;
         }
@@ -161,14 +161,14 @@ public class mailService {
      */
     private boolean permanentlyDeleteEmail(int id) {
         String trashPath = BasePath + senderEmail + "/trash.json";
-        List<mailDTO> emails = fileService.readMailsFromFile(trashPath, MAIL_LIST_TYPE);
+        List<mailDTO> emails = jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
 
         List<mailDTO> filteredEmails = emails.stream()
                 .filter(email -> email.getId() != id)
                 .collect(Collectors.toList());
 
         if (filteredEmails.size() < emails.size()) {
-            fileService.writeMailsToFile(trashPath, filteredEmails);
+            jsonFileManager.writeListToFile(trashPath, filteredEmails);
             return true;
         }
 
