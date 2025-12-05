@@ -96,6 +96,16 @@ public class mailService {
         jsonFileManager.writeListToFile(sentPath, sentMails);
     }
 
+    public void saveDraft(mailDTO mail) {
+        String draftPath = BasePath + senderEmail + "/draft.json";
+        
+
+        // Add to draft folder
+        List<mailDTO> draftMails = jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
+        draftMails.add(mail);
+        jsonFileManager.writeListToFile(draftPath, draftMails);
+    }
+
     // /**
     //  * Toggle star status of an email
     //  */

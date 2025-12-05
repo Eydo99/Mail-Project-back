@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": 1,
+    "to": [
+      "belal@gmail.com"
+    ],
+    "subject": "Project Update",
+    "body": "Hello team, here is the latest update about the project progress and next steps.",
+    "preview": "Hello team, here is the latest update...",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-05 09:30:00",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "project_plan.pdf",
+        "filePath": "/files/docs/project_plan.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 245760
+      },
+      {
+        "filename": "architecture.png",
+        "filePath": "/files/images/architecture.png",
+        "mimeType": "image/png",
+        "fileSize": 87341
+      }
+    ]
+  }
+]

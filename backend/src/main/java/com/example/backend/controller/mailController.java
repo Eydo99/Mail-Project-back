@@ -107,6 +107,18 @@ public class mailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to send email");
         }
+    
+    }
+    
+    @PostMapping("/draft/save")
+    public ResponseEntity<String> saveDraft(@RequestBody mailDTO mail) {
+        try {
+            mailService.saveDraft(mail);
+            return ResponseEntity.ok("Email saved successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to save email");
+        }
     }
 
     /**
