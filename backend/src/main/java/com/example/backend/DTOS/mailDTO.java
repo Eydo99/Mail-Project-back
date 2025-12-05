@@ -19,5 +19,5 @@ public class mailDTO {
     private boolean hasAttachment;
     private String timestamp;
     private int priority;
-    private List<String> attachments;
+    private List<attachementDTO> attachments;
 } 

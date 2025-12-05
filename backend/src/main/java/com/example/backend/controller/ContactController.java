@@ -24,6 +24,7 @@ public class ContactController {
     private ContactService service;
 
     private final String loggedInUser = "dummy@mail.com"; // Temporary mocked user
+    
 
     @GetMapping
     public PaginatedContactResponse getContacts(@RequestParam int page,
