@@ -1,0 +1,100 @@
+[
+  {
+    "id": "3d0adfcd-7d5f-4a3c-9295-e86269588444",
+    "name": "ahmed sherif",
+    "email": [
+      {
+        "address": "shefoo@gmail.com",
+        "isPrimary": false
+      },
+      {
+        "address": "ahmed@sherif.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "45135135",
+        "isPrimary": false
+      },
+      {
+        "number": "335251241e",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#10b981",
+    "initials": "AS"
+  },
+  {
+    "id": "03dd113c-517a-4744-8d97-6d3a26b3928e",
+    "name": "bigad",
+    "email": [
+      {
+        "address": "bigad@gmail.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "e3t5252",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#ec4899",
+    "initials": "B"
+  },
+  {
+    "id": "16df4658-6022-4209-a3d9-ecc257fbcb60",
+    "name": "ansss",
+    "email": [
+      {
+        "address": "aa@gamil.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "15611565",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#8b5cf6",
+    "initials": "A"
+  },
+  {
+    "id": "924b4921-c16f-48ae-b18b-a1c26a0de10e",
+    "name": "ooop",
+    "email": [
+      {
+        "address": "ooop@gamil.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "5454",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#10b981",
+    "initials": "O"
+  },
+  {
+    "id": "005867ef-ca9b-4bd9-b101-ef87bbea3df9",
+    "name": "fafasdf",
+    "email": [
+      {
+        "address": "faff",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "afa",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#3b82f6",
+    "initials": "F"
+  }
+]
