@@ -1,0 +1,38 @@
+[
+  {
+    "id": "589831cc-915a-4925-b399-2cb65d2a2ab2",
+    "name": "ey",
+    "email": [
+      {
+        "address": "eyad@gmail.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "0128369835",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#3b82f6",
+    "initials": "E"
+  },
+  {
+    "id": "691b875d-4439-4718-8c24-ef70474f7195",
+    "name": "moha,ed",
+    "email": [
+      {
+        "address": "eyad@gmail.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "231",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#f59e0b",
+    "initials": "M"
+  }
+]
