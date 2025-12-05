@@ -1,1 +1,54 @@
-[]
+[
+  {
+    "id": 1,
+    "to": [
+      "belal@gmail.com"
+    ],
+    "subject": "Project Update",
+    "body": "Hello team, here is the latest update about the project progress...",
+    "preview": "Hello team, here is the latest...",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-05 09:30:00",
+    "priority": 1,
+    "attachments": [
+      "project_plan.pdf",
+      "diagram.png"
+    ]
+  },
+  {
+    "id": 5,
+    "to": [
+      "belal@gmail.com"
+    ],
+    "subject": "Project Update",
+    "body": "Hello team, here is the latest update about the project progress...",
+    "preview": "Hello team, here is the latest...",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-05 09:30:00",
+    "priority": 1,
+    "attachments": [
+      "project_plan.pdf",
+      "diagram.png"
+    ]
+  },
+  {
+    "id": 9,
+    "to": [
+      "belal@gmail.com",
+      "dummy@mail.com"
+    ],
+    "subject": "Project Update",
+    "body": "Hello team, here is the latest update about the project progress...",
+    "preview": "Hello team, here is the latest...",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-05 09:30:00",
+    "priority": 1,
+    "attachments": [
+      "project_plan.pdf",
+      "diagram.png"
+    ]
+  }
+]
