@@ -1,118 +1,100 @@
 [
   {
-    "id": "ad261f93-148e-411b-8d7c-3ea51559ecc2",
-    "name": "eyad",
+    "id": "f40f536a-e641-4a87-814a-73524e39311f",
+    "name": "zeyad",
+    "email": [
+      {
+        "address": "zeyad@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "3513413",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#ec4899",
+    "initials": "Z"
+  },
+  {
+    "id": "5c6c396a-b502-4798-bb7f-9156855e52fd",
+    "name": "Eyad",
     "email": [
       {
         "address": "eyadamr1644@gmail.com",
         "isPrimary": false
+      },
+      {
+        "address": "eyadamr4121@gmail.com",
+        "isPrimary": true
       }
     ],
     "phone": [
       {
-        "number": "01283698365",
+        "number": "3513413",
         "isPrimary": false
+      },
+      {
+        "number": "32353",
+        "isPrimary": true
       }
     ],
-    "colour": "#f59e0b",
+    "colour": "#8b5cf6",
     "initials": "E"
   },
   {
-    "id": "3d0adfcd-7d5f-4a3c-9295-e86269588444",
-    "name": "ahmed sherif",
+    "id": "e8bd53de-b43e-4528-88ea-c8fe56c51631",
+    "name": "radwan",
     "email": [
       {
-        "address": "shefoo@gmail.com",
-        "isPrimary": false
-      },
-      {
-        "address": "ahmed@sherif.com",
-        "isPrimary": false
+        "address": "mohamed@gmail.com",
+        "isPrimary": true
       }
     ],
     "phone": [
       {
-        "number": "45135135",
-        "isPrimary": false
-      },
-      {
-        "number": "335251241e",
-        "isPrimary": false
-      }
-    ],
-    "colour": "#10b981",
-    "initials": "AS"
-  },
-  {
-    "id": "7cbddc8c-51cf-4224-a8d0-5405775c2ade",
-    "name": "hany",
-    "email": [
-      {
-        "address": "hany@gmail.com",
-        "isPrimary": false
-      }
-    ],
-    "phone": [
-      {
-        "number": "35523523",
-        "isPrimary": false
-      }
-    ],
-    "colour": "#ef4444",
-    "initials": "H"
-  },
-  {
-    "id": "03dd113c-517a-4744-8d97-6d3a26b3928e",
-    "name": "bigad",
-    "email": [
-      {
-        "address": "bigad@gmail.com",
-        "isPrimary": false
-      }
-    ],
-    "phone": [
-      {
-        "number": "e3t5252",
-        "isPrimary": false
-      }
-    ],
-    "colour": "#ec4899",
-    "initials": "B"
-  },
-  {
-    "id": "02943ef8-1bd7-4bc5-a540-b9a587e0334b",
-    "name": "mohamed",
-    "email": [
-      {
-        "address": "eyad@gmail.com",
-        "isPrimary": false
-      }
-    ],
-    "phone": [
-      {
-        "number": "0214141",
-        "isPrimary": false
-      }
-    ],
-    "colour": "#ef4444",
-    "initials": "M"
-  },
-  {
-    "id": "8668cd47-703b-4542-a42a-75402d40070e",
-    "name": "vdvsdv",
-    "email": [
-      {
-        "address": "eyad@gmail.com",
-        "isPrimary": false
-      }
-    ],
-    "phone": [
-      {
-        "number": "0214141",
-        "isPrimary": false
+        "number": "5325325",
+        "isPrimary": true
       }
     ],
     "colour": "#f59e0b",
-    "initials": "V"
+    "initials": "R"
+  },
+  {
+    "id": "b390e83f-d604-4b33-aec3-1cb6a438dcf6",
+    "name": "mo",
+    "email": [
+      {
+        "address": "mohamed@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "5325325",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#3b82f6",
+    "initials": "M"
+  },
+  {
+    "id": "abb6c517-e0e3-46dc-afee-862d44af7f36",
+    "name": "eyad",
+    "email": [
+      {
+        "address": "yousefxx159@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01221986876",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#ec4899",
+    "initials": "E"
   }
 ]

@@ -4,8 +4,9 @@ import com.example.backend.DTOS.FolderRequestDTO;
 import com.example.backend.DTOS.FolderResponseDTO;
 import com.example.backend.DTOS.mailDTO;
 import com.example.backend.Repo.FolderRepo;
-import com.example.backend.Util.JsonFileManager;
+import com.example.backend.Factory.FolderFactory;
 import com.example.backend.model.Folder;
+import com.example.backend.Util.JsonFileManager;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,10 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * Service for managing custom folders - Works with your existing DTO structure
+ * Service for managing custom folders - Uses Factory Pattern
  */
 @Service
 public class FolderService {
@@ -27,6 +27,9 @@ public class FolderService {
 
     @Autowired
     private JsonFileManager jsonFileManager;
+
+    @Autowired
+    private FolderFactory folderFactory;
 
     private static final Type MAIL_LIST_TYPE = new TypeToken<List<mailDTO>>(){}.getType();
 
@@ -58,12 +61,8 @@ public class FolderService {
      * Create new folder
      */
     public FolderResponseDTO createFolder(String userEmail, FolderRequestDTO dto) {
-        Folder folder = new Folder();
-        folder.setId(UUID.randomUUID().toString());
-        folder.setName(dto.getName());
-        folder.setDescription(dto.getDescription());
-        folder.setColor(dto.getColor());
-        folder.setEmailCount(0);
+        // Use factory to create folder
+        Folder folder = folderFactory.createFolder(dto);
 
         Folder saved = folderRepo.save(userEmail, folder);
 
@@ -82,9 +81,9 @@ public class FolderService {
 
         if (existing.isPresent()) {
             Folder folder = existing.get();
-            folder.setName(dto.getName());
-            folder.setDescription(dto.getDescription());
-            folder.setColor(dto.getColor());
+
+            // Use factory to update folder
+            folderFactory.updateFolder(folder, dto);
 
             Folder updated = folderRepo.save(userEmail, folder);
             return Optional.of(mapToDTO(updated));
@@ -152,7 +151,7 @@ public class FolderService {
             List<mailDTO> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
 
             // Clear custom folder reference from emails
-            folderEmails.forEach(email -> email  .setCustomFolderId(null));
+            folderEmails.forEach(email -> email.setCustomFolderId(null));
 
             // Add to inbox
             inboxEmails.addAll(folderEmails);

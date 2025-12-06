@@ -2,13 +2,14 @@ package com.example.backend.service;
 
 import com.example.backend.DTOS.contactRequestDTO;
 import com.example.backend.DTOS.PaginatedContactResponse;
+import com.example.backend.DTOS.contactResponseDTO;
 import com.example.backend.Repo.contactRepo;
 import com.example.backend.StrategyPattern.contactSortStrategy;
 import com.example.backend.StrategyPattern.sortByEmail;
 import com.example.backend.StrategyPattern.sortByName;
-import com.example.backend.DTOS.contactResponseDTO;
-import com.example.backend.Util.JsonFileManager;
+import com.example.backend.Factory.ContactFactory;
 import com.example.backend.model.Contact;
+import com.example.backend.Util.JsonFileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ public class ContactService {
     @Autowired
     private JsonFileManager jsonFileManager;
 
+    @Autowired
+    private ContactFactory contactFactory;
+
     private contactSortStrategy getStrategy(String sortBy) {
         if ("email".equalsIgnoreCase(sortBy)) {
             return new sortByEmail();
@@ -32,7 +36,6 @@ public class ContactService {
 
     public PaginatedContactResponse getContacts(String user, int page, int size,
                                                 String search, String sortBy) {
-
         // Auto-create user folder if it doesn't exist
         if (!jsonFileManager.userExists(user)) {
             jsonFileManager.createUserFolder(user);
@@ -40,6 +43,7 @@ public class ContactService {
 
         List<Contact> contacts = repository.findAll(user);
 
+        // Search filtering
         if (search != null && !search.isBlank()) {
             String term = search.toLowerCase();
             contacts.removeIf(c -> {
@@ -51,16 +55,17 @@ public class ContactService {
             });
         }
 
+        // Sorting
         contactSortStrategy strategy = getStrategy(sortBy);
         strategy.sort(contacts);
 
-        // Store total count before pagination
+        // Pagination
         int totalItems = contacts.size();
-
         int start = page * size;
         int end = Math.min(start + size, contacts.size());
         List<Contact> subList = (start < contacts.size()) ? contacts.subList(start, end) : new ArrayList<>();
 
+        // Convert to DTOs
         List<contactResponseDTO> dtos = new ArrayList<>();
         subList.forEach(contact -> dtos.add(mapToDTO(contact)));
 
@@ -70,7 +75,9 @@ public class ContactService {
     public contactResponseDTO addContact(String user, contactRequestDTO dto) {
         List<Contact> contacts = repository.findAll(user);
 
-        Contact newContact = mapToEntity(dto);
+        // Use factory to create contact
+        Contact newContact = contactFactory.createContact(dto);
+
         contacts.add(newContact);
         repository.saveAll(user, contacts);
 
@@ -82,10 +89,8 @@ public class ContactService {
 
         for (Contact c : contacts) {
             if (c.getId().equals(id)) {
-                c.setName(dto.getName());
-                c.setEmail(dto.getEmails() != null ? dto.getEmails() : new ArrayList<>());
-                c.setPhone(dto.getPhones() != null ? dto.getPhones() : new ArrayList<>());
-                c.setInitials(generateInitials(dto.getName()));
+                // Use factory to update contact
+                contactFactory.updateContact(c, dto);
                 repository.saveAll(user, contacts);
                 return;
             }
@@ -98,17 +103,6 @@ public class ContactService {
         repository.saveAll(user, contacts);
     }
 
-    private Contact mapToEntity(contactRequestDTO dto) {
-        Contact c = new Contact();
-        c.setId(UUID.randomUUID().toString());
-        c.setName(dto.getName());
-        c.setEmail(dto.getEmails() != null ? dto.getEmails() : new ArrayList<>());
-        c.setPhone(dto.getPhones() != null ? dto.getPhones() : new ArrayList<>());
-        c.setInitials(generateInitials(dto.getName()));
-        c.setColour(generateRandomColor());
-        return c;
-    }
-
     private contactResponseDTO mapToDTO(Contact c) {
         contactResponseDTO dto = new contactResponseDTO();
         dto.setId(c.getId());
@@ -118,16 +112,5 @@ public class ContactService {
         dto.setInitials(c.getInitials());
         dto.setAvatarColor(c.getColour());
         return dto;
-    }
-
-    private String generateInitials(String name) {
-        return Arrays.stream(name.split(" "))
-                .map(p -> p.substring(0, 1).toUpperCase())
-                .reduce("", String::concat);
-    }
-
-    private String generateRandomColor() {
-        String[] colors = {"#3b82f6","#8b5cf6","#ec4899","#10b981","#f59e0b","#ef4444"};
-        return colors[new Random().nextInt(colors.length)];
     }
 }
