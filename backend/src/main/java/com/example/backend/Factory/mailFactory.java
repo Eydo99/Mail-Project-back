@@ -18,6 +18,7 @@ public class mailFactory {
         mail.setHasAttachment(!(mailContent.getAttachements().isEmpty()));
         mail.setPriority(mailContent.getPiriority());
         mail.setPreview(mailContent.getBody().substring(0, Math.min(100, mailContent.getBody().length())));
+        mail.setAttachments(mailContent.getAttachements());
         return mail;
     }
 }
