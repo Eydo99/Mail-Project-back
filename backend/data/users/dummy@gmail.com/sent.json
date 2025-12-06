@@ -2,21 +2,46 @@
   {
     "id": 1,
     "to": [
-      "belal@gmail.com"
+      "belal@gmail.com",
+      "dummy@mail.com"
     ],
-    "subject": "Project Meeting",
-    "body": "We will discuss the project updates tomorrow at 10 AM in the main hall.",
-    "preview": "We will discuss the project...",
-    "starred": true,
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
     "hasAttachment": true,
-    "priority": 1,
-    "attachments": [
-      {
-        "filename": "report.pdf",
-        "filePath": "data/files/report.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 204800
-      }
-    ]
+    "timestamp": "2025-12-06T08:15:00.527189900",
+    "priority": 1
+  },
+  {
+    "id": 2,
+    "to": [
+      "belal@gmail.com",
+      "dummy@mail.com"
+    ],
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T08:15:47.294891300",
+    "priority": 1
+  },
+  {
+    "id": 5,
+    "to": [
+      "belal@gmail.com",
+      "dummy@mail.com"
+    ],
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T08:16:29.237887900",
+    "priority": 1
   }
 ]

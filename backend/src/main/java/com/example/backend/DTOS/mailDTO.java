@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class mailDTO {
     private int id   ;
     private List<String> to;
+    private String from ;
     private String subject;
     private String body;
     private String preview ;

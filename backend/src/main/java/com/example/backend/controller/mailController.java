@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.DTOS.mailContentDTO;
 import com.example.backend.DTOS.mailDTO;
 import com.example.backend.service.mailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,9 +100,9 @@ public class mailController {
      * POST /api/mail/compose
      */
     @PostMapping("/compose")
-    public ResponseEntity<String> composeMail(@RequestBody mailDTO mail) {
+    public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
         try {
-            mailService.composeMail(mail);
+            mailService.composeMail(mailContent);
             return ResponseEntity.ok("Email sent successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -111,10 +112,10 @@ public class mailController {
     }
     
     @PostMapping("/draft/save")
-    public ResponseEntity<String> saveDraft(@RequestBody mailDTO mail) {
+    public ResponseEntity<String> saveDraft(@RequestBody mailContentDTO mail) {
         try {
             mailService.saveDraft(mail);
-            return ResponseEntity.ok("Email saved successfully");
+            return ResponseEntity.ok("Email saved to dtaft successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to save email");
