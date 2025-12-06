@@ -4,6 +4,7 @@ import com.example.backend.DTOS.FolderRequestDTO;
 import com.example.backend.DTOS.FolderResponseDTO;
 import com.example.backend.DTOS.mailDTO;
 import com.example.backend.Repo.FolderRepo;
+import com.example.backend.Util.JsonFileManager;
 import com.example.backend.model.Folder;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,7 +152,7 @@ public class FolderService {
             List<mailDTO> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
 
             // Clear custom folder reference from emails
-            folderEmails.forEach(email -> email.setCustomFolderId(null));
+            folderEmails.forEach(email -> email  .setCustomFolderId(null));
 
             // Add to inbox
             inboxEmails.addAll(folderEmails);

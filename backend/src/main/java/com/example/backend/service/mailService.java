@@ -1,11 +1,11 @@
 package com.example.backend.service;
-import java.util.LinkedList;
 import java.util.Queue;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.backend.Util.JsonFileManager;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.DTOS.mailContentDTO;

@@ -1,4 +1,4 @@
-package com.example.backend.service;
+package com.example.backend.Util;
 
 import com.google.gson.*;
 import org.springframework.stereotype.Service;

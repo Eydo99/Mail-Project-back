@@ -1,7 +1,7 @@
 package com.example.backend.Repo;
 
 import com.example.backend.model.Folder;
-import com.example.backend.service.JsonFileManager;
+import com.example.backend.Util.JsonFileManager;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

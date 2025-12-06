@@ -10,7 +10,14 @@
     "id": "621d2f1e-9cde-4185-adeb-2f65493098d1",
     "name": "fvdasv",
     "description": "vdasvs",
-    "color": "#ec4899",
+    "color": "#64748b",
+    "emailCount": 0
+  },
+  {
+    "id": "e72f7822-3f20-4b61-8a47-96ef0f49632a",
+    "name": "mohamed ahmed",
+    "description": "kolo s7",
+    "color": "#3b82f6",
     "emailCount": 0
   }
 ]

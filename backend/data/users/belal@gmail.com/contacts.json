@@ -96,5 +96,23 @@
     ],
     "colour": "#ef4444",
     "initials": "M"
+  },
+  {
+    "id": "8668cd47-703b-4542-a42a-75402d40070e",
+    "name": "vdvsdv",
+    "email": [
+      {
+        "address": "eyad@gmail.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "0214141",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#f59e0b",
+    "initials": "V"
   }
 ]
