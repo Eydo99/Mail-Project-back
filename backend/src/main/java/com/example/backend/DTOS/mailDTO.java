@@ -2,6 +2,7 @@ package com.example.backend.DTOS;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Queue;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class mailDTO {
     private int id   ;
-    private List<String> to;
+    private Queue<String> to;
+    private String from ;
     private String subject;
     private String body;
     private String preview ;

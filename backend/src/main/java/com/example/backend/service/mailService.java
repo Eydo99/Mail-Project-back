@@ -1,5 +1,6 @@
 package com.example.backend.service;
-
+import java.util.LinkedList;
+import java.util.Queue;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.example.backend.DTOS.mailContentDTO;
 import com.example.backend.DTOS.mailDTO;
+import com.example.backend.Factory.mailFactory;
 import com.google.gson.reflect.TypeToken;
 
 import lombok.Getter;
@@ -78,27 +81,38 @@ public class mailService {
      */
 
 
-    //factory is needed
-    public void composeMail(mailDTO mail) {
+    public void composeMail(mailContentDTO mailContent) {
         String sentPath = BasePath + senderEmail + "/sent.json";
-        List<String> receiverList = mail.getTo();
-        
+        mailDTO mail= mailFactory.createNewMail(mailContent) ;
+        // Add to sent folder
+        List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
+        sentMails.add(mail);
+        jsonFileManager.writeListToFile(sentPath, sentMails);
+        mail.setFrom(senderEmail);
+        Queue<String> recipientsQueue = mail.getTo();
+        if (recipientsQueue.size()==0) {
+            System.out.println("you should send emails to atleast one!!!");
+            return ;
+        }
         // Send to all receivers
-        for (String receiver : receiverList) {
+        while (!recipientsQueue.isEmpty()) {
+           String receiver =recipientsQueue.poll() ;
+         
+            if (!(jsonFileManager.userExists(receiver))) {
+                System.out.println("this email{ "+receiver+" } isn't found in our system");
+                continue;
+            }
             String path = BasePath + receiver + "/inbox.json";
             List<mailDTO> inboxMails = jsonFileManager.readListFromFile(path, MAIL_LIST_TYPE);
             inboxMails.add(mail);
             jsonFileManager.writeListToFile(path, inboxMails);
         }
         
-        // Add to sent folder
-        List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
-        sentMails.add(mail);
-        jsonFileManager.writeListToFile(sentPath, sentMails);
     }
-    public void saveDraft(mailDTO mail){
+    public void saveDraft(mailContentDTO mailContent){
         String draftPath = BasePath + senderEmail + "/draft.json";
         List<mailDTO> draftMails = jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
+        mailDTO mail =mailFactory.createNewMail(mailContent) ;
         draftMails.add(mail);
         jsonFileManager.writeListToFile(draftPath, draftMails);
 

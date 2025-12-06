@@ -1,21 +1,29 @@
 [
   {
-    "id": 1,
+    "id": 2,
     "to": [
-      "belal@gmail.com"
+      "belal@gmail.com",
+      "dummy@mail.com"
     ],
-    "subject": "Project Meeting",
-    "body": "We will discuss the project updates tomorrow at 10 AM in the main hall.",
-    "preview": "We will discuss the project...",
-    "starred": true,
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
     "hasAttachment": true,
+    "timestamp": "2025-12-06T08:46:22.736354800",
     "priority": 1,
     "attachments": [
       {
-        "filename": "report.pdf",
-        "filePath": "data/files/report.pdf",
+        "filename": "agenda.pdf",
+        "filePath": "/files/agenda.pdf",
         "mimeType": "application/pdf",
-        "fileSize": 204800
+        "fileSize": 254321
+      },
+      {
+        "filename": "presentation.pptx",
+        "filePath": "/files/presentation.pptx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "fileSize": 113245600
       }
     ]
   }
