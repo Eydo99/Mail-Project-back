@@ -23,7 +23,7 @@ public class ContactController {
     @Autowired
     private ContactService service;
 
-    private final String loggedInUser = "dummy@mail.com"; // Temporary mocked user
+    private final String loggedInUser = "belal@gmail.com"; // Temporary mocked user
     
 
     @GetMapping

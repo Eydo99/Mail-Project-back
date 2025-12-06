@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class mailService {
-    private String senderEmail = "dummy@gmail.com";
+    private String senderEmail = "belal@gmail.com";
     private final String BasePath = "data/users/";
     private final JsonFileManager jsonFileManager;
     
