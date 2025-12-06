@@ -95,6 +95,7 @@ public class mailService {
             return ;
         }
         // Send to all receivers
+        mail.setTo(null);
         while (!recipientsQueue.isEmpty()) {
            String receiver =recipientsQueue.poll() ;
          

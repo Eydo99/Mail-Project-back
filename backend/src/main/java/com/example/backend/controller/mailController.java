@@ -1,14 +1,23 @@
 package com.example.backend.controller;
 
+import com.example.backend.DTOS.attachementDTO;
 import com.example.backend.DTOS.mailContentDTO;
 import com.example.backend.DTOS.mailDTO;
 import com.example.backend.service.mailService;
+
+import jakarta.validation.Path;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/mail")
@@ -100,16 +109,42 @@ public class mailController {
      * POST /api/mail/compose
      */
     @PostMapping("/compose")
-    public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
-        try {
-            mailService.composeMail(mailContent);
-            return ResponseEntity.ok("Email sent successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to send email");
-        }
+public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
     
+    // Process attachments - decode base64 and save files
+    if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
+        for (attachementDTO attachment : mailContent.getAttachements()) {
+            try {
+                // Decode base64 from filePath
+                byte[] fileBytes = Base64.getDecoder().decode(attachment.getFilePath());
+                
+                // Generate unique filename
+                String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
+                
+                // Save to disk (change path as needed)
+                String uploadDir = "data/uploads/";
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                
+                java.nio.file.Path filePath = Paths.get(uploadDir + savedFilename);
+                Files.write(filePath, fileBytes);
+                
+                // Update filePath to the actual server path
+                attachment.setFilePath(uploadDir + savedFilename);
+                
+            } catch (Exception e) {
+                System.err.println("Error saving attachment: " + e.getMessage());
+            }
+        }
     }
+    
+    // Now save the email with real file paths
+    mailService.composeMail(mailContent);
+    
+    return ResponseEntity.ok("Email sent successfully");
+}
     
     @PostMapping("/draft/save")
     public ResponseEntity<String> saveDraft(@RequestBody mailContentDTO mail) {
