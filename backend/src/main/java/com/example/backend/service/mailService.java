@@ -256,4 +256,13 @@ public class mailService {
             throw new RuntimeException("Failed to permanently delete email", e);
         }
     }
+
+
+    /**
+     * Get emails from custom folder
+     */
+    public List<mailDTO> getCustomFolderEmails(String folderId) {
+        String folderPath = BasePath + senderEmail + "/folder_" + folderId + ".json";
+        return jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+    }
 }
