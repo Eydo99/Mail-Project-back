@@ -81,20 +81,18 @@ public class mailService {
      */
 
 
-    //factory is needed
     public void composeMail(mailContentDTO mailContent) {
         String sentPath = BasePath + senderEmail + "/sent.json";
         mailDTO mail= mailFactory.createNewMail(mailContent) ;
+        // Add to sent folder
+        List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
+        sentMails.add(mail);
+        jsonFileManager.writeListToFile(sentPath, sentMails);
         mail.setFrom(senderEmail);
-        List<String> recipients = mail.getTo();
-        if (recipients.size()==0) {
+        Queue<String> recipientsQueue = mail.getTo();
+        if (recipientsQueue.size()==0) {
             System.out.println("you should send emails to atleast one!!!");
             return ;
-        }
-        Queue<String>recipientsQueue =new LinkedList<>() ;
-        for(int i =0 ; i<recipients.size() ;i++ )
-        {
-            recipientsQueue.add(recipients.get(i)) ;
         }
         // Send to all receivers
         while (!recipientsQueue.isEmpty()) {
@@ -110,10 +108,6 @@ public class mailService {
             jsonFileManager.writeListToFile(path, inboxMails);
         }
         
-        // Add to sent folder
-        List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
-        sentMails.add(mail);
-        jsonFileManager.writeListToFile(sentPath, sentMails);
     }
     public void saveDraft(mailContentDTO mailContent){
         String draftPath = BasePath + senderEmail + "/draft.json";

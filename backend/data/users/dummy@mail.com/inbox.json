@@ -1,62 +1,14 @@
 [
   {
     "id": 1,
-    "to": [
-      "belal@gmail.com",
-      "dummy@mail.com"
-    ],
+    "to": [],
     "from": "dummy@gmail.com",
     "subject": "Meeting",
     "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
     "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
     "starred": false,
     "hasAttachment": true,
-    "timestamp": "2025-12-06T08:15:00.527189900",
-    "priority": 1
-  },
-  {
-    "id": 2,
-    "to": [
-      "belal@gmail.com",
-      "dummy@mail.com"
-    ],
-    "from": "dummy@gmail.com",
-    "subject": "Meeting",
-    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-06T08:15:47.294891300",
-    "priority": 1
-  },
-  {
-    "id": 5,
-    "to": [
-      "belal@gmail.com",
-      "dummy@mail.com"
-    ],
-    "from": "dummy@gmail.com",
-    "subject": "Meeting",
-    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-06T08:16:29.237887900",
-    "priority": 1
-  },
-  {
-    "id": 1,
-    "to": [
-      "belal@gmail.com",
-      "dummy@mail.com"
-    ],
-    "from": "dummy@gmail.com",
-    "subject": "Meeting",
-    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-06T08:23:42.299335700",
+    "timestamp": "2025-12-06T08:36:51.561585700",
     "priority": 1,
     "attachments": [
       {
@@ -70,6 +22,84 @@
         "filePath": "/files/presentation.pptx",
         "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
         "fileSize": 1132456
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "to": [],
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T08:43:26.835854200",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "agenda.pdf",
+        "filePath": "/files/agenda.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 254321
+      },
+      {
+        "filename": "presentation.pptx",
+        "filePath": "/files/presentation.pptx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "fileSize": 1132456
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "to": [],
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T08:45:54.615956600",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "agenda.pdf",
+        "filePath": "/files/agenda.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 254321
+      },
+      {
+        "filename": "presentation.pptx",
+        "filePath": "/files/presentation.pptx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "fileSize": 1132456
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "to": [],
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T08:46:22.736354800",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "agenda.pdf",
+        "filePath": "/files/agenda.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 254321
+      },
+      {
+        "filename": "presentation.pptx",
+        "filePath": "/files/presentation.pptx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "fileSize": 113245600
       }
     ]
   }
