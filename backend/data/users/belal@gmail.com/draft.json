@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 2,
+    "to": [],
+    "subject": "",
+    "body": "",
+    "preview": "",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-06T23:39:46.860769300",
+    "priority": 2,
+    "attachments": []
+  }
+]

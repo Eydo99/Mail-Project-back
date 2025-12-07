@@ -82,5 +82,17 @@
         "fileSize": 1132456
       }
     ]
+  },
+  {
+    "id": 3,
+    "from": "belal@gmail.com",
+    "subject": "hneek belal",
+    "body": "kosom el f baly",
+    "preview": "kosom el f baly",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T00:02:49.468237",
+    "priority": 3,
+    "attachments": []
   }
 ]

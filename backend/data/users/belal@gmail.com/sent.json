@@ -1,1 +1,70 @@
-[]
+[
+  {
+    "id": 1,
+    "to": [
+      "eyadamr1644@gmail.com"
+    ],
+    "subject": "hneek belal",
+    "body": "mohamed ahmed",
+    "preview": "mohamed ahmed",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T23:38:09.585275800",
+    "priority": 4,
+    "attachments": [
+      {
+        "filename": "Score recording system(class diagram).png",
+        "filePath": "data/uploads/468fd807-3eb0-46b0-8119-c148367e410b_Score recording system(class diagram).png",
+        "mimeType": "image/png",
+        "fileSize": 347643
+      },
+      {
+        "filename": "Lect_2_part2.pdf",
+        "filePath": "data/uploads/469541ea-ea63-470e-8802-80728dd9d57c_Lect_2_part2.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 2002146
+      },
+      {
+        "filename": "sheet 5.discrete.pdf",
+        "filePath": "data/uploads/8f9d952c-d8ab-4417-9eac-b2deca8c7799_sheet 5.discrete.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 1484930
+      },
+      {
+        "filename": "Sheet 7 Solutions.pdf",
+        "filePath": "data/uploads/7d1f4eba-182c-4077-bf92-6a9c7e2ee1e8_Sheet 7 Solutions.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 530251
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "to": [
+      "belal@gmail.com"
+    ],
+    "subject": "hneek belal",
+    "body": "kosom el f baly",
+    "preview": "kosom el f baly",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T00:02:49.468237",
+    "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 4,
+    "to": [
+      "eyadamr1644@gmail.com",
+      "eyadamr4121@gmail.com"
+    ],
+    "subject": "hneek belal",
+    "body": "sca",
+    "preview": "sca",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T00:04:00.011881600",
+    "priority": 2,
+    "attachments": []
+  }
+]
