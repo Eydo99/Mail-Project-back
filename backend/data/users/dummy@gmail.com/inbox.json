@@ -1,71 +1,105 @@
 [
   {
-    "id": 5,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "from": "shef@gmail.com",
-    "subject": "Benefits Enrollment Reminder",
-    "body": "Don\u0027t forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
-    "preview": "Don\u0027t forget to complete your benefits enrollment by the end of this month...",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2024-12-02T11:45:00",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 6,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "from": "me@gmail.com",
-    "subject": "Benefits Enrollment Reminder",
-    "body": "Don\u0027t forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
-    "preview": "Don\u0027t forget to complete your benefits enrollment by the end of this month...",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2024-12-02T11:45:00",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 7,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "from": "me@gmail.com",
-    "subject": "Benefits Enrollment Reminder",
-    "body": "Don\u0027t forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
-    "preview": "Don\u0027t forget to complete your benefits enrollment by the end of this month...",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2024-12-02T11:45:00",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 2,
+    "id": 1,
     "from": "belal@gmail.com",
-    "subject": "aaaa",
-    "body": "ffffssssssssss",
-    "preview": "ffffssssssssss",
+    "subject": "kvodvdvd jbfee",
+    "body": "khbefkjbecou e o  \nkndvjb \ndvv",
+    "preview": "khbefkjbecou e o  \nkndvjb \ndvv",
     "starred": false,
     "hasAttachment": false,
-    "timestamp": "2025-12-07T12:04:49.438079200",
-    "priority": 1,
+    "timestamp": "2025-12-07T22:59:50.4998713",
+    "priority": 3,
     "attachments": []
   },
   {
     "id": 6,
     "from": "belal@gmail.com",
-    "subject": "low",
-    "body": "low",
-    "preview": "low",
+    "subject": "the id is working",
+    "body": "kdbidk ibudij iubd h iubvh sobv f obv  sj ",
+    "preview": "kdbidk ibudij iubd h iubvh sobv f obv  sj ",
     "starred": false,
     "hasAttachment": false,
-    "timestamp": "2025-12-07T12:11:19.946152600",
-    "priority": 4,
+    "timestamp": "2025-12-07T23:09:02.7338131",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 10,
+    "from": "belal@gmail.com",
+    "subject": "akdjvnov",
+    "body": "dbovb sl ks",
+    "preview": "dbovb sl ks",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T23:27:41.5095698",
+    "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 13,
+    "from": "belal@gmail.com",
+    "subject": "helllllo",
+    "body": "هلارشت خشئ خععسي ",
+    "preview": "هلارشت خشئ خععسي ",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T23:54:00.5663412",
+    "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 14,
+    "from": "belal@gmail.com",
+    "subject": "belal 3m shrief",
+    "body": "سنىبن يتن شنت شمن تسي",
+    "preview": "سنىبن يتن شنت شمن تسي",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T23:54:26.7954734",
+    "priority": 2,
+    "attachments": []
+  },
+  {
+    "id": 16,
+    "from": "belal@gmail.com",
+    "subject": "helllllo",
+    "body": "attachement here",
+    "preview": "attachement here",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-07T23:57:08.9662186",
+    "priority": 3,
+    "attachments": [
+      {
+        "filename": "Lab5 (Computer  Organization).pdf",
+        "filePath": "data/uploads/6500be96-4396-44be-951a-4b42c602152c_Lab5 (Computer  Organization).pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 567338
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "from": "belal@gmail.com",
+    "subject": "helllllo",
+    "body": "date works",
+    "preview": "date works",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-08T00:15:51.6364637",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 19,
+    "from": "belal@gmail.com",
+    "subject": "helllllo",
+    "body": "dsjvlakd vl d k dbelal",
+    "preview": "dsjvlakd vl d k dbelal",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-08T00:28:12.1851122",
+    "priority": 3,
     "attachments": []
   }
 ]
