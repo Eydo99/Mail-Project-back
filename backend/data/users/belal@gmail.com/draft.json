@@ -1,42 +1,30 @@
 [
   {
-    "id": 2,
-    "to": [],
-    "subject": "",
-    "body": "",
-    "preview": "",
+    "id": 4,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "subject": "helllllo",
+    "body": "king el magaaaaaal",
+    "preview": "king el magaaaaaal",
     "starred": false,
     "hasAttachment": false,
-    "timestamp": "2025-12-06T23:39:46.860769300",
-    "priority": 2,
+    "timestamp": "2025-12-07T23:03:48.0698934",
+    "priority": 3,
     "attachments": []
   },
   {
-    "id": 3,
+    "id": 18,
     "to": [
-      "dummy@mail.com"
+      "dummy@gmail.com"
     ],
-    "from": "dummy@gmail.com",
-    "subject": "Meeting",
-    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "subject": "belal 3m shrief",
+    "body": "dattttttttttttttttttttttttttttte",
+    "preview": "dattttttttttttttttttttttttttttte",
     "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-06T08:36:51.561585700",
-    "priority": 1,
-    "attachments": [
-      {
-        "filename": "agenda.pdf",
-        "filePath": "/files/agenda.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 254321
-      },
-      {
-        "filename": "presentation.pptx",
-        "filePath": "/files/presentation.pptx",
-        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        "fileSize": 1132456
-      }
-    ]
+    "hasAttachment": false,
+    "timestamp": "2025-12-08T00:22:20.9075206",
+    "priority": 3,
+    "attachments": []
   }
 ]

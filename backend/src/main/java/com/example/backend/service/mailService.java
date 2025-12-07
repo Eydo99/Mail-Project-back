@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.backend.DTOS.mailContentDTO;
 import com.example.backend.DTOS.mailDTO;
+import com.example.backend.Exceptions.UserNotFoundException;
 import com.example.backend.Factory.mailFactory;
 import com.google.gson.reflect.TypeToken;
 
@@ -104,33 +105,29 @@ public class mailService {
      */
 
 
-    public void composeMail(mailContentDTO mailContent) {
+    public void composeMail(mailContentDTO mailContent) throws UserNotFoundException {
         String sentPath = BasePath + senderEmail + "/sent.json";
         mailDTO mail= mailFactory.createNewMail(mailContent) ;
         // Add to sent folder
+        Queue<String> recipientsQueue = mail.getTo();
+        String receiver =recipientsQueue.peek() ;
+        
+        if (!(jsonFileManager.userExists(receiver))) {
+            System.out.println("this email{ "+receiver+" } isn't found in our system");
+            throw new UserNotFoundException("Email address " + receiver + " is not registered in our system");
+        }
         List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
         sentMails.add(mail);
         jsonFileManager.writeListToFile(sentPath, sentMails);
         mail.setFrom(senderEmail);
-        Queue<String> recipientsQueue = mail.getTo();
-        if (recipientsQueue.size()==0) {
-            System.out.println("you should send emails to atleast one!!!");
-            return ;
-        }
         // Send to all receivers
         mail.setTo(null);
-        while (!recipientsQueue.isEmpty()) {
-           String receiver =recipientsQueue.poll() ;
-         
-            if (!(jsonFileManager.userExists(receiver))) {
-                System.out.println("this email{ "+receiver+" } isn't found in our system");
-                continue;
-            }
+
             String path = BasePath + receiver + "/inbox.json";
             List<mailDTO> inboxMails = jsonFileManager.readListFromFile(path, MAIL_LIST_TYPE);
             inboxMails.add(mail);
             jsonFileManager.writeListToFile(path, inboxMails);
-        }
+
         
     }
     public void saveDraft(mailContentDTO mailContent){
