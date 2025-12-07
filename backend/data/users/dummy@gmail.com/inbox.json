@@ -1,1 +1,71 @@
-[]
+[
+  {
+    "id": 5,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "from": "shef@gmail.com",
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don\u0027t forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don\u0027t forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 6,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "from": "me@gmail.com",
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don\u0027t forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don\u0027t forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 7,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "from": "me@gmail.com",
+    "subject": "Benefits Enrollment Reminder",
+    "body": "Don\u0027t forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+    "preview": "Don\u0027t forget to complete your benefits enrollment by the end of this month...",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2024-12-02T11:45:00",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 2,
+    "from": "belal@gmail.com",
+    "subject": "aaaa",
+    "body": "ffffssssssssss",
+    "preview": "ffffssssssssss",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T12:04:49.438079200",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 6,
+    "from": "belal@gmail.com",
+    "subject": "low",
+    "body": "low",
+    "preview": "low",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-07T12:11:19.946152600",
+    "priority": 4,
+    "attachments": []
+  }
+]

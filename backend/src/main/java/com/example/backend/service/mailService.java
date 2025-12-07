@@ -1,10 +1,12 @@
 package com.example.backend.service;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.backend.Util.EmailPriorityComparator;
 import com.example.backend.Util.JsonFileManager;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,27 @@ public class mailService {
         String inboxPath = BasePath + senderEmail + "/inbox.json";
         return jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
     }
+
+    public List<mailDTO> getInboxEmailsByPriority() {
+        String inboxPath = BasePath + senderEmail + "/inbox.json";
+        List<mailDTO> emails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
+
+
+        PriorityQueue<mailDTO> priorityQueue = new PriorityQueue<>(new EmailPriorityComparator());
+
+        priorityQueue.addAll(emails);
+
+        // Extract emails from priority queue in sorted order
+        List<mailDTO> sortedEmails = new ArrayList<>();
+        while (!priorityQueue.isEmpty()) {
+            sortedEmails.add(priorityQueue.poll());
+        }
+
+        return sortedEmails;
+    }
+
+
+
 
     /**
      * Get all sent emails
@@ -255,6 +278,80 @@ public class mailService {
             System.err.println("Error permanently deleting email: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Failed to permanently delete email", e);
+        }
+    }
+
+    //move shefoo
+    /**
+     * Move an email from one folder to another
+     */
+    public boolean moveEmail(int id, String fromFolder, String toFolder) {
+        System.out.println("=== MOVE EMAIL START ===");
+        System.out.println("Email ID: " + id);
+        System.out.println("From Folder: " + fromFolder);
+        System.out.println("To Folder: " + toFolder);
+
+        try {
+            String fromFolderPath = BasePath + senderEmail + "/" + fromFolder + ".json";
+            String toFolderPath = BasePath + senderEmail + "/" + toFolder + ".json";
+
+            // Synchronize to prevent concurrent modification
+            synchronized (folderLock) {
+                // Read from source folder
+                List<mailDTO> fromEmails = jsonFileManager.readListFromFile(fromFolderPath, MAIL_LIST_TYPE);
+
+                if (fromEmails == null) {
+                    fromEmails = new ArrayList<>();
+                }
+
+                // Find the email to move
+                mailDTO emailToMove = null;
+                for (mailDTO email : fromEmails) {
+                    if (email.getId() == id) {
+                        emailToMove = email;
+                        break;
+                    }
+                }
+
+                if (emailToMove == null) {
+                    System.out.println("Email not found with ID: " + id);
+                    return false;
+                }
+
+                // Remove from source folder
+                fromEmails.remove(emailToMove);
+                boolean removeSuccess = jsonFileManager.writeListToFile(fromFolderPath, fromEmails);
+
+                if (!removeSuccess) {
+                    System.err.println("Failed to remove from folder: " + fromFolderPath);
+                    return false;
+                }
+
+                // Add to destination folder
+                List<mailDTO> toEmails = jsonFileManager.readListFromFile(toFolderPath, MAIL_LIST_TYPE);
+
+                if (toEmails == null) {
+                    toEmails = new ArrayList<>();
+                }
+
+                toEmails.add(emailToMove);
+                boolean addSuccess = jsonFileManager.writeListToFile(toFolderPath, toEmails);
+
+                if (!addSuccess) {
+                    System.err.println("Failed to add to folder: " + toFolderPath);
+                    // TODO: Consider rolling back the removal
+                    return false;
+                }
+
+                System.out.println("=== MOVE EMAIL SUCCESS ===");
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.err.println("=== MOVE EMAIL ERROR ===");
+            System.err.println("Error moving email: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Failed to move email", e);
         }
     }
 

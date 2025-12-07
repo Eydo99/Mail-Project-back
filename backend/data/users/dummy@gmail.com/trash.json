@@ -1,1 +1,16 @@
-[]
+[
+  {
+  "id": 55,
+  "to": ["dummy@gmail.com"],
+  "from": "shefoo@gmail.com",
+  "subject": "Benefits Enrollment Reminder",
+  "body": "Don't forget to complete your benefits enrollment by the end of this month. Visit the HR portal for more details.",
+  "preview": "Don't forget to complete your benefits enrollment by the end of this month...",
+  "starred": false,
+  "hasAttachment": false,
+  "timestamp": "2024-12-02T11:45:00",
+  "priority": 1,
+  "attachments": [],
+  "customFolderId": null
+}
+]

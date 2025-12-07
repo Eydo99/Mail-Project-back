@@ -44,6 +44,16 @@ public class mailController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @GetMapping("/inbox/priority")
+    public ResponseEntity<List<mailDTO>> getInboxEmailsByPriority() {
+        try {
+            List<mailDTO> emails = mailService.getInboxEmailsByPriority();
+            return ResponseEntity.ok(emails);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
     /**
      * Get all sent emails for current user
@@ -190,6 +200,27 @@ public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailConten
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to delete email");
+        }
+    }
+
+    /**
+     * Move an email from one folder to another
+     * PUT /api/mail/{id}/move
+     */
+    @PutMapping("/{id}/move")
+    public ResponseEntity<String> moveEmail(
+            @PathVariable int id,
+            @RequestParam String fromFolder,
+            @RequestParam String toFolder) {
+        try {
+            boolean success = mailService.moveEmail(id, fromFolder, toFolder);
+            if (success) {
+                return ResponseEntity.ok("Email moved successfully");
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to move email: " + e.getMessage());
         }
     }
 }
