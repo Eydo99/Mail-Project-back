@@ -67,5 +67,30 @@
     "timestamp": "2025-12-07T12:11:19.946152600",
     "priority": 4,
     "attachments": []
+  },
+  {
+    "id": 1,
+    "from": "belal@gmail.com",
+    "subject": "mwdoo3 mohm",
+    "body": "alooo",
+    "preview": "alooo",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-07T22:49:47.515114",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "Lect_2_part2.pdf",
+        "filePath": "data/uploads/0a3607ec-7704-46e3-8748-5f77fc0ba9a5_Lect_2_part2.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 2002146
+      },
+      {
+        "filename": "car image 2.jpg",
+        "filePath": "data/uploads/7b72b29b-cb75-436f-b43d-f02adbed8c61_car image 2.jpg",
+        "mimeType": "image/jpeg",
+        "fileSize": 26327
+      }
+    ]
   }
 ]
