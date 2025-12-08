@@ -80,21 +80,57 @@
     "initials": "B"
   },
   {
-    "id": "02943ef8-1bd7-4bc5-a540-b9a587e0334b",
-    "name": "mohamed",
+    "id": "c9c72fc0-1c05-4e43-a7b8-8f537b1e5c27",
+    "name": "nour eldin ehab barakat",
     "email": [
       {
-        "address": "eyad@gmail.com",
+        "address": "noura7a4444455555@gmail.com",
         "isPrimary": false
       }
     ],
     "phone": [
       {
-        "number": "0214141",
+        "number": "01559973437",
         "isPrimary": false
       }
     ],
     "colour": "#ef4444",
-    "initials": "M"
+    "initials": "NEEB"
+  },
+  {
+    "id": "c966d1e0-2b88-43da-b714-b8957f8ee13a",
+    "name": "test 1",
+    "email": [
+      {
+        "address": "test1@gmail.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "01111111111111",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#8b5cf6",
+    "initials": "T1"
+  },
+  {
+    "id": "6fa8e342-2350-43d1-a84b-ed21821b7633",
+    "name": "test 2",
+    "email": [
+      {
+        "address": "test2@gmail.com",
+        "isPrimary": false
+      }
+    ],
+    "phone": [
+      {
+        "number": "0222222222222",
+        "isPrimary": false
+      }
+    ],
+    "colour": "#3b82f6",
+    "initials": "T2"
   }
 ]

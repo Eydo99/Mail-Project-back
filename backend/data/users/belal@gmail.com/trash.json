@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": 1,
+    "to": [
+      "dummy@mail.com"
+    ],
+    "from": "dummy@gmail.com",
+    "subject": "Meeting",
+    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-06T08:36:51.561585700",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "agenda.pdf",
+        "filePath": "/files/agenda.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 254321
+      },
+      {
+        "filename": "presentation.pptx",
+        "filePath": "/files/presentation.pptx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "fileSize": 1132456
+      }
+    ]
+  }
+]
