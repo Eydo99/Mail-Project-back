@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": 31,
+    "to": [
+      "eyadamr1644@gmail.com"
+    ],
+    "from": "hany@gmail.com",
+    "subject": "48al wla l2",
+    "body": "yarab",
+    "preview": "yarab",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T20:45:47.845357",
+    "priority": 4,
+    "attachments": [
+      {
+        "filename": "car image 2.jpg",
+        "filePath": "data/uploads/ec2c80fe-d610-41ea-b958-55ce91251f3b_car image 2.jpg",
+        "mimeType": "image/jpeg",
+        "fileSize": 26327
+      }
+    ]
+  }
+]

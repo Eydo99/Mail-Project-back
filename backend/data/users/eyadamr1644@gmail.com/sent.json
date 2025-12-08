@@ -1,6 +1,9 @@
 [
   {
     "id": 32,
+    "to": [
+      "hany@gmail.com"
+    ],
     "from": "eyadamr1644@gmail.com",
     "subject": "48aaal",
     "body": "4ksy gamed",
@@ -17,17 +20,5 @@
         "fileSize": 989958
       }
     ]
-  },
-  {
-    "id": 34,
-    "from": "eyadamr4121@gmail.com",
-    "subject": "48al wla l2",
-    "body": "123",
-    "preview": "123",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-08T20:56:10.3175519",
-    "priority": 1,
-    "attachments": []
   }
 ]

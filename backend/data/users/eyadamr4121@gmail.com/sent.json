@@ -1,0 +1,32 @@
+[
+  {
+    "id": 33,
+    "to": [
+      "eyadamr1644@gmail.com"
+    ],
+    "from": "eyadamr4121@gmail.com",
+    "subject": "48al wla l2",
+    "body": "123",
+    "preview": "123",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-08T20:56:10.3088766",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 34,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "from": "eyadamr4121@gmail.com",
+    "subject": "48al wla l2",
+    "body": "123",
+    "preview": "123",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-08T20:56:10.3175519",
+    "priority": 1,
+    "attachments": []
+  }
+]

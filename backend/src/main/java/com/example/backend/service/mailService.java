@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 import com.example.backend.Util.EmailPriorityComparator;
 import com.example.backend.Util.JsonFileManager;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.DTOS.mailContentDTO;
@@ -18,15 +21,22 @@ import com.google.gson.reflect.TypeToken;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 @Getter
 @Setter
 public class mailService {
-    private String senderEmail = "belal@gmail.com";
+
+
+    // REMOVED: private String senderEmail = (String) session.getAttribute("currentUser");
+
+    private String senderEmail; // Keep this for backward compatibility with setSenderEmail()
+
     private final String BasePath = "data/users/";
     private final JsonFileManager jsonFileManager;
-    
+
     // Type token for List<mailDTO> - needed for generic FileService methods
     private static final Type MAIL_LIST_TYPE = new TypeToken<List<mailDTO>>(){}.getType();
 
@@ -35,20 +45,39 @@ public class mailService {
     }
 
     /**
+     * Get the currently logged-in user's email from session
+     */
+    private String getLoggedInUser() {
+        if (senderEmail != null) {
+            return senderEmail;
+        }
+
+        // Get current request and session
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes != null) {
+            HttpServletRequest request = attributes.getRequest();
+            String email = (String) request.getSession().getAttribute("currentUser");
+            System.out.println("mailService - Getting logged in user: " + email);
+            return email;
+        }
+
+        System.err.println("mailService - WARNING: No request context available!");
+        return null;
+    }
+
+    /**
      * Get all emails from inbox
      */
     public List<mailDTO> getInboxEmails() {
-        String inboxPath = BasePath + senderEmail + "/inbox.json";
+        String inboxPath = BasePath + getLoggedInUser() + "/inbox.json";
         return jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
     }
 
     public List<mailDTO> getInboxEmailsByPriority() {
-        String inboxPath = BasePath + senderEmail + "/inbox.json";
+        String inboxPath = BasePath + getLoggedInUser() + "/inbox.json";
         List<mailDTO> emails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
 
-
         PriorityQueue<mailDTO> priorityQueue = new PriorityQueue<>(new EmailPriorityComparator());
-
         priorityQueue.addAll(emails);
 
         // Extract emails from priority queue in sorted order
@@ -60,14 +89,11 @@ public class mailService {
         return sortedEmails;
     }
 
-
-
-
     /**
      * Get all sent emails
      */
     public List<mailDTO> getSentEmails() {
-        String sentPath = BasePath + senderEmail + "/sent.json";
+        String sentPath = BasePath + getLoggedInUser() + "/sent.json";
         return jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
     }
 
@@ -75,7 +101,7 @@ public class mailService {
      * Get all draft emails
      */
     public List<mailDTO> getDraftEmails() {
-        String draftPath = BasePath + senderEmail + "/draft.json";
+        String draftPath = BasePath + getLoggedInUser() + "/draft.json";
         return jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
     }
 
@@ -83,7 +109,7 @@ public class mailService {
      * Get all trash emails
      */
     public List<mailDTO> getTrashEmails() {
-        String trashPath = BasePath + senderEmail + "/trash.json";
+        String trashPath = BasePath + getLoggedInUser() + "/trash.json";
         return jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
     }
 
@@ -91,7 +117,7 @@ public class mailService {
      * Get specific email by ID from a folder
      */
     public mailDTO getEmailById(int id, String folder) {
-        String folderPath = BasePath + senderEmail + "/" + folder + ".json";
+        String folderPath = BasePath + getLoggedInUser() + "/" + folder + ".json";
         List<mailDTO> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
 
         return emails.stream()
@@ -103,69 +129,44 @@ public class mailService {
     /**
      * Compose and send a new email
      */
-
-
     public void composeMail(mailContentDTO mailContent) throws UserNotFoundException {
-        String sentPath = BasePath + senderEmail + "/sent.json";
-        mailDTO mail= mailFactory.createNewMail(mailContent) ;
-        mail.setFrom(senderEmail);
+        String currentUser = getLoggedInUser();
+        String sentPath = BasePath + currentUser + "/sent.json";
+        mailDTO mail = mailFactory.createNewMail(mailContent);
+        mail.setFrom(currentUser);
+
         // Add to sent folder
         Queue<String> recipientsQueue = mail.getTo();
-        String receiver =recipientsQueue.peek() ;
+        String receiver = recipientsQueue.peek();
 
         if (!(jsonFileManager.userExists(receiver))) {
-            System.out.println("this email{ "+receiver+" } isn't found in our system");
+            System.out.println("this email{ " + receiver + " } isn't found in our system");
             throw new UserNotFoundException("Email address " + receiver + " is not registered in our system");
         }
+
         List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
         sentMails.add(mail);
         jsonFileManager.writeListToFile(sentPath, sentMails);
+
         // Send to all receivers
         mail.setTo(null);
-
-            String path = BasePath + receiver + "/inbox.json";
-            List<mailDTO> inboxMails = jsonFileManager.readListFromFile(path, MAIL_LIST_TYPE);
-            inboxMails.add(mail);
-            jsonFileManager.writeListToFile(path, inboxMails);
-
-        
+        String path = BasePath + receiver + "/inbox.json";
+        List<mailDTO> inboxMails = jsonFileManager.readListFromFile(path, MAIL_LIST_TYPE);
+        inboxMails.add(mail);
+        jsonFileManager.writeListToFile(path, inboxMails);
     }
-    public void saveDraft(mailContentDTO mailContent){
-        String draftPath = BasePath + senderEmail + "/draft.json";
+
+    public void saveDraft(mailContentDTO mailContent) {
+        String draftPath = BasePath + getLoggedInUser() + "/draft.json";
         List<mailDTO> draftMails = jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
-        mailDTO mail =mailFactory.createNewMail(mailContent) ;
+        mailDTO mail = mailFactory.createNewMail(mailContent);
         draftMails.add(mail);
         jsonFileManager.writeListToFile(draftPath, draftMails);
-
     }
-
-    // /**
-    //  * Toggle star status of an email
-    //  */
-    // public boolean toggleStar(int id, String folder) {
-    //     String folderPath = BasePath + senderEmail + "/" + folder + ".json";
-    //     List<mailDTO> emails = fileService.readListFromFile()(folderPath, MAIL_LIST_TYPE);
-
-    //     boolean found = false;
-    //     for (mailDTO email : emails) {
-    //         if (email.getId() == id) {
-    //             email.setStared(!email.isStared());
-    //             found = true;
-    //             break;
-    //         }
-    //     }
-
-    //     if (found) {
-    //         fileService.writeListToFile()(folderPath, emails);
-    //     }
-
-    //     return found;
-    // }
 
     /**
      * Delete an email (move to trash)
      */
-// Add this at the class level
     private final Object trashLock = new Object();
     private final Object folderLock = new Object();
 
@@ -180,8 +181,9 @@ public class mailService {
                 return permanentlyDeleteEmail(id);
             }
 
-            String folderPath = BasePath + senderEmail + "/" + folder + ".json";
-            String trashPath = BasePath + senderEmail + "/trash.json";
+            String currentUser = getLoggedInUser();
+            String folderPath = BasePath + currentUser + "/" + folder + ".json";
+            String trashPath = BasePath + currentUser + "/trash.json";
 
             // Synchronize to prevent concurrent modification
             synchronized (folderLock) {
@@ -229,7 +231,6 @@ public class mailService {
 
                     if (!trashWriteSuccess) {
                         System.err.println("Failed to write to trash: " + trashPath);
-                        // TODO: Consider rolling back the folder deletion
                         return false;
                     }
                 }
@@ -247,7 +248,7 @@ public class mailService {
     }
 
     private boolean permanentlyDeleteEmail(int id) {
-        String trashPath = BasePath + senderEmail + "/trash.json";
+        String trashPath = BasePath + getLoggedInUser() + "/trash.json";
         System.out.println("Attempting to delete email " + id + " from: " + trashPath);
 
         try {
@@ -278,7 +279,6 @@ public class mailService {
         }
     }
 
-    //move shefoo
     /**
      * Move an email from one folder to another
      */
@@ -289,8 +289,9 @@ public class mailService {
         System.out.println("To Folder: " + toFolder);
 
         try {
-            String fromFolderPath = BasePath + senderEmail + "/" + fromFolder + ".json";
-            String toFolderPath = BasePath + senderEmail + "/" + toFolder + ".json";
+            String currentUser = getLoggedInUser();
+            String fromFolderPath = BasePath + currentUser + "/" + fromFolder + ".json";
+            String toFolderPath = BasePath + currentUser + "/" + toFolder + ".json";
 
             // Synchronize to prevent concurrent modification
             synchronized (folderLock) {
@@ -336,7 +337,6 @@ public class mailService {
 
                 if (!addSuccess) {
                     System.err.println("Failed to add to folder: " + toFolderPath);
-                    // TODO: Consider rolling back the removal
                     return false;
                 }
 
@@ -352,12 +352,11 @@ public class mailService {
         }
     }
 
-
     /**
      * Get emails from custom folder
      */
     public List<mailDTO> getCustomFolderEmails(String folderId) {
-        String folderPath = BasePath + senderEmail + "/folder_" + folderId + ".json";
+        String folderPath = BasePath + getLoggedInUser() + "/folder_" + folderId + ".json";
         return jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
     }
 }
