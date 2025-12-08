@@ -26,5 +26,12 @@
     "description": "king ",
     "color": "#a855f7",
     "emailCount": 0
+  },
+  {
+    "id": "c9b8598e-bc34-4da5-8582-a7dd690742eb",
+    "name": "shefoo",
+    "description": "vc",
+    "color": "#14b8a6",
+    "emailCount": 0
   }
 ]
