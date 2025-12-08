@@ -15,6 +15,9 @@ import java.util.List;
  * FileService handles all file I/O operations for the system
  * Generic JSON manager that works with any DTO type
  * Responsibilities: Read/Write JSON files, Create folders, Manage file paths
+ * no business layer touches the file system only proxy does
+ * it is the gateway for any component to acess file manager (middle man)proxy design pattern is implmented (smart proxy)
+ * it is not a proxy class by takingg instances and objects but it takes the filesystem (single entry point,controls access to resource,hides complexity)
  */
 @Service
 public class JsonFileManager {
