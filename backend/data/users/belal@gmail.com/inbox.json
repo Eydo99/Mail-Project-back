@@ -1,57 +1,22 @@
 [
   {
-    "id": 3,
+    "id": 24,
     "to": [
-      "dummy@mail.com"
+      "dummy@gmail.com"
     ],
-    "from": "dummy@gmail.com",
-    "subject": "Meeting",
-    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
+    "subject": "ff",
+    "body": "shefoo 3mak",
+    "preview": "shefoo 3mak",
     "starred": false,
     "hasAttachment": true,
-    "timestamp": "2025-12-06T08:45:54.615956600",
+    "timestamp": "2025-12-08T01:47:46.8202374",
     "priority": 1,
     "attachments": [
       {
-        "filename": "agenda.pdf",
-        "filePath": "/files/agenda.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 254321
-      },
-      {
-        "filename": "presentation.pptx",
-        "filePath": "/files/presentation.pptx",
-        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        "fileSize": 1132456
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "to": [
-      "dummy@mail.com"
-    ],
-    "from": "dummy@gmail.com",
-    "subject": "Meeting",
-    "body": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "preview": "Hello team, this is a reminder about tomorrow\u0027s meeting at 10 AM in the main hall.",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-06T08:46:22.736354800",
-    "priority": 1,
-    "attachments": [
-      {
-        "filename": "agenda.pdf",
-        "filePath": "/files/agenda.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 254321
-      },
-      {
-        "filename": "presentation.pptx",
-        "filePath": "/files/presentation.pptx",
-        "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        "fileSize": 113245600
+        "filename": "WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
+        "filePath": "data/uploads/6a0888e0-c775-42f3-a431-64f77c0ba83b_WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
+        "mimeType": "image/jpeg",
+        "fileSize": 45520
       }
     ]
   }

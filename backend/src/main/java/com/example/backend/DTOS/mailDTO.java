@@ -19,7 +19,10 @@ public class mailDTO {
     private String preview ;
     private boolean starred;
     private boolean hasAttachment;
-    private String timestamp;
+    private LocalDateTime timestamp;
     private int priority;
     private List<attachementDTO> attachments;
+
+    // ADD THIS FIELD - for custom folder support
+    private String customFolderId; // null = system folder, "folder_123" = custom folder
 } 

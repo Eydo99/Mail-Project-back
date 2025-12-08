@@ -1,4 +1,4 @@
-package com.example.backend.service;
+package com.example.backend.Util;
 
 import com.google.gson.*;
 import org.springframework.stereotype.Service;
@@ -130,7 +130,7 @@ public class JsonFileManager {
             System.out.println("Created user folder: " + userPath);
 
             // Create default folder files (inbox, sent, trash, draft)
-            String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json","contacts.json" };
+            String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json","contacts.json","folders.json" };
 
             for (String folder : folders) {
                 File file = new File(userPath.toString(), folder);
