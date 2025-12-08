@@ -108,10 +108,11 @@ public class mailService {
     public void composeMail(mailContentDTO mailContent) throws UserNotFoundException {
         String sentPath = BasePath + senderEmail + "/sent.json";
         mailDTO mail= mailFactory.createNewMail(mailContent) ;
+        mail.setFrom(senderEmail);
         // Add to sent folder
         Queue<String> recipientsQueue = mail.getTo();
         String receiver =recipientsQueue.peek() ;
-        
+
         if (!(jsonFileManager.userExists(receiver))) {
             System.out.println("this email{ "+receiver+" } isn't found in our system");
             throw new UserNotFoundException("Email address " + receiver + " is not registered in our system");
@@ -119,7 +120,6 @@ public class mailService {
         List<mailDTO> sentMails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
         sentMails.add(mail);
         jsonFileManager.writeListToFile(sentPath, sentMails);
-        mail.setFrom(senderEmail);
         // Send to all receivers
         mail.setTo(null);
 
