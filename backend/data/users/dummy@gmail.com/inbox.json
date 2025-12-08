@@ -177,5 +177,55 @@
         "fileSize": 45520
       }
     ]
+  },
+  {
+    "id": 26,
+    "from": "belal@gmail.com",
+    "subject": "l2",
+    "body": "sdvafv",
+    "preview": "sdvafv",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T03:18:17.4774326",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "5_Set_Theory.pdf",
+        "filePath": "data/uploads/5304322b-a2b5-4e95-8595-522cc2ddffc5_5_Set_Theory.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 5760627
+      },
+      {
+        "filename": "jett-valorant-4k-game-yp-1440x900.jpg",
+        "filePath": "data/uploads/24e361ba-ee21-48d8-90f0-e07568136b3f_jett-valorant-4k-game-yp-1440x900.jpg",
+        "mimeType": "image/jpeg",
+        "fileSize": 989958
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "from": "belal@gmail.com",
+    "subject": "aywa b2a",
+    "body": "hwa da",
+    "preview": "hwa da",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T18:15:18.4513378",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "Remote Control Blink Rate (lab 7A).pdf",
+        "filePath": "data/uploads/fc88809c-b4cd-4d3e-ba07-887fc0095c41_Remote Control Blink Rate (lab 7A).pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 269806
+      },
+      {
+        "filename": "Assembly Report.pdf",
+        "filePath": "data/uploads/9a18bd61-e3ed-472a-9644-3c531bc9f4a4_Assembly Report.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 279558
+      }
+    ]
   }
 ]

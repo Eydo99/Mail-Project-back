@@ -18,32 +18,6 @@
     "initials": "Z"
   },
   {
-    "id": "5c6c396a-b502-4798-bb7f-9156855e52fd",
-    "name": "Eyad",
-    "email": [
-      {
-        "address": "eyadamr1644@gmail.com",
-        "isPrimary": false
-      },
-      {
-        "address": "eyadamr4121@gmail.com",
-        "isPrimary": true
-      }
-    ],
-    "phone": [
-      {
-        "number": "3513413",
-        "isPrimary": false
-      },
-      {
-        "number": "32353",
-        "isPrimary": true
-      }
-    ],
-    "colour": "#8b5cf6",
-    "initials": "E"
-  },
-  {
     "id": "e8bd53de-b43e-4528-88ea-c8fe56c51631",
     "name": "radwan",
     "email": [
@@ -95,6 +69,42 @@
       }
     ],
     "colour": "#ec4899",
+    "initials": "E"
+  },
+  {
+    "id": "4047c1dc-681a-47ee-9a32-45dca9e6941d",
+    "name": "eyad",
+    "email": [
+      {
+        "address": "yousefxx159@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01221986876",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#10b981",
+    "initials": "E"
+  },
+  {
+    "id": "aba3a810-2835-4183-bfc1-9a159777b1dc",
+    "name": "eyad",
+    "email": [
+      {
+        "address": "yousefxx159@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01221986876",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#3b82f6",
     "initials": "E"
   }
 ]

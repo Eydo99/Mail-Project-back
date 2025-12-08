@@ -1,183 +1,29 @@
 [
   {
-    "id": 1,
+    "id": 26,
     "to": [
       "dummy@gmail.com"
     ],
-    "subject": "kvodvdvd jbfee",
-    "body": "khbefkjbecou e o  \nkndvjb \ndvv",
-    "preview": "khbefkjbecou e o  \nkndvjb \ndvv",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T22:59:50.4998713",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 2,
-    "to": [
-      "dummy@mail.com"
-    ],
-    "subject": "kvodvdvd jbfee",
-    "body": "khbefkjbecou e o  \nkndvjb \ndvv",
-    "preview": "khbefkjbecou e o  \nkndvjb \ndvv",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T22:59:50.5118867",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 6,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "the id is working",
-    "body": "kdbidk ibudij iubd h iubvh sobv f obv  sj ",
-    "preview": "kdbidk ibudij iubd h iubvh sobv f obv  sj ",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T23:09:02.7338131",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 10,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "akdjvnov",
-    "body": "dbovb sl ks",
-    "preview": "dbovb sl ks",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T23:27:41.5095698",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 11,
-    "to": [
-      "dummy@mail.com"
-    ],
-    "subject": "akdjvnov",
-    "body": "dbovb sl ks",
-    "preview": "dbovb sl ks",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T23:27:41.5605735",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 13,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "helllllo",
-    "body": "هلارشت خشئ خععسي ",
-    "preview": "هلارشت خشئ خععسي ",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T23:54:00.5663412",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 14,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "belal 3m shrief",
-    "body": "سنىبن يتن شنت شمن تسي",
-    "preview": "سنىبن يتن شنت شمن تسي",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T23:54:26.7954734",
-    "priority": 2,
-    "attachments": []
-  },
-  {
-    "id": 15,
-    "to": [
-      "dummy@mail.com"
-    ],
-    "subject": "belal 3m shrief",
-    "body": "سنىبن يتن شنت شمن تسي",
-    "preview": "سنىبن يتن شنت شمن تسي",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-07T23:54:26.9574858",
-    "priority": 2,
-    "attachments": []
-  },
-  {
-    "id": 16,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "helllllo",
-    "body": "attachement here",
-    "preview": "attachement here",
+    "from": "belal@gmail.com",
+    "subject": "l2",
+    "body": "sdvafv",
+    "preview": "sdvafv",
     "starred": false,
     "hasAttachment": true,
-    "timestamp": "2025-12-07T23:57:08.9662186",
-    "priority": 3,
+    "timestamp": "2025-12-08T03:18:17.4774326",
+    "priority": 2,
     "attachments": [
       {
-        "filename": "Lab5 (Computer  Organization).pdf",
-        "filePath": "data/uploads/6500be96-4396-44be-951a-4b42c602152c_Lab5 (Computer  Organization).pdf",
+        "filename": "5_Set_Theory.pdf",
+        "filePath": "data/uploads/5304322b-a2b5-4e95-8595-522cc2ddffc5_5_Set_Theory.pdf",
         "mimeType": "application/pdf",
-        "fileSize": 567338
-      }
-    ]
-  },
-  {
-    "id": 19,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "helllllo",
-    "body": "dsjvlakd vl d k dbelal",
-    "preview": "dsjvlakd vl d k dbelal",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-08T00:28:12.1851122",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 20,
-    "to": [
-      "dummy@mail.com"
-    ],
-    "subject": "helllllo",
-    "body": "dsjvlakd vl d k dbelal",
-    "preview": "dsjvlakd vl d k dbelal",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-08T00:28:12.2231159",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 22,
-    "to": [
-      "dummy@gmail.com"
-    ],
-    "subject": "aaaaf",
-    "body": "test",
-    "preview": "test",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-08T01:27:13.6245214",
-    "priority": 3,
-    "attachments": [
+        "fileSize": 5760627
+      },
       {
-        "filename": "lab.pdf",
-        "filePath": "e60c9a61-7429-4f56-a699-3c949d093950_lab.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 362472
+        "filename": "jett-valorant-4k-game-yp-1440x900.jpg",
+        "filePath": "data/uploads/24e361ba-ee21-48d8-90f0-e07568136b3f_jett-valorant-4k-game-yp-1440x900.jpg",
+        "mimeType": "image/jpeg",
+        "fileSize": 989958
       }
     ]
   },
@@ -221,6 +67,83 @@
         "filePath": "data/uploads/37053285-1389-4186-ae91-dc9c8b7d380e_WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
         "mimeType": "image/jpeg",
         "fileSize": 45520
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "subject": "ff",
+    "body": "shefoo 3mak",
+    "preview": "shefoo 3mak",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T01:47:46.8202374",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
+        "filePath": "data/uploads/6a0888e0-c775-42f3-a431-64f77c0ba83b_WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
+        "mimeType": "image/jpeg",
+        "fileSize": 45520
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "aywa b2a",
+    "body": "hwa da",
+    "preview": "hwa da",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T18:15:18.4513378",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "Remote Control Blink Rate (lab 7A).pdf",
+        "filePath": "data/uploads/fc88809c-b4cd-4d3e-ba07-887fc0095c41_Remote Control Blink Rate (lab 7A).pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 269806
+      },
+      {
+        "filename": "Assembly Report.pdf",
+        "filePath": "data/uploads/9a18bd61-e3ed-472a-9644-3c531bc9f4a4_Assembly Report.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 279558
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "to": [
+      "dummy@mail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "aywa b2a",
+    "body": "hwa da",
+    "preview": "hwa da",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T18:15:18.4622379",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "Remote Control Blink Rate (lab 7A).pdf",
+        "filePath": "data/uploads/fc88809c-b4cd-4d3e-ba07-887fc0095c41_Remote Control Blink Rate (lab 7A).pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 269806
+      },
+      {
+        "filename": "Assembly Report.pdf",
+        "filePath": "data/uploads/9a18bd61-e3ed-472a-9644-3c531bc9f4a4_Assembly Report.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 279558
       }
     ]
   }

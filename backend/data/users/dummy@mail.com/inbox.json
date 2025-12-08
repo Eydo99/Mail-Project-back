@@ -46,5 +46,30 @@
     "timestamp": "2025-12-08T00:28:12.2231159",
     "priority": 3,
     "attachments": []
+  },
+  {
+    "id": 28,
+    "from": "belal@gmail.com",
+    "subject": "aywa b2a",
+    "body": "hwa da",
+    "preview": "hwa da",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T18:15:18.4622379",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "Remote Control Blink Rate (lab 7A).pdf",
+        "filePath": "data/uploads/fc88809c-b4cd-4d3e-ba07-887fc0095c41_Remote Control Blink Rate (lab 7A).pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 269806
+      },
+      {
+        "filename": "Assembly Report.pdf",
+        "filePath": "data/uploads/9a18bd61-e3ed-472a-9644-3c531bc9f4a4_Assembly Report.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 279558
+      }
+    ]
   }
 ]
