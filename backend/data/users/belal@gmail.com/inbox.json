@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": 24,
+    "to": [
+      "dummy@gmail.com"
+    ],
+    "subject": "ff",
+    "body": "shefoo 3mak",
+    "preview": "shefoo 3mak",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T01:47:46.8202374",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
+        "filePath": "data/uploads/6a0888e0-c775-42f3-a431-64f77c0ba83b_WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
+        "mimeType": "image/jpeg",
+        "fileSize": 45520
+      }
+    ]
+  }
+]
