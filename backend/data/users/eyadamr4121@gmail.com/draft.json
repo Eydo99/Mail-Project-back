@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "id": 46,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "subject": "bt2k en kolo tmm",
+    "body": "kolo fol wla eh",
+    "preview": "kolo fol wla eh",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-11T01:12:39.4457012",
+    "priority": 2,
+    "attachments": []
+  },
+  {
+    "id": 47,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "subject": "tb eh el dnya kda",
+    "body": "",
+    "preview": "",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-11T01:13:03.0978007",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 48,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "subject": "yarab fok el dee2a",
+    "body": "",
+    "preview": "",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-11T01:13:31.2590355",
+    "priority": 4,
+    "attachments": []
+  }
+]

@@ -1,9 +1,16 @@
 [
   {
-    "id": "2e1f6730-b798-4813-a2e6-487da44150df",
-    "name": "anas el 3l2",
+    "id": "c8694af5-54de-4933-bdb9-f4edebbdf73e",
+    "name": "eyad",
     "description": "",
-    "color": "#8b5cf6",
+    "color": "#8B4513",
+    "emailCount": 1
+  },
+  {
+    "id": "94fc4210-91cd-420c-9610-e627cd1f98b8",
+    "name": "shefoo",
+    "description": "",
+    "color": "#3b82f6",
     "emailCount": 0
   }
 ]
