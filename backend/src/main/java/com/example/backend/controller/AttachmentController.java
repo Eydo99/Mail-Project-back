@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 @RestController
 @RequestMapping("/api/attachments")
 @CrossOrigin(origins = "http://localhost:4200")
+
 public class AttachmentController {
 
     private final String UPLOAD_DIR = "data/uploads/";
