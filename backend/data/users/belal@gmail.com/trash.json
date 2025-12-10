@@ -1,0 +1,31 @@
+[
+  {
+    "id": 36,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "ffffff",
+    "body": "f",
+    "preview": "f",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-10T15:26:34.9748209",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 39,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "subject": "low",
+    "body": "l",
+    "preview": "l",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-10T15:45:17.1388905",
+    "priority": 4,
+    "attachments": []
+  }
+]

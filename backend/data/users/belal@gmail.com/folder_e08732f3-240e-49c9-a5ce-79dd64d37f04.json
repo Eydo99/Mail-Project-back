@@ -1,0 +1,24 @@
+[
+  {
+    "id": 45,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "7",
+    "body": "77",
+    "preview": "77",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-10T17:06:41.4228266",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "Lecture 10\u002611 - Interfacing Memory to a CPU - Memory Organization and Address Decoders.pdf",
+        "filePath": "data/uploads/59c01965-0fc8-4c40-a789-32bf556d4ffc_Lecture 10\u002611 - Interfacing Memory to a CPU - Memory Organization and Address Decoders.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 656070
+      }
+    ]
+  }
+]

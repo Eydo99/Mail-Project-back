@@ -1,0 +1,46 @@
+[
+  {
+    "id": 35,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "test",
+    "body": "shefoo was here",
+    "preview": "shefoo was here",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-10T15:21:02.5092557",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 42,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "aaaa",
+    "body": "r",
+    "preview": "r",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-10T16:10:00.3029673",
+    "priority": 1,
+    "attachments": []
+  },
+  {
+    "id": 40,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "subject": "high",
+    "body": "high",
+    "preview": "high",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-10T15:46:08.1023323",
+    "priority": 2,
+    "attachments": []
+  }
+]
