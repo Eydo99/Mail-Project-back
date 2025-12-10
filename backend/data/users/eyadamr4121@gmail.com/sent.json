@@ -28,5 +28,76 @@
     "timestamp": "2025-12-08T20:56:10.3175519",
     "priority": 1,
     "attachments": []
+  },
+  {
+    "id": 38,
+    "to": [
+      "eyadamr4121@gmail.com"
+    ],
+    "from": "eyadamr4121@gmail.com",
+    "subject": "el 2 48aleen f nfs el w2t 3ady",
+    "body": "kolo fol",
+    "preview": "kolo fol",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-10T02:37:51.1218979",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "InputHandler.java",
+        "filePath": "data/uploads/76fe7826-47b1-4a9a-8d4b-643ce4f99da2_InputHandler.java",
+        "mimeType": "application/octet-stream",
+        "fileSize": 3910
+      },
+      {
+        "filename": "2021-20251107T211142Z-1-001.zip",
+        "filePath": "data/uploads/3b881c04-0da9-472e-99b3-cb8be2c3993e_2021-20251107T211142Z-1-001.zip",
+        "mimeType": "application/x-zip-compressed",
+        "fileSize": 597832
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "to": [
+      "eyadamr4121@gmail.com"
+    ],
+    "from": "eyadamr4121@gmail.com",
+    "subject": "ngrb tany",
+    "body": "eh el dnya kda",
+    "preview": "eh el dnya kda",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-10T02:40:12.674803",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "screen-capture (3).webm",
+        "filePath": "data/uploads/f0167a03-0481-400b-95ac-7225291ab1f5_screen-capture (3).webm",
+        "mimeType": "video/webm",
+        "fileSize": 9514722
+      },
+      {
+        "filename": "Lect_1.pdf",
+        "filePath": "data/uploads/068326a5-b85d-4902-9625-ce07290935b4_Lect_1.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 1965763
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "to": [
+      "eyadamr1644@gmail.com"
+    ],
+    "from": "eyadamr4121@gmail.com",
+    "subject": "enta eh a5bark ya 8aly",
+    "body": "69",
+    "preview": "69",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-10T02:41:12.515369",
+    "priority": 4,
+    "attachments": []
   }
 ]

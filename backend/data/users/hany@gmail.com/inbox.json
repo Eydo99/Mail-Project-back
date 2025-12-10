@@ -29,5 +29,24 @@
     "timestamp": "2025-12-08T20:56:10.3175519",
     "priority": 1,
     "attachments": []
+  },
+  {
+    "id": 35,
+    "from": "eyadamr1644@gmail.com",
+    "subject": "48aaal",
+    "body": "14",
+    "preview": "14",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-08T23:03:00.265844",
+    "priority": 2,
+    "attachments": [
+      {
+        "filename": "Sheet 7 (1).pdf",
+        "filePath": "data/uploads/f0cb19aa-237b-432f-82c7-96fc61d28f1e_Sheet 7 (1).pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 46072
+      }
+    ]
   }
 ]
