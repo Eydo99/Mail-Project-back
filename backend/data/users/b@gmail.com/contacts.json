@@ -1,0 +1,20 @@
+[
+  {
+    "id": "b66b8323-4ee3-41a3-8363-bc15a8cba1ab",
+    "name": "belal",
+    "email": [
+      {
+        "address": "ggg@gmai;.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01254631996546",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#10b981",
+    "initials": "B"
+  }
+]

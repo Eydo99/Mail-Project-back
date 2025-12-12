@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 import com.example.backend.DTOS.mailContentDTO;
-import com.example.backend.DTOS.mailDTO;
+import com.example.backend.model.mail;
+
 
 public class mailFactory {
     private static int idCounter = 0;
@@ -45,8 +46,8 @@ public class mailFactory {
         }
     }
     
-    public static mailDTO createNewMail(mailContentDTO mailContent) {
-        mailDTO mail = new mailDTO();
+    public static mail createNewMail(mailContentDTO mailContent) {
+        mail mail = new mail();
         mail.setId(++idCounter);
         mail.setSubject(mailContent.getSubject());
         mail.setBody(mailContent.getBody());

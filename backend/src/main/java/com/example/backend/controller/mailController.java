@@ -2,8 +2,9 @@ package com.example.backend.controller;
 
 import com.example.backend.DTOS.attachementDTO;
 import com.example.backend.DTOS.mailContentDTO;
-import com.example.backend.DTOS.mailDTO;
 import com.example.backend.Exceptions.UserNotFoundException;
+import com.example.backend.Repo.mailRepo;
+import com.example.backend.model.mail;
 import com.example.backend.service.mailService;
 
 import jakarta.validation.Path;
@@ -29,10 +30,12 @@ import java.util.UUID;
 public class mailController {
 
     private final mailService mailService;
+    private final mailRepo mailRepo;
 
     @Autowired
-    public mailController(mailService mailService) {
+    public mailController(mailService mailService, mailRepo mailRepo) {
         this.mailService = mailService;
+        this.mailRepo = mailRepo;
     }
 
     /**
@@ -40,9 +43,9 @@ public class mailController {
      * GET /api/mail/inbox
      */
     @GetMapping("/inbox")
-    public ResponseEntity<List<mailDTO>> getInboxEmails() {
+    public ResponseEntity<List<mail>> getInboxEmails() {
         try {
-            List<mailDTO> emails = mailService.getInboxEmails();
+            List<mail> emails = mailRepo.getInboxEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -50,9 +53,9 @@ public class mailController {
     }
 
     @GetMapping("/inbox/priority")
-    public ResponseEntity<List<mailDTO>> getInboxEmailsByPriority() {
+    public ResponseEntity<List<mail>> getInboxEmailsByPriority() {
         try {
-            List<mailDTO> emails = mailService.getInboxEmailsByPriority();
+            List<mail> emails = mailService.getInboxEmailsByPriority();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -64,9 +67,9 @@ public class mailController {
      * GET /api/mail/sent
      */
     @GetMapping("/sent")
-    public ResponseEntity<List<mailDTO>> getSentEmails() {
+    public ResponseEntity<List<mail>> getSentEmails() {
         try {
-            List<mailDTO> emails = mailService.getSentEmails();
+            List<mail> emails = mailRepo.getSentEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -78,9 +81,9 @@ public class mailController {
      * GET /api/mail/draft
      */
     @GetMapping("/draft")
-    public ResponseEntity<List<mailDTO>> getDraftEmails() {
+    public ResponseEntity<List<mail>> getDraftEmails() {
         try {
-            List<mailDTO> emails = mailService.getDraftEmails();
+            List<mail> emails = mailRepo.getDraftEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -92,9 +95,9 @@ public class mailController {
      * GET /api/mail/trash
      */
     @GetMapping("/trash")
-    public ResponseEntity<List<mailDTO>> getTrashEmails() {
+    public ResponseEntity<List<mail>> getTrashEmails() {
         try {
-            List<mailDTO> emails = mailService.getTrashEmails();
+            List<mail> emails = mailRepo.getTrashEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -106,9 +109,9 @@ public class mailController {
      * GET /api/mail/{id}
      */
     @GetMapping("/{id}")
-    public ResponseEntity<mailDTO> getEmailById(@PathVariable int id, @RequestParam String folder) {
+    public ResponseEntity<mail> getEmailById(@PathVariable int id, @RequestParam String folder) {
         try {
-            mailDTO email = mailService.getEmailById(id, folder);
+            mail email = mailRepo.getEmailById(id, folder);
             if (email != null) {
                 return ResponseEntity.ok(email);
             }
@@ -123,67 +126,67 @@ public class mailController {
      * POST /api/mail/compose
      */
     @PostMapping("/compose")
-public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
-    
-    try { // <-- ADD THIS TRY HERE
-        // Process attachments - decode base64 and save files
-        if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
-            for (attachementDTO attachment : mailContent.getAttachements()) {
-                try {
-                    // Decode base64 from filePath
-                    byte[] fileBytes = Base64.getDecoder().decode(attachment.getFilePath());
+    public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
 
-                    // Generate unique filename
-                    String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
+        try { // <-- ADD THIS TRY HERE
+              // Process attachments - decode base64 and save files
+            if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
+                for (attachementDTO attachment : mailContent.getAttachements()) {
+                    try {
+                        // Decode base64 from filePath
+                        byte[] fileBytes = Base64.getDecoder().decode(attachment.getFilePath());
 
-                    // Save to disk (change path as needed)
-                    String uploadDir = "data/uploads/";
-                    File directory = new File(uploadDir);
-                    if (!directory.exists()) {
-                        directory.mkdirs();
+                        // Generate unique filename
+                        String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
+
+                        // Save to disk (change path as needed)
+                        String uploadDir = "data/uploads/";
+                        File directory = new File(uploadDir);
+                        if (!directory.exists()) {
+                            directory.mkdirs();
+                        }
+
+                        java.nio.file.Path filePath = Paths.get(uploadDir + savedFilename);
+                        Files.write(filePath, fileBytes);
+
+                        // Update filePath to the actual server path
+                        attachment.setFilePath(uploadDir + savedFilename);
+
+                    } catch (Exception e) {
+                        System.err.println("Error saving attachment: " + e.getMessage());
                     }
-
-                    java.nio.file.Path filePath = Paths.get(uploadDir + savedFilename);
-                    Files.write(filePath, fileBytes);
-
-                    // Update filePath to the actual server path
-                    attachment.setFilePath(uploadDir + savedFilename);
-
-                } catch (Exception e) {
-                    System.err.println("Error saving attachment: " + e.getMessage());
                 }
             }
-        }
 
-        Queue<String> recipientsQueue = mailContent.getRecipients();
-        List<String> failedRecipients = new ArrayList<>();
+            Queue<String> recipientsQueue = mailContent.getRecipients();
+            List<String> failedRecipients = new ArrayList<>();
 
-        while (!recipientsQueue.isEmpty()) {
-            Queue<String> temp = new LinkedList<>();
-            String currentRecipient = recipientsQueue.poll();
-            temp.add(currentRecipient);
-            mailContent.setRecipients(temp);
+            while (!recipientsQueue.isEmpty()) {
+                Queue<String> temp = new LinkedList<>();
+                String currentRecipient = recipientsQueue.poll();
+                temp.add(currentRecipient);
+                mailContent.setRecipients(temp);
 
-            try {
-                mailService.composeMail(mailContent);
-            } catch (UserNotFoundException e) {
-                failedRecipients.add(currentRecipient);
+                try {
+                    mailService.composeMail(mailContent);
+                } catch (UserNotFoundException e) {
+                    failedRecipients.add(currentRecipient);
+                }
             }
+
+            if (!failedRecipients.isEmpty()) {
+                String failedEmails = String.join(", ", failedRecipients);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("The following email(s) are not registered in our system: " + failedEmails);
+            }
+
+            return ResponseEntity.ok("Email sent successfully");
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error sending email: " + e.getMessage());
         }
-
-        if (!failedRecipients.isEmpty()) {
-            String failedEmails = String.join(", ", failedRecipients);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("The following email(s) are not registered in our system: " + failedEmails);
-        }
-
-        return ResponseEntity.ok("Email sent successfully");
-
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error sending email: " + e.getMessage());
     }
-}
 
     @PostMapping("/draft/save")
     public ResponseEntity<String> saveDraft(@RequestBody mailContentDTO mail) {
@@ -222,7 +225,7 @@ public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailConten
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEmail(@PathVariable int id, @RequestParam String folder) {
         try {
-            boolean success = mailService.deleteEmail(id, folder);
+            boolean success = mailRepo.deleteEmail(id, folder);
             if (success) {
                 return ResponseEntity.ok("Email moved to trash");
             }
@@ -253,7 +256,5 @@ public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailConten
                     .body("Failed to move email: " + e.getMessage());
         }
     }
-
-
 
 }
