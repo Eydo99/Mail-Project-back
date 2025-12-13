@@ -1,9 +1,11 @@
 package com.example.backend.StrategyPattern;
 
-import com.example.backend.DTOS.mailDTO;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import com.example.backend.model.mail;
 
 /**
  * Sort emails by priority (1=Urgent, 2=High, 3=Medium, 4=Low)
@@ -16,12 +18,12 @@ public class SortByPriorityStrategy implements EmailSortStrategy {
     }
 
     @Override
-    public void sort(List<mailDTO> emails) {
+    public void sort(List<mail> emails) {
         if (emails == null || emails.isEmpty()) {
             return;
         }
 
-        Comparator<mailDTO> comparator = Comparator.comparingInt(mailDTO::getPriority);
+        Comparator<mail> comparator = Comparator.comparingInt(mail::getPriority);
 
         if (!ascending) {
             comparator = comparator.reversed();

@@ -1,6 +1,7 @@
 package com.example.backend.StrategyPattern;
 
-import com.example.backend.DTOS.mailDTO;
+import com.example.backend.model.mail;
+
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class EmailSortContext {
       @param strategyName Name of the strategy (e.g., "date-desc", "sender-asc")
       @return Sorted list of emails
      */
-    public List<mailDTO> sortEmails(List<mailDTO> emails, String strategyName) {
+    public List<mail> sortEmails(List<mail> emails, String strategyName) {
         EmailSortStrategy strategy = strategies.get(strategyName);
 
         if (strategy == null) {

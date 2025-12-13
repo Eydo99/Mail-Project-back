@@ -52,7 +52,7 @@ public class JsonFileManager {
      *
      * @param <T>      Type of objects to read
      * @param filePath Path to the JSON file (e.g., "data/users/omar@mail.com/inbox.json")
-     * @param type     Type token for deserialization (e.g., new TypeToken<List<MailDTO>>(){}.getType())
+     * @param type     Type token for deserialization (e.g., new TypeToken<List<Mail>>(){}.getType())
      * @return List of objects, or empty list if file doesn't exist or error occurs
      */
     public <T> List<T> readListFromFile(String filePath, Type type) {
