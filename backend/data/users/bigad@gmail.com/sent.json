@@ -20,5 +20,20 @@
         "fileSize": 56954
       }
     ]
+  },
+  {
+    "id": 68,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "from": "bigad@gmail.com",
+    "subject": "Fwd: test last",
+    "body": "\n\n--- Forwarded Message ---\n\n\n--- Forwarded Message ---\nyarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "preview": "\n\n--- Forwarded Message ---\n\n\n--- Forwarded Message ---\nyarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T04:35:37.3461563",
+    "priority": 3,
+    "attachments": []
   }
 ]

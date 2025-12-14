@@ -102,5 +102,35 @@
     "timestamp": "2025-12-14T03:28:13.699495",
     "priority": 2,
     "attachments": []
+  },
+  {
+    "id": 64,
+    "to": [
+      "bigad@gmail.com"
+    ],
+    "from": "hany@gmail.com",
+    "subject": "Re: test1",
+    "body": "hany fa7l",
+    "preview": "hany fa7l",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T04:30:27.3352353",
+    "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 66,
+    "to": [
+      "eyadamr1644@gmail.com"
+    ],
+    "from": "hany@gmail.com",
+    "subject": "Fwd: test last",
+    "body": "\n\n--- Forwarded Message ---\nyarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "preview": "\n\n--- Forwarded Message ---\nyarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T04:32:31.9850074",
+    "priority": 3,
+    "attachments": []
   }
 ]
