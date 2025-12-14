@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": 61,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "subject": "bb3t l hany",
+    "body": "48al wla l2",
+    "preview": "48al wla l2",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-13T16:41:22.5883001",
+    "priority": 4,
+    "attachments": []
+  }
+]
