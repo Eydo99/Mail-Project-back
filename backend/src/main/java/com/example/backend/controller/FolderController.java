@@ -2,7 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.DTOS.FolderRequestDTO;
 import com.example.backend.DTOS.FolderResponseDTO;
-import com.example.backend.DTOS.mailDTO;
+import com.example.backend.model.mail;
 import com.example.backend.service.FolderService;
 import com.example.backend.service.mailService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -87,11 +87,11 @@ public class FolderController {
     }
 
     @GetMapping("/{id}/emails")
-    public ResponseEntity<List<mailDTO>> getEmailsByFolder(@PathVariable String id,
+    public ResponseEntity<List<mail>> getEmailsByFolder(@PathVariable String id,
                                                            HttpServletRequest request) {
         String loggedInUser = getLoggedInUser(request);
         mailService.setSenderEmail(loggedInUser);
-        List<mailDTO> emails = mailService.getCustomFolderEmails(id);
+        List<mail> emails = mailService.getCustomFolderEmails(id);
         return ResponseEntity.ok(emails);
     }
 

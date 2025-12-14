@@ -2,10 +2,10 @@ package com.example.backend.service;
 
 import com.example.backend.DTOS.FolderRequestDTO;
 import com.example.backend.DTOS.FolderResponseDTO;
-import com.example.backend.DTOS.mailDTO;
 import com.example.backend.Repo.FolderRepo;
 import com.example.backend.Factory.FolderFactory;
 import com.example.backend.model.Folder;
+import com.example.backend.model.mail;
 import com.example.backend.Util.JsonFileManager;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class FolderService {
     @Autowired
     private FolderFactory folderFactory;
 
-    private static final Type MAIL_LIST_TYPE = new TypeToken<List<mailDTO>>(){}.getType();
+    private static final Type MAIL_LIST_TYPE = new TypeToken<List<mail>>(){}.getType();
 
     /**
      * Get all folders for a user
@@ -110,7 +110,7 @@ public class FolderService {
     /**
      * Get all emails in a custom folder
      */
-    public List<mailDTO> getEmailsByFolder(String userEmail, String folderId) {
+    public List<mail> getEmailsByFolder(String userEmail, String folderId) {
         String folderPath = jsonFileManager.getUserFolderPath(userEmail, "folder_" + folderId);
         return jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
     }
@@ -133,7 +133,7 @@ public class FolderService {
      * Recalculate email count for a folder
      */
     public void recalculateFolderCount(String userEmail, String folderId) {
-        List<mailDTO> emails = getEmailsByFolder(userEmail, folderId);
+        List<mail> emails = getEmailsByFolder(userEmail, folderId);
         updateFolderCount(userEmail, folderId, emails.size());
     }
 
@@ -144,11 +144,11 @@ public class FolderService {
         String folderPath = jsonFileManager.getUserFolderPath(userEmail, "folder_" + folderId);
         String inboxPath = jsonFileManager.getUserFolderPath(userEmail, "inbox");
 
-        List<mailDTO> folderEmails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+        List<mail> folderEmails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
 
         if (!folderEmails.isEmpty()) {
             // Get inbox emails
-            List<mailDTO> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
+            List<mail> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
 
             // Clear custom folder reference from emails
             folderEmails.forEach(email -> email.setCustomFolderId(null));

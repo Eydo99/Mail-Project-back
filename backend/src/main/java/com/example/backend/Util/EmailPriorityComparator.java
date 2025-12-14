@@ -1,16 +1,17 @@
 package com.example.backend.Util;
 
-import com.example.backend.DTOS.mailDTO;
+import com.example.backend.model.mail;
+
 import java.util.Comparator;
 
 /**
  * Comparator for sorting emails by priority
  * Lower priority number = Higher importance (1 is most urgent, 4 is least)
  */
-public class EmailPriorityComparator implements Comparator<mailDTO> {
+public class EmailPriorityComparator implements Comparator<mail> {
 
     @Override
-    public int compare(mailDTO email1, mailDTO email2) {
+    public int compare(mail email1, mail email2) {
         // Compare by priority first (ascending: 1, 2, 3, 4)
         int priorityComparison = Integer.compare(email1.getPriority(), email2.getPriority());
 

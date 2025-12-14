@@ -1,9 +1,10 @@
 package com.example.backend.StrategyPattern;
 
-import com.example.backend.DTOS.mailDTO;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import com.example.backend.model.mail;
 
 /**
  * Sort emails by sender email address
@@ -16,13 +17,13 @@ public class SortBySenderStrategy implements EmailSortStrategy {
     }
 
     @Override
-    public void sort(List<mailDTO> emails) {
+    public void sort(List<mail> emails) {
         if (emails == null || emails.isEmpty()) {
             return;
         }
 
-        Comparator<mailDTO> comparator = Comparator.comparing(
-                mailDTO::getFrom,
+        Comparator<mail> comparator = Comparator.comparing(
+                mail::getFrom,
                 Comparator.nullsLast(String.CASE_INSENSITIVE_ORDER)
         );
 

@@ -15,47 +15,58 @@ import java.util.List;
  * FileService handles all file I/O operations for the system
  * Generic JSON manager that works with any DTO type
  * Responsibilities: Read/Write JSON files, Create folders, Manage file paths
- * no business layer touches the file system only proxy does
- * it is the gateway for any component to acess file manager (middle man)proxy design pattern is implmented (smart proxy)
- * it is not a proxy class by takingg instances and objects but it takes the filesystem (single entry point,controls access to resource,hides complexity)
+ * gateway for any component to access file manager (middle man)proxy design pattern is implemented (smart proxy)
+ * not a proxy class by taking instances and objects, but it takes the filesystem (single entry point,controls access to resource,hides complexity)
  */
 @Service
 public class JsonFileManager {
 
     // Formatter for LocalDateTime serialization
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-    // Gson instance for JSON serialization/deserialization with LocalDateTime support
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    /**
+     * Gson instance for JSON serialization/deserialization with LocalDateTime support
+     * java object <-> JSON text
+     * GSON builder uses Builder design pattern
+     **/
     private static final Gson gson = new GsonBuilder()
+            //for indentation between json attributes
             .setPrettyPrinting()
+            /*
+             All of this made because json doesn't support localDataTime conversion
+             registerTypeAdapter:add custom serializer and deserializer
+             JsonSerializer(T):teaches json how to convert custom objects
+             */
             .registerTypeAdapter(LocalDateTime.class, new JsonSerializer<LocalDateTime>() {
+                //serialization of localDateTime to String
                 @Override
                 public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-                    return new JsonPrimitive(src.format(DATE_TIME_FORMATTER));
+                    return new JsonPrimitive(src.format(dateTimeFormatter));
                 }
             })
+            //JSON deserializer(T):teaches json how to convert strings back to custom objects
             .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
+                //deserialization of localDateTime from String back to its type
                 @Override
                 public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                         throws JsonParseException {
-                    return LocalDateTime.parse(json.getAsString(), DATE_TIME_FORMATTER);
+                    return LocalDateTime.parse(json.getAsString(), dateTimeFormatter);
                 }
             })
+            //build the json Object
             .create();
 
     // Base directory for storing user data
-    private static final String BASE_PATH = "data/users/";
+    private static final String basePath = "data/users/";
 
     /**
      * Reads objects from a JSON file and converts them to List<T>
-     * Generic method that works with any DTO type
-     *
-     * @param <T>      Type of objects to read
-     * @param filePath Path to the JSON file (e.g., "data/users/omar@mail.com/inbox.json")
-     * @param type     Type token for deserialization (e.g., new TypeToken<List<MailDTO>>(){}.getType())
-     * @return List of objects, or empty list if file doesn't exist or error occurs
+     * <T> Type of objects to read
+     * filePath: Path to the JSON file
+     * type: Type token for deserialization
+     * return List of objects, or empty list if file doesn't exist or error occurs
      */
     public <T> List<T> readListFromFile(String filePath, Type type) {
+        //create file object
         File file = new File(filePath);
 
         // If file doesn't exist, return empty list
@@ -64,6 +75,7 @@ public class JsonFileManager {
             return new ArrayList<>();
         }
 
+        //read data inside file and close it after reading to avoid memory leak
         try (Reader reader = new FileReader(file)) {
             // Define the type for Gson to deserialize (List<T>)
             System.out.println("trying to read file: " + filePath);
@@ -81,12 +93,10 @@ public class JsonFileManager {
 
     /**
      * Writes a list of objects to a JSON file
-     * Generic method that works with any DTO type
-     *
-     * @param <T>      Type of objects to write
-     * @param filePath Path to the JSON file
-     * @param items    List of objects to write
-     * @return true if successful, false otherwise
+     *  <T> : Type of objects to write
+     * filePath: Path to the JSON file
+     * items: List of objects to write
+     * true: if successful, false otherwise
      */
     public <T> boolean writeListToFile(String filePath, List<T> items) {
         try {
@@ -110,9 +120,8 @@ public class JsonFileManager {
 
     /**
      * Checks if a file exists
-     *
-     * @param filePath Path to check
-     * @return true if file exists, false otherwise
+     * filePath: Path to check
+     * return true if file exists, false otherwise
      */
     public boolean fileExists(String filePath) {
         return new File(filePath).exists();
@@ -128,7 +137,7 @@ public class JsonFileManager {
     public boolean createUserFolder(String email) {
         try {
             // Create user directory
-            Path userPath = Paths.get(BASE_PATH + email);
+            Path userPath = Paths.get(basePath + email);
             Files.createDirectories(userPath);
             System.out.println("Created user folder: " + userPath);
 
@@ -162,7 +171,7 @@ public class JsonFileManager {
      * @return Full file path (e.g., "data/users/omar@mail.com/inbox.json")
      */
     public String getUserFolderPath(String email, String folder) {
-        return BASE_PATH + email + "/" + folder + ".json";
+        return basePath + email + "/" + folder + ".json";
     }
 
     /**
@@ -172,7 +181,7 @@ public class JsonFileManager {
      * @return Base directory path (e.g., "data/users/omar@mail.com/")
      */
     public String getUserBasePath(String email) {
-        return BASE_PATH + email + "/";
+        return basePath + email + "/";
     }
 
     /**
@@ -202,7 +211,7 @@ public class JsonFileManager {
      * @return true if folder exists, false otherwise
      */
     public boolean userExists(String email) {
-        File userFolder = new File(BASE_PATH + email);
+        File userFolder = new File(basePath + email);
         return userFolder.exists() && userFolder.isDirectory();
     }
 }

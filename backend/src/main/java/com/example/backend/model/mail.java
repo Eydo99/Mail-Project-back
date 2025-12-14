@@ -1,8 +1,10 @@
-package com.example.backend.DTOS;
+package com.example.backend.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Queue;
+
+import com.example.backend.DTOS.attachementDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class mailDTO {
+public class mail {
     private int id   ;
     private Queue<String> to;
     private String from ;
@@ -25,4 +27,4 @@ public class mailDTO {
 
     // ADD THIS FIELD - for custom folder support
     private String customFolderId; // null = system folder, "folder_123" = custom folder
-} 
+}

@@ -2,8 +2,9 @@ package com.example.backend.controller;
 
 import com.example.backend.DTOS.attachementDTO;
 import com.example.backend.DTOS.mailContentDTO;
-import com.example.backend.DTOS.mailDTO;
 import com.example.backend.Exceptions.UserNotFoundException;
+import com.example.backend.Repo.mailRepo;
+import com.example.backend.model.mail;
 import com.example.backend.service.mailService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,10 +31,12 @@ import java.util.UUID;
 public class mailController {
 
     private final mailService mailService;
+    private final mailRepo mailRepo;
 
     @Autowired
-    public mailController(mailService mailService) {
+    public mailController(mailService mailService, mailRepo mailRepo) {
         this.mailService = mailService;
+        this.mailRepo = mailRepo;
     }
 
     /**
@@ -50,15 +53,9 @@ public class mailController {
      * Get all emails from inbox for current user
      */
     @GetMapping("/inbox")
-    public ResponseEntity<List<mailDTO>> getInboxEmails(HttpServletRequest request) {
+    public ResponseEntity<List<mail>> getInboxEmails() {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            System.out.println("📥 Getting inbox for: " + loggedInUser);
-            List<mailDTO> emails = mailService.getInboxEmails();
-            System.out.println("📥 Found " + emails.size() + " emails in inbox");
-            
+            List<mail> emails = mailRepo.getInboxEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             System.err.println("❌ Error getting inbox: " + e.getMessage());
@@ -67,12 +64,9 @@ public class mailController {
     }
 
     @GetMapping("/inbox/priority")
-    public ResponseEntity<List<mailDTO>> getInboxEmailsByPriority(HttpServletRequest request) {
+    public ResponseEntity<List<mail>> getInboxEmailsByPriority() {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            List<mailDTO> emails = mailService.getInboxEmailsByPriority();
+            List<mail> emails = mailService.getInboxEmailsByPriority();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -83,15 +77,9 @@ public class mailController {
      * Get all sent emails for current user
      */
     @GetMapping("/sent")
-    public ResponseEntity<List<mailDTO>> getSentEmails(HttpServletRequest request) {
+    public ResponseEntity<List<mail>> getSentEmails() {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            System.out.println("📤 Getting sent emails for: " + loggedInUser);
-            List<mailDTO> emails = mailService.getSentEmails();
-            System.out.println("📤 Found " + emails.size() + " sent emails");
-            
+            List<mail> emails = mailRepo.getSentEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -102,12 +90,9 @@ public class mailController {
      * Get all draft emails for current user
      */
     @GetMapping("/draft")
-    public ResponseEntity<List<mailDTO>> getDraftEmails(HttpServletRequest request) {
+    public ResponseEntity<List<mail>> getDraftEmails() {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            List<mailDTO> emails = mailService.getDraftEmails();
+            List<mail> emails = mailRepo.getDraftEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -118,12 +103,9 @@ public class mailController {
      * Get all trash emails for current user
      */
     @GetMapping("/trash")
-    public ResponseEntity<List<mailDTO>> getTrashEmails(HttpServletRequest request) {
+    public ResponseEntity<List<mail>> getTrashEmails() {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            List<mailDTO> emails = mailService.getTrashEmails();
+            List<mail> emails = mailRepo.getTrashEmails();
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -134,14 +116,9 @@ public class mailController {
      * Get a specific email by ID
      */
     @GetMapping("/{id}")
-    public ResponseEntity<mailDTO> getEmailById(@PathVariable int id, 
-                                                @RequestParam String folder,
-                                                HttpServletRequest request) {
+    public ResponseEntity<mail> getEmailById(@PathVariable int id, @RequestParam String folder) {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            mailDTO email = mailService.getEmailById(id, folder);
+            mail email = mailRepo.getEmailById(id, folder);
             if (email != null) {
                 return ResponseEntity.ok(email);
             }
@@ -155,15 +132,10 @@ public class mailController {
      * Send/compose a new email
      */
     @PostMapping("/compose")
-    public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent,
-                                              HttpServletRequest request) {
-        try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            System.out.println("📨 Composing email from: " + loggedInUser);
-            
-            // Process attachments - decode base64 and save files
+    public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
+
+        try { // <-- ADD THIS TRY HERE
+              // Process attachments - decode base64 and save files
             if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
                 for (attachementDTO attachment : mailContent.getAttachements()) {
                     try {
@@ -173,7 +145,7 @@ public class mailController {
                         // Generate unique filename
                         String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
 
-                        // Save to disk
+                        // Save to disk (change path as needed)
                         String uploadDir = "data/uploads/";
                         File directory = new File(uploadDir);
                         if (!directory.exists()) {
@@ -203,10 +175,8 @@ public class mailController {
 
                 try {
                     mailService.composeMail(mailContent);
-                    System.out.println("✅ Email sent to: " + currentRecipient);
                 } catch (UserNotFoundException e) {
                     failedRecipients.add(currentRecipient);
-                    System.out.println("❌ Failed to send to: " + currentRecipient);
                 }
             }
 
@@ -219,8 +189,6 @@ public class mailController {
             return ResponseEntity.ok("Email sent successfully");
 
         } catch (Exception e) {
-            System.err.println("❌ Error sending email: " + e.getMessage());
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error sending email: " + e.getMessage());
         }
@@ -249,12 +217,7 @@ public class mailController {
                                              @RequestParam String folder,
                                              HttpServletRequest request) {
         try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            System.out.println("🗑️ Deleting email " + id + " from " + folder + " for user: " + loggedInUser);
-            
-            boolean success = mailService.deleteEmail(id, folder);
+            boolean success = mailRepo.deleteEmail(id, folder);
             if (success) {
                 return ResponseEntity.ok("Email moved to trash");
             }

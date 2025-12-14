@@ -1,9 +1,11 @@
 package com.example.backend.StrategyPattern;
 
-import com.example.backend.DTOS.mailDTO;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import com.example.backend.model.mail;
 
 /**
  * Sort emails by date (timestamp)
@@ -16,13 +18,13 @@ public class SortByDateStrategy implements EmailSortStrategy {
     }
 
     @Override
-    public void sort(List<mailDTO> emails) {
+    public void sort(List<mail> emails) {
         if (emails == null || emails.isEmpty()) {
             return;
         }
 
-        Comparator<mailDTO> comparator = Comparator.comparing(
-                mailDTO::getTimestamp,
+        Comparator<mail> comparator = Comparator.comparing(
+                mail::getTimestamp,
                 Comparator.nullsLast(Comparator.naturalOrder())
         );
 
