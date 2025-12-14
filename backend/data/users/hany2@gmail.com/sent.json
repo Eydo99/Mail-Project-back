@@ -1,18 +1,9 @@
 [
   {
-    "id": 69,
-    "from": "hany2@gmail.com",
-    "subject": "test1 ",
-    "body": "yarab",
-    "preview": "yarab",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-14T14:38:54.5235961",
-    "priority": 3,
-    "attachments": []
-  },
-  {
     "id": 71,
+    "to": [
+      "hany@gmail.com"
+    ],
     "from": "hany2@gmail.com",
     "subject": "test2",
     "body": "yarab",
