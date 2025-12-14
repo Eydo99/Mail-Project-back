@@ -1,0 +1,38 @@
+[
+  {
+    "id": "2eb115f7-5b53-4c98-a424-d3756c4855b8",
+    "name": "test1",
+    "email": [
+      {
+        "address": "hany@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01559973437",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#8b5cf6",
+    "initials": "T"
+  },
+  {
+    "id": "6a74a380-37f9-413b-8a4d-ad752a4b55e7",
+    "name": "test2",
+    "email": [
+      {
+        "address": "eyad@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01020888643",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#10b981",
+    "initials": "T"
+  }
+]

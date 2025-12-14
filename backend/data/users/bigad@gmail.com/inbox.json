@@ -1,0 +1,38 @@
+[
+  {
+    "id": 59,
+    "from": "hany@gmail.com",
+    "subject": "test",
+    "body": "12345678",
+    "preview": "12345678",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T03:05:11.7746629",
+    "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 60,
+    "from": "hany@gmail.com",
+    "subject": "test last",
+    "body": "yarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "preview": "yarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T03:27:36.4601898",
+    "priority": 2,
+    "attachments": []
+  },
+  {
+    "id": 62,
+    "from": "hany@gmail.com",
+    "subject": "test last",
+    "body": "yarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "preview": "yarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T03:28:13.6882187",
+    "priority": 2,
+    "attachments": []
+  }
+]
