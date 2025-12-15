@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 71,
+    "from": "hany2@gmail.com",
+    "subject": "test2",
+    "body": "yarab",
+    "preview": "yarab",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-14T15:37:02.3754811",
+    "priority": 3,
+    "attachments": []
+  }
+]

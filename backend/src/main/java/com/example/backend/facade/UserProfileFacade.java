@@ -2,6 +2,7 @@ package com.example.backend.facade;
 
 import com.example.backend.DTOS.ProfileUpdateRequest;
 import com.example.backend.DTOS.PasswordChangeRequest;
+import com.example.backend.DTOS.DispatcherSettingsDTO;
 import com.example.backend.model.InfoPlus;
 import com.example.backend.model.UserInfo;
 import com.example.backend.service.ProfileCommandManager;
@@ -50,6 +51,14 @@ public class UserProfileFacade {
             }
         }
         
+        // Ensure dispatcher settings exist
+        if (infoPlus.dispatcherSettings == null) {
+            infoPlus.dispatcherSettings = new InfoPlus.DispatcherSettings();
+            try (FileWriter fw = new FileWriter(infoPlusPath)) {
+                gson.toJson(infoPlus, fw);
+            }
+        }
+        
         Map<String, Object> profile = new HashMap<>();
         profile.put("firstName", userInfo.firstName != null ? userInfo.firstName : "");
         profile.put("lastName", userInfo.lastName != null ? userInfo.lastName : "");
@@ -81,6 +90,11 @@ public class UserProfileFacade {
             currentInfoPlus = new InfoPlus();
         }
         
+        // Ensure dispatcher settings exist
+        if (currentInfoPlus.dispatcherSettings == null) {
+            currentInfoPlus.dispatcherSettings = new InfoPlus.DispatcherSettings();
+        }
+        
         boolean hasChanges = false;
         
         if (request.jobTitle != null) {
@@ -110,29 +124,24 @@ public class UserProfileFacade {
             }
         }
 
-        // 🔧 CRITICAL FIX: Handle profilePhoto properly
         if (request.profilePhoto != null) {
             String photoToSave;
             
-            // If it's a base64 data URL, save it
             if (request.profilePhoto.startsWith("data:image")) {
                 photoToSave = request.profilePhoto;
                 System.out.println("📸 Valid base64 photo detected, length: " + request.profilePhoto.length());
             }
-            // If it's the default avatar placeholder, save as null
             else if (request.profilePhoto.equals("assets/default-avatar.png") || 
                      request.profilePhoto.trim().isEmpty()) {
                 photoToSave = null;
                 System.out.println("📸 Default avatar detected, saving as null");
             }
-            // Otherwise, invalid format - save as null
             else {
                 System.out.println("⚠️  Invalid photo format, saving as null: " + 
                     request.profilePhoto.substring(0, Math.min(50, request.profilePhoto.length())));
                 photoToSave = null;
             }
             
-            // Check if photo actually changed
             String oldValue = currentInfoPlus.profilePhoto;
             boolean photoChanged = (oldValue == null && photoToSave != null) ||
                                    (oldValue != null && !oldValue.equals(photoToSave)) ||
@@ -153,7 +162,6 @@ public class UserProfileFacade {
             }
         }
         
-        // Handle fullName update
         if (request.fullName != null && !request.fullName.trim().isEmpty()) {
             String infoPath = getInfoPath(email);
             String infoJson = Files.readString(Paths.get(infoPath));
@@ -175,17 +183,12 @@ public class UserProfileFacade {
             }
         }
         
-        // 🔧 CRITICAL: Write to infoplus.json
         if (hasChanges) {
             try (FileWriter fw = new FileWriter(infoPlusPath)) {
                 gson.toJson(currentInfoPlus, fw);
-                fw.flush(); // Force write to disk
+                fw.flush();
             }
             System.out.println("✅ Profile updated and WRITTEN to: " + infoPlusPath);
-            System.out.println("📄 Content: jobTitle=" + currentInfoPlus.jobTitle + 
-                             ", phone=" + currentInfoPlus.phone + 
-                             ", bio=" + currentInfoPlus.bio + 
-                             ", hasPhoto=" + (currentInfoPlus.profilePhoto != null));
         } else {
             System.out.println("ℹ️  No changes to save");
         }
@@ -213,6 +216,115 @@ public class UserProfileFacade {
         
         System.out.println("✅ Password changed successfully");
     }
+    
+    // ============================================================================
+    // 🎮 DISPATCHER SETTINGS METHODS (NEW)
+    // ============================================================================
+    
+    /**
+     * Get Dispatcher settings for a user
+     */
+    public DispatcherSettingsDTO getDispatcherSettings(String email) throws Exception {
+        System.out.println("🎮 Getting dispatcher settings for: " + email);
+        
+        String infoPlusPath = getInfoPlusPath(email);
+        InfoPlus infoPlus;
+        
+        if (Files.exists(Paths.get(infoPlusPath))) {
+            String json = Files.readString(Paths.get(infoPlusPath));
+            infoPlus = gson.fromJson(json, InfoPlus.class);
+            
+            // Ensure dispatcher settings exist
+            if (infoPlus.dispatcherSettings == null) {
+                infoPlus.dispatcherSettings = new InfoPlus.DispatcherSettings();
+                // Save the default settings
+                try (FileWriter fw = new FileWriter(infoPlusPath)) {
+                    gson.toJson(infoPlus, fw);
+                }
+            }
+        } else {
+            // Create new infoplus with default settings
+            infoPlus = new InfoPlus();
+            try (FileWriter fw = new FileWriter(infoPlusPath)) {
+                gson.toJson(infoPlus, fw);
+            }
+        }
+        
+        // Convert to DTO
+        InfoPlus.DispatcherSettings ds = infoPlus.dispatcherSettings;
+        DispatcherSettingsDTO dto = new DispatcherSettingsDTO(
+            ds.dispatcherModeEnabled,
+            ds.showDispatcherTutorial,
+            ds.dispatcherAutoOpen,
+            ds.dispatcherPosition,
+            ds.autoSummarizeUrgent,
+            ds.smartReply,
+            ds.priorityScoring,
+            ds.showTimeline,
+            ds.showMetrics
+        );
+        
+        System.out.println("✅ Dispatcher settings loaded: enabled=" + ds.dispatcherModeEnabled);
+        return dto;
+    }
+    
+    /**
+     * Update Dispatcher settings
+     */
+    public void updateDispatcherSettings(String email, DispatcherSettingsDTO dto) throws Exception {
+        System.out.println("💾 Updating dispatcher settings for: " + email);
+        
+        String infoPlusPath = getInfoPlusPath(email);
+        InfoPlus infoPlus;
+        
+        if (Files.exists(Paths.get(infoPlusPath))) {
+            String json = Files.readString(Paths.get(infoPlusPath));
+            infoPlus = gson.fromJson(json, InfoPlus.class);
+            
+            if (infoPlus.dispatcherSettings == null) {
+                infoPlus.dispatcherSettings = new InfoPlus.DispatcherSettings();
+            }
+        } else {
+            infoPlus = new InfoPlus();
+        }
+        
+        // Update dispatcher settings
+        InfoPlus.DispatcherSettings ds = infoPlus.dispatcherSettings;
+        ds.dispatcherModeEnabled = dto.isDispatcherModeEnabled();
+        ds.showDispatcherTutorial = dto.isShowDispatcherTutorial();
+        ds.dispatcherAutoOpen = dto.isDispatcherAutoOpen();
+        ds.dispatcherPosition = dto.getDispatcherPosition();
+        ds.autoSummarizeUrgent = dto.isAutoSummarizeUrgent();
+        ds.smartReply = dto.isSmartReply();
+        ds.priorityScoring = dto.isPriorityScoring();
+        ds.showTimeline = dto.isShowTimeline();
+        ds.showMetrics = dto.isShowMetrics();
+        
+        // Write to file
+        try (FileWriter fw = new FileWriter(infoPlusPath)) {
+            gson.toJson(infoPlus, fw);
+            fw.flush();
+        }
+        
+        System.out.println("✅ Dispatcher settings saved: enabled=" + ds.dispatcherModeEnabled);
+    }
+    
+    /**
+     * Quick toggle for Dispatcher mode (most common operation)
+     */
+    public void toggleDispatcher(String email, boolean enabled) throws Exception {
+        System.out.println("🔄 Toggling dispatcher to " + enabled + " for: " + email);
+        
+        DispatcherSettingsDTO currentSettings = getDispatcherSettings(email);
+        currentSettings.setDispatcherModeEnabled(enabled);
+        updateDispatcherSettings(email, currentSettings);
+        
+        System.out.println("✅ Dispatcher toggled successfully");
+    }
+    
+    // ============================================================================
+    // UNDO/REDO METHODS (existing)
+    // ============================================================================
     
     public boolean undo(String email) {
         return commandManager.undo(email);

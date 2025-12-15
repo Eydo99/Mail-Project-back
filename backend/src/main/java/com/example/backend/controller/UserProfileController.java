@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.DTOS.ProfileUpdateRequest;
 import com.example.backend.DTOS.PasswordChangeRequest;
+import com.example.backend.DTOS.DispatcherSettingsDTO;
 import com.example.backend.facade.UserProfileFacade;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 /**
  * Controller for user profile management
- * Handles settings panel operations including profile updates and password changes
+ * Handles settings panel operations including profile updates, password changes, and Dispatcher settings
  */
 @RestController
 @RequestMapping("/api/user")
@@ -32,7 +33,6 @@ public class UserProfileController {
     public ResponseEntity<?> getProfile(HttpServletRequest request) {
         System.out.println("📋 GET /api/user/profile - Getting user profile");
         
-        // Validate session
         HttpSession session = request.getSession(false);
         if (session == null) {
             System.out.println("❌ No session found");
@@ -65,64 +65,44 @@ public class UserProfileController {
      * PUT /api/user/profile
      */
     @PutMapping("/profile")
-public ResponseEntity<?> updateProfile(
-        @RequestBody ProfileUpdateRequest request,
-        HttpServletRequest httpRequest) {
-    
-    System.out.println("💾 PUT /api/user/profile - Updating user profile");
-    
-    System.out.println("═══════════════════════════════════════");
-    System.out.println("📥 REQUEST RECEIVED:");
-    System.out.println("   fullName: " + request.fullName);
-    System.out.println("   jobTitle: " + request.jobTitle);
-    System.out.println("   phone: " + request.phone);
-    System.out.println("   bio: " + request.bio);
-    
-    if (request.profilePhoto != null) {
-        int length = request.profilePhoto.length();
-        String preview = request.profilePhoto.substring(0, Math.min(50, length));
-        System.out.println("   profilePhoto: " + preview + "... (total length: " + length + " chars)");
-        System.out.println("   photo starts with 'data:image': " + request.profilePhoto.startsWith("data:image"));
-    } else {
-        System.out.println("   profilePhoto: NULL");
-    }
-    System.out.println("═══════════════════════════════════════");
-    
-    HttpSession session = httpRequest.getSession(false);
-    if (session == null) {
-        System.out.println("❌ No session found");
-        return ResponseEntity.status(401)
-            .body(createErrorResponse("Not authenticated"));
-    }
-    
-    String email = (String) session.getAttribute("currentUser");
-    if (email == null) {
-        System.out.println("❌ No currentUser in session");
-        return ResponseEntity.status(401)
-            .body(createErrorResponse("Not authenticated"));
-    }
-    
-    if (request == null) {
-        System.out.println(" Invalid request body");
+    public ResponseEntity<?> updateProfile(
+            @RequestBody ProfileUpdateRequest request,
+            HttpServletRequest httpRequest) {
         
-        return ResponseEntity.status(400)
-            .body(createErrorResponse("Invalid request body"));
+        System.out.println("💾 PUT /api/user/profile - Updating user profile");
+        
+        HttpSession session = httpRequest.getSession(false);
+        if (session == null) {
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        String email = (String) session.getAttribute("currentUser");
+        if (email == null) {
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        if (request == null) {
+            return ResponseEntity.status(400)
+                .body(createErrorResponse("Invalid request body"));
+        }
+        
+        try {
+            profileFacade.updateProfile(email, request);
+            profileFacade.clearHistory(email);
+            
+            System.out.println("✅ Profile updated successfully for: " + email);
+            return ResponseEntity.ok(createSuccessResponse("Profile updated successfully"));
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error updating profile: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500)
+                .body(createErrorResponse("Error updating profile: " + e.getMessage()));
+        }
     }
     
-    try {
-        profileFacade.updateProfile(email, request);
-        profileFacade.clearHistory(email);
-        
-        System.out.println("✅ Profile updated successfully for: " + email);
-        return ResponseEntity.ok(createSuccessResponse("Profile updated successfully"));
-        
-    } catch (Exception e) {
-        System.err.println("❌ Error updating profile: " + e.getMessage());
-        e.printStackTrace();
-        return ResponseEntity.status(500)
-            .body(createErrorResponse("Error updating profile: " + e.getMessage()));
-    }
-}
     /**
      * Change user password
      * PUT /api/user/password
@@ -134,22 +114,18 @@ public ResponseEntity<?> updateProfile(
         
         System.out.println("🔐 PUT /api/user/password - Changing password");
         
-        // Validate session
         HttpSession session = httpRequest.getSession(false);
         if (session == null) {
-            System.out.println("❌ No session found");
             return ResponseEntity.status(401)
                 .body(createErrorResponse("Not authenticated"));
         }
         
         String email = (String) session.getAttribute("currentUser");
         if (email == null) {
-            System.out.println("❌ No currentUser in session");
             return ResponseEntity.status(401)
                 .body(createErrorResponse("Not authenticated"));
         }
         
-        // Validate request
         if (request == null || !request.isValid()) {
             String error = request != null ? request.getValidationError() : "Invalid request";
             System.out.println("❌ Invalid password change request: " + error);
@@ -164,16 +140,132 @@ public ResponseEntity<?> updateProfile(
             
         } catch (Exception e) {
             System.err.println("❌ Error changing password: " + e.getMessage());
-            e.printStackTrace();
             return ResponseEntity.status(400)
                 .body(createErrorResponse(e.getMessage()));
         }
     }
     
+    // ============================================================================
+    // 🎮 DISPATCHER SETTINGS ENDPOINTS (NEW)
+    // ============================================================================
+    
     /**
-     * Undo last profile change
-     * POST /api/user/profile/undo
+     * Get Dispatcher settings
+     * GET /api/user/dispatcher-settings
      */
+    @GetMapping("/dispatcher-settings")
+    public ResponseEntity<?> getDispatcherSettings(HttpServletRequest request) {
+        System.out.println("🎮 GET /api/user/dispatcher-settings");
+        
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            System.out.println("❌ No session found");
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        String email = (String) session.getAttribute("currentUser");
+        if (email == null) {
+            System.out.println("❌ No currentUser in session");
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        try {
+            DispatcherSettingsDTO settings = profileFacade.getDispatcherSettings(email);
+            System.out.println("✅ Dispatcher settings retrieved for: " + email);
+            return ResponseEntity.ok(settings);
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error getting dispatcher settings: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500)
+                .body(createErrorResponse("Error loading settings: " + e.getMessage()));
+        }
+    }
+    
+    /**
+     * Update Dispatcher settings
+     * PUT /api/user/dispatcher-settings
+     */
+    @PutMapping("/dispatcher-settings")
+    public ResponseEntity<?> updateDispatcherSettings(
+            @RequestBody DispatcherSettingsDTO settingsDTO,
+            HttpServletRequest httpRequest) {
+        
+        System.out.println("💾 PUT /api/user/dispatcher-settings");
+        
+        HttpSession session = httpRequest.getSession(false);
+        if (session == null) {
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        String email = (String) session.getAttribute("currentUser");
+        if (email == null) {
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        try {
+            profileFacade.updateDispatcherSettings(email, settingsDTO);
+            System.out.println("✅ Dispatcher settings updated for: " + email);
+            return ResponseEntity.ok(createSuccessResponse("Settings updated"));
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error updating dispatcher settings: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500)
+                .body(createErrorResponse("Error updating settings: " + e.getMessage()));
+        }
+    }
+    
+    /**
+     * Toggle Dispatcher mode (quick enable/disable)
+     * POST /api/user/dispatcher-toggle
+     */
+    @PostMapping("/dispatcher-toggle")
+    public ResponseEntity<?> toggleDispatcher(
+            @RequestBody Map<String, Boolean> request,
+            HttpServletRequest httpRequest) {
+        
+        System.out.println("🔄 POST /api/user/dispatcher-toggle");
+        
+        HttpSession session = httpRequest.getSession(false);
+        if (session == null) {
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        String email = (String) session.getAttribute("currentUser");
+        if (email == null) {
+            return ResponseEntity.status(401)
+                .body(createErrorResponse("Not authenticated"));
+        }
+        
+        Boolean enabled = request.get("enabled");
+        if (enabled == null) {
+            return ResponseEntity.status(400)
+                .body(createErrorResponse("Missing 'enabled' field"));
+        }
+        
+        try {
+            profileFacade.toggleDispatcher(email, enabled);
+            System.out.println("✅ Dispatcher " + (enabled ? "enabled" : "disabled") + " for: " + email);
+            return ResponseEntity.ok(createSuccessResponse("Dispatcher " + (enabled ? "enabled" : "disabled")));
+            
+        } catch (Exception e) {
+            System.err.println("❌ Error toggling dispatcher: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500)
+                .body(createErrorResponse("Error toggling dispatcher: " + e.getMessage()));
+        }
+    }
+    
+    // ============================================================================
+    // UNDO/REDO ENDPOINTS (existing)
+    // ============================================================================
+    
     @PostMapping("/profile/undo")
     public ResponseEntity<?> undo(HttpServletRequest request) {
         System.out.println("⏪ POST /api/user/profile/undo");
@@ -208,10 +300,6 @@ public ResponseEntity<?> updateProfile(
         }
     }
     
-    /**
-     * Redo last undone profile change
-     * POST /api/user/profile/redo
-     */
     @PostMapping("/profile/redo")
     public ResponseEntity<?> redo(HttpServletRequest request) {
         System.out.println("⏩ POST /api/user/profile/redo");
@@ -246,10 +334,6 @@ public ResponseEntity<?> updateProfile(
         }
     }
     
-    /**
-     * Check if user can undo
-     * GET /api/user/profile/can-undo
-     */
     @GetMapping("/profile/can-undo")
     public ResponseEntity<?> canUndo(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -270,10 +354,6 @@ public ResponseEntity<?> updateProfile(
         return ResponseEntity.ok(response);
     }
     
-    /**
-     * Check if user can redo
-     * GET /api/user/profile/can-redo
-     */
     @GetMapping("/profile/can-redo")
     public ResponseEntity<?> canRedo(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -294,10 +374,6 @@ public ResponseEntity<?> updateProfile(
         return ResponseEntity.ok(response);
     }
     
-    /**
-     * Check if user has unsaved changes
-     * GET /api/user/profile/has-changes
-     */
     @GetMapping("/profile/has-changes")
     public ResponseEntity<?> hasChanges(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -317,6 +393,10 @@ public ResponseEntity<?> updateProfile(
         response.put("hasChanges", hasChanges);
         return ResponseEntity.ok(response);
     }
+    
+    // ============================================================================
+    // HELPER METHODS
+    // ============================================================================
     
     /**
      * Helper method to create error response

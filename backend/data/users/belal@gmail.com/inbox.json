@@ -1,0 +1,14 @@
+[
+  {
+    "id": 100,
+    "from": "hany@gmail.com",
+    "subject": "belal test ",
+    "body": "hellllllo",
+    "preview": "hellllllo",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-15T14:59:01.0795538",
+    "priority": 3,
+    "attachments": []
+  }
+]

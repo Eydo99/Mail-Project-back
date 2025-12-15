@@ -1,6 +1,7 @@
 package com.example.backend.Repo;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -139,6 +140,7 @@ public class mailRepo {
                         trashEmails = new ArrayList<>();
                     }
 
+                    emailToDelete.setTrashedAt(LocalDateTime.now());
                     trashEmails.add(emailToDelete);
                     boolean trashWriteSuccess = jsonFileManager.writeListToFile(trashPath, trashEmails);
 

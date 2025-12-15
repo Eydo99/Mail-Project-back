@@ -1,61 +1,6 @@
 [
   {
-    "id": 70,
-    "to": [
-      "hany2@gmail.com"
-    ],
-    "from": "hany@gmail.com",
-    "subject": "test2",
-    "body": "yarrrrrrrrrab",
-    "preview": "yarrrrrrrrrab",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-14T14:39:47.0648644",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 72,
-    "to": [
-      "hany2@gmail.com"
-    ],
-    "from": "hany@gmail.com",
-    "subject": "testttt",
-    "body": "yarraaaaaab",
-    "preview": "yarraaaaaab",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-14T15:43:51.3772743",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 73,
-    "to": [
-      "shefoo@gmail.com"
-    ],
-    "from": "hany@gmail.com",
-    "subject": "aaaa",
-    "body": "yarab",
-    "preview": "yarab",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-14T20:10:21.1166516",
-    "priority": 3,
-    "attachments": [
-      {
-        "filename": "WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
-        "filePath": "data/uploads/cb3b3069-9d0c-44ef-b95a-d430f1017449_WhatsApp Image 2025-11-21 at 1.36.49 PM.jpeg",
-        "mimeType": "image/jpeg",
-        "fileSize": 45520
-      }
-    ]
-  },
-  {
     "id": 81,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "tessssst",
     "body": "dkdld",
@@ -68,9 +13,6 @@
   },
   {
     "id": 82,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "tessssst",
     "body": "dkdld",
@@ -83,9 +25,6 @@
   },
   {
     "id": 83,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "yarrab",
     "body": "belala is herer",
@@ -98,9 +37,6 @@
   },
   {
     "id": 84,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "tessssst",
     "body": "doonnnnnnnnnnnnne",
@@ -113,9 +49,6 @@
   },
   {
     "id": 86,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "tessssst",
     "body": "doonnnnnnnnnnnnne",
@@ -128,9 +61,6 @@
   },
   {
     "id": 89,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "done",
     "body": "tessssssssssst ",
@@ -143,9 +73,6 @@
   },
   {
     "id": 90,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "dddddddddddddddd",
     "body": "last check",
@@ -158,9 +85,6 @@
   },
   {
     "id": 92,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "tessssst",
     "body": "123456789",
@@ -173,9 +97,6 @@
   },
   {
     "id": 94,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "low",
     "body": "erplyyyyyyyyyyyyy",
@@ -188,9 +109,6 @@
   },
   {
     "id": 95,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "low",
     "body": "low",
@@ -203,9 +121,6 @@
   },
   {
     "id": 98,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "belal test ",
     "body": "hellllllo",
@@ -218,9 +133,6 @@
   },
   {
     "id": 99,
-    "to": [
-      "shefoo@gmail.com"
-    ],
     "from": "hany@gmail.com",
     "subject": "belal test ",
     "body": "hellllllo",
@@ -228,21 +140,6 @@
     "starred": false,
     "hasAttachment": false,
     "timestamp": "2025-12-15T14:55:35.4016421",
-    "priority": 3,
-    "attachments": []
-  },
-  {
-    "id": 100,
-    "to": [
-      "belal@gmail.com"
-    ],
-    "from": "hany@gmail.com",
-    "subject": "belal test ",
-    "body": "hellllllo",
-    "preview": "hellllllo",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-15T14:59:01.0795538",
     "priority": 3,
     "attachments": []
   }

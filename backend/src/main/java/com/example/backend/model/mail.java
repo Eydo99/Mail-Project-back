@@ -24,7 +24,7 @@ public class mail {
     private LocalDateTime timestamp;
     private int priority;
     private List<attachementDTO> attachments;
-
+    private LocalDateTime trashedAt;
     // ADD THIS FIELD - for custom folder support
     private String customFolderId; // null = system folder, "folder_123" = custom folder
 }

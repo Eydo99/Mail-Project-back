@@ -20,8 +20,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
 
@@ -132,67 +134,86 @@ public class mailController {
      * Send/compose a new email
      */
     @PostMapping("/compose")
-    public ResponseEntity<String> composeMail(@RequestBody mailContentDTO mailContent) {
-
-        try { // <-- ADD THIS TRY HERE
-              // Process attachments - decode base64 and save files
-            if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
-                for (attachementDTO attachment : mailContent.getAttachements()) {
-                    try {
-                        // Decode base64 from filePath
-                        byte[] fileBytes = Base64.getDecoder().decode(attachment.getFilePath());
-
-                        // Generate unique filename
-                        String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
-
-                        // Save to disk (change path as needed)
-                        String uploadDir = "data/uploads/";
-                        File directory = new File(uploadDir);
-                        if (!directory.exists()) {
-                            directory.mkdirs();
-                        }
-
-                        java.nio.file.Path filePath = Paths.get(uploadDir + savedFilename);
-                        Files.write(filePath, fileBytes);
-
-                        // Update filePath to the actual server path
-                        attachment.setFilePath(uploadDir + savedFilename);
-
-                    } catch (Exception e) {
-                        System.err.println("Error saving attachment: " + e.getMessage());
-                    }
-                }
-            }
-
-            Queue<String> recipientsQueue = mailContent.getRecipients();
-            List<String> failedRecipients = new ArrayList<>();
-
-            while (!recipientsQueue.isEmpty()) {
-                Queue<String> temp = new LinkedList<>();
-                String currentRecipient = recipientsQueue.poll();
-                temp.add(currentRecipient);
-                mailContent.setRecipients(temp);
-
+public ResponseEntity<Map<String, Object>> composeMail(@RequestBody mailContentDTO mailContent) {
+    try {
+        // Process attachments - decode base64 and save files
+        if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
+            for (attachementDTO attachment : mailContent.getAttachements()) {
                 try {
-                    mailService.composeMail(mailContent);
-                } catch (UserNotFoundException e) {
-                    failedRecipients.add(currentRecipient);
+                    // Decode base64 from filePath
+                    byte[] fileBytes = Base64.getDecoder().decode(attachment.getFilePath());
+
+                    // Generate unique filename
+                    String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
+
+                    // Save to disk
+                    String uploadDir = "data/uploads/";
+                    File directory = new File(uploadDir);
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
+
+                    java.nio.file.Path filePath = Paths.get(uploadDir + savedFilename);
+                    Files.write(filePath, fileBytes);
+
+                    // Update filePath to the actual server path
+                    attachment.setFilePath(uploadDir + savedFilename);
+
+                } catch (Exception e) {
+                    System.err.println("Error saving attachment: " + e.getMessage());
                 }
             }
-
-            if (!failedRecipients.isEmpty()) {
-                String failedEmails = String.join(", ", failedRecipients);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("The following email(s) are not registered in our system: " + failedEmails);
-            }
-
-            return ResponseEntity.ok("Email sent successfully");
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error sending email: " + e.getMessage());
         }
+
+        Queue<String> recipientsQueue = mailContent.getRecipients();
+        List<String> successfulRecipients = new ArrayList<>();
+        List<String> failedRecipients = new ArrayList<>();
+
+        while (!recipientsQueue.isEmpty()) {
+            Queue<String> temp = new LinkedList<>();
+            String currentRecipient = recipientsQueue.poll();
+            temp.add(currentRecipient);
+            mailContent.setRecipients(temp);
+
+            try {
+                mailService.composeMail(mailContent);
+                successfulRecipients.add(currentRecipient);
+            } catch (UserNotFoundException e) {
+                failedRecipients.add(currentRecipient);
+            }
+        }
+
+        // Build response with detailed information
+        Map<String, Object> response = new HashMap<>();
+        response.put("successful", successfulRecipients);
+        response.put("failed", failedRecipients);
+        response.put("totalSent", successfulRecipients.size());
+        response.put("totalFailed", failedRecipients.size());
+
+        if (!failedRecipients.isEmpty() && successfulRecipients.isEmpty()) {
+            // All failed
+            response.put("status", "failed");
+            response.put("message", "All emails failed to send");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } else if (!failedRecipients.isEmpty()) {
+            // Partial success
+            response.put("status", "partial");
+            response.put("message", "Some emails sent successfully, but some failed");
+            return ResponseEntity.status(HttpStatus.MULTI_STATUS).body(response);
+        } else {
+            // All successful
+            response.put("status", "success");
+            response.put("message", "All emails sent successfully");
+            return ResponseEntity.ok(response);
+        }
+
+    } catch (Exception e) {
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("status", "error");
+        errorResponse.put("message", "Error sending email: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
+}
 
     @PostMapping("/draft/save")
     public ResponseEntity<String> saveDraft(@RequestBody mailContentDTO mail,
