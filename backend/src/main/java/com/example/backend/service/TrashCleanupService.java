@@ -28,7 +28,8 @@ public class TrashCleanupService {
     /**
      * Automatically runs every day at 2 AM
      */
-    @Scheduled(cron = "0 */2 * * * *")
+    //@Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 0 2 * * *")
     public void cleanupOldTrashEmails() {
         System.out.println("=== TRASH CLEANUP STARTED ===");
         System.out.println("Time: " + LocalDateTime.now());
