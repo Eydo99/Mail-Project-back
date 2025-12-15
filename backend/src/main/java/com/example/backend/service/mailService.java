@@ -124,6 +124,7 @@ public class mailService {
         List<mail> draftMails = jsonFileManager.readListFromFile(draftPath, MAIL_LIST_TYPE);
         mail mail = mailFactory.createNewMail(mailContent);
         draftMails.add(mail);
+        mail.setFrom(getLoggedInUser()) ;
         jsonFileManager.writeListToFile(draftPath, draftMails);
     }
 
