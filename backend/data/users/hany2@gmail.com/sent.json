@@ -1,6 +1,9 @@
 [
   {
     "id": 71,
+    "to": [
+      "hany@gmail.com"
+    ],
     "from": "hany2@gmail.com",
     "subject": "test2",
     "body": "yarab",

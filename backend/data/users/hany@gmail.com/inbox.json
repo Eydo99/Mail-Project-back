@@ -1,119 +1,38 @@
 [
   {
-    "id": 35,
-    "from": "eyadamr1644@gmail.com",
-    "subject": "48aaal",
-    "body": "14",
-    "preview": "14",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-08T23:03:00.265844",
-    "priority": 2,
-    "attachments": [
-      {
-        "filename": "Sheet 7 (1).pdf",
-        "filePath": "data/uploads/f0cb19aa-237b-432f-82c7-96fc61d28f1e_Sheet 7 (1).pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 46072
-      }
-    ]
-  },
-  {
-    "id": 34,
-    "from": "eyadamr4121@gmail.com",
-    "subject": "48al wla l2",
-    "body": "123",
-    "preview": "123",
+    "id": 69,
+    "from": "hany2@gmail.com",
+    "subject": "test1 ",
+    "body": "yarab",
+    "preview": "yarab",
     "starred": false,
     "hasAttachment": false,
-    "timestamp": "2025-12-08T20:56:10.3175519",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 51,
-    "from": "eyadamr1644@gmail.com",
-    "subject": "bgrb",
-    "body": "4oof kda",
-    "preview": "4oof kda",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-11T01:21:42.0167297",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 54,
-    "from": "ha@gmail.com",
-    "subject": "bgrb kza local jost",
-    "body": "yarrrrrrrrrrrrab",
-    "preview": "yarrrrrrrrrrrrab",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-12T22:44:42.0797615",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 56,
-    "from": "markeeb@gmail.com",
-    "subject": "ana markeeb 5wl awwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwy",
-    "body": "ana markeeb w ba5oood 5alfy",
-    "preview": "ana markeeb w ba5oood 5alfy",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-12T23:09:24.109019",
-    "priority": 1,
-    "attachments": []
-  },
-  {
-    "id": 57,
-    "from": "hany@gmail.com",
-    "subject": "?????? ??? ?????? ??? ???? ",
-    "body": "???? ???? ??? ????",
-    "preview": "???? ???? ??? ????",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-13T01:06:02.9676008",
-    "priority": 1,
-    "attachments": [
-      {
-        "filename": "WhatsApp Image 2025-12-13 at 12.45.40 AM.jpeg",
-        "filePath": "data/uploads/97100fc3-b608-496c-8e11-ab7047f9d535_WhatsApp Image 2025-12-13 at 12.45.40 AM.jpeg",
-        "mimeType": "image/jpeg",
-        "fileSize": 56954
-      }
-    ]
-  },
-  {
-    "id": 58,
-    "from": "bigad@gmail.com",
-    "subject": "test1",
-    "body": "4455555555",
-    "preview": "4455555555",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-14T02:58:02.7667348",
-    "priority": 4,
-    "attachments": [
-      {
-        "filename": "WhatsApp Image 2025-12-13 at 12.45.40 AM.jpeg",
-        "filePath": "data/uploads/7d3baaa6-98a1-41f3-b137-e8459aed1ce1_WhatsApp Image 2025-12-13 at 12.45.40 AM.jpeg",
-        "mimeType": "image/jpeg",
-        "fileSize": 56954
-      }
-    ]
-  },
-  {
-    "id": 68,
-    "from": "bigad@gmail.com",
-    "subject": "Fwd: test last",
-    "body": "\n\n--- Forwarded Message ---\n\n\n--- Forwarded Message ---\nyarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
-    "preview": "\n\n--- Forwarded Message ---\n\n\n--- Forwarded Message ---\nyarrrrrrrraaaaaaaaaaaaaaaaaaaaaaab",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-14T04:35:37.3461563",
+    "timestamp": "2025-12-14T14:38:54.5235961",
     "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 79,
+    "from": "shefoo@gmail.com",
+    "subject": "faf",
+    "body": "ffffff",
+    "preview": "ffffff",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-15T03:04:09.2427395",
+    "priority": 3,
+    "attachments": []
+  },
+  {
+    "id": 80,
+    "from": "shefoo@gmail.com",
+    "subject": "low",
+    "body": "low",
+    "preview": "low",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-15T03:11:51.1609888",
+    "priority": 4,
     "attachments": []
   }
 ]
