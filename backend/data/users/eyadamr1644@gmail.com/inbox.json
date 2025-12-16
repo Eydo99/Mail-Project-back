@@ -1,57 +1,25 @@
 [
   {
-    "id": 108,
-    "to": [
-      "hany@gmail.com"
-    ],
-    "from": "eyadamr1644@gmail.com",
-    "subject": "hany el m3rs",
-    "body": "hwa dh dh f 7ta tanya 8er el tanyeen",
-    "preview": "hwa dh dh f 7ta tanya 8er el tanyeen",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-16T03:38:09.1268733",
-    "priority": 1,
-    "attachments": [
-      {
-        "filename": "sheet 6.discrete.pdf",
-        "filePath": "data/uploads/28f45609-c351-4ec4-9550-8deb696f5b64_sheet 6.discrete.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 1769630
-      }
-    ]
-  },
-  {
-    "id": 109,
-    "to": [
-      "belal@gmail.com"
-    ],
-    "from": "eyadamr1644@gmail.com",
-    "subject": "ya 7bebty",
-    "body": "kolo mn 3nek",
-    "preview": "kolo mn 3nek",
-    "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-16T03:39:51.2229924",
-    "priority": 2,
-    "attachments": [
-      {
-        "filename": "AUR-ROV-Power Board.pdf",
-        "filePath": "data/uploads/72fda8e7-9a10-4c4e-8f97-8ecdd58168c3_AUR-ROV-Power Board.pdf",
-        "mimeType": "application/pdf",
-        "fileSize": 282190
-      }
-    ]
-  },
-  {
-    "id": 111,
-    "from": "hany@gmail.com",
-    "subject": "m4 3arf",
-    "body": "m3",
-    "preview": "m3",
+    "id": 123,
+    "from": "eyadamr4121@gmail.com",
+    "subject": "mn eyad4121",
+    "body": "7wl",
+    "preview": "7wl",
     "starred": false,
     "hasAttachment": false,
-    "timestamp": "2025-12-16T04:55:45.9152888",
+    "timestamp": "2025-12-16T20:01:17.6832134",
+    "priority": 2,
+    "attachments": []
+  },
+  {
+    "id": 127,
+    "from": "eyadamr4121@gmail.com",
+    "subject": "mn eyad4121",
+    "body": "a7a",
+    "preview": "a7a",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-16T20:02:23.8273859",
     "priority": 3,
     "attachments": []
   }

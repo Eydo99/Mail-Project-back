@@ -7,13 +7,13 @@ import java.util.Queue;
 
 import com.example.backend.DTOS.attachementDTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class mail implements Cloneable {
     private int id;
     private Queue<String> to;

@@ -253,78 +253,110 @@ public List<mail> getStarredEmails() {
     return starredEmails;
 }
     /**
- * Toggle star status and manage starred folder
- */
-public boolean toggleStar(int id, String folder) {
-    try {
-        String currentUser = getLoggedInUser();
-        String folderPath = BasePath + currentUser + "/" + folder + ".json";
-        String starredPath = BasePath + currentUser + "/starred.json";
+     * Toggle star status - DEBUGGED VERSION with detailed logging
+     */
+    public boolean toggleStar(int id, String folder) {
+        System.out.println("=== TOGGLE STAR START ===");
+        System.out.println("Email ID: " + id);
+        System.out.println("Folder: " + folder);
 
-        synchronized (folderLock) {
-            // Get the email from the source folder
-            List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
-            
-            if (emails == null) {
-                emails = new ArrayList<>();
-            }
+        try {
+            String currentUser = getLoggedInUser();
+            String folderPath = BasePath + currentUser + "/" + folder + ".json";
 
-            mail emailToToggle = null;
-            for (mail email : emails) {
-                if (email.getId() == id) {
-                    emailToToggle = email;
-                    break;
+            System.out.println("Folder Path: " + folderPath);
+
+            synchronized (folderLock) {
+                // Read current emails from folder
+                List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+
+                if (emails == null) {
+                    System.err.println("ERROR: Could not read emails from " + folderPath);
+                    return false;
+                }
+
+                System.out.println("Found " + emails.size() + " emails in folder");
+
+                // Find the email to toggle
+                mail emailToToggle = null;
+                int emailIndex = -1;
+
+                for (int i = 0; i < emails.size(); i++) {
+                    if (emails.get(i).getId() == id) {
+                        emailToToggle = emails.get(i);
+                        emailIndex = i;
+                        break;
+                    }
+                }
+
+                if (emailToToggle == null) {
+                    System.err.println("ERROR: Email not found with ID: " + id);
+                    return false;
+                }
+
+                // Log current state
+                boolean currentStarredStatus = emailToToggle.isStarred();
+                System.out.println("Current starred status: " + currentStarredStatus);
+
+                // Toggle the starred status
+                boolean newStarredStatus = !currentStarredStatus;
+                emailToToggle.setStarred(newStarredStatus);
+
+                System.out.println("New starred status: " + newStarredStatus);
+
+                // Verify the change was applied
+                System.out.println("Verified starred status after set: " + emailToToggle.isStarred());
+
+                // Update the email in the list (just to be extra safe)
+                emails.set(emailIndex, emailToToggle);
+
+                // Write back to file
+                System.out.println("Writing " + emails.size() + " emails back to file...");
+                boolean writeSuccess = jsonFileManager.writeListToFile(folderPath, emails);
+
+                if (writeSuccess) {
+                    System.out.println("=== TOGGLE STAR SUCCESS ===");
+                    System.out.println("Email " + id + " starred status changed to: " + newStarredStatus);
+
+                    // Verify by reading back
+                    List<mail> verifyEmails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+                    if (verifyEmails != null) {
+                        mail verifyEmail = verifyEmails.stream()
+                                .filter(e -> e.getId() == id)
+                                .findFirst()
+                                .orElse(null);
+                        if (verifyEmail != null) {
+                            System.out.println("VERIFICATION: Read back starred status = " + verifyEmail.isStarred());
+                        }
+                    }
+
+                    return true;
+                } else {
+                    System.err.println("ERROR: Failed to write to folder: " + folderPath);
+                    return false;
                 }
             }
-
-            if (emailToToggle == null) {
-                System.out.println("Email not found with ID: " + id);
-                return false;
-            }
-
-            // Toggle the starred status
-            emailToToggle.setStarred(!emailToToggle.isStarred());
-            
-            // Update the original folder
-            jsonFileManager.writeListToFile(folderPath, emails);
-
-            // Manage starred folder
-            List<mail> starredEmails = jsonFileManager.readListFromFile(starredPath, MAIL_LIST_TYPE);
-            if (starredEmails == null) {
-                starredEmails = new ArrayList<>();
-            }
-
-            if (emailToToggle.isStarred()) {
-                // Add to starred folder (create a copy)
-                mail starredCopy = createMailCopy(emailToToggle);
-                starredEmails.add(starredCopy);
-            } else {
-                // Remove from starred folder
-                starredEmails.removeIf(email -> email.getId() == id);
-            }
-
-            jsonFileManager.writeListToFile(starredPath, starredEmails);
-            
-            return true;
+        } catch (Exception e) {
+            System.err.println("=== TOGGLE STAR ERROR ===");
+            System.err.println("Exception: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
-    } catch (Exception e) {
-        System.err.println("Error toggling star: " + e.getMessage());
-        e.printStackTrace();
-        return false;
     }
-}
 
-/**
- * Create a copy of a mail object
- */
-private mail createMailCopy(mail original) {
-    try {
-        return (mail) original.clone();
-    } catch (CloneNotSupportedException e) {
-        System.err.println("Error cloning mail object: " + e.getMessage());
-        e.printStackTrace();
-        // Fallback to manual copy if clone fails
-        return createMailCopy(original);
-    }
-}    
+// REMOVE the createMailCopy method as it's no longer needed
+
+///**
+// * Create a copy of a mail object
+// */
+//private mail createMailCopy(mail original) {
+//    try {
+//        return (mail) original.clone();
+//    } catch (CloneNotSupportedException e) {
+//        System.err.println("Error cloning mail object: " + e.getMessage());
+//        e.printStackTrace();
+//        // Fallback to manual copy if clone fails
+//        return createMailCopy(original);
+//    }
+//}
 }

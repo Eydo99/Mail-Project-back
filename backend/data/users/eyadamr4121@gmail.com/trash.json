@@ -1,0 +1,25 @@
+[
+  {
+    "id": 120,
+    "to": [
+      "eyadamr1644@gmail.com"
+    ],
+    "from": "eyadamr4121@gmail.com",
+    "subject": "ya 2lby",
+    "body": "egsdv",
+    "preview": "egsdv",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-16T19:56:04.1829131",
+    "priority": 3,
+    "attachments": [
+      {
+        "filename": "AUR-ROV-Power Board.pdf",
+        "filePath": "data/uploads/1708e131-d65c-4f2d-b09c-1e0e13d8ef4b_AUR-ROV-Power Board.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 282190
+      }
+    ],
+    "trashedAt": "2025-12-16T19:57:17.3826674"
+  }
+]

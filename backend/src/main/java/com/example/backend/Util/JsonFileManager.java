@@ -134,7 +134,7 @@ public class JsonFileManager {
             System.out.println("Created user folder: " + userPath);
 
             // Create default folder files (inbox, sent, trash, draft,contacts,folders)
-            String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json","contacts.json","folders.json","starred.json" };
+            String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json","contacts.json","folders.json"};
             for (String folder : folders) {
                 //get file path
                 File file = new File(userPath.toString(), folder);
