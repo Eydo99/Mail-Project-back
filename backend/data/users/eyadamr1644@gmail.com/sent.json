@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": 113,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "from": "eyadamr1644@gmail.com",
+    "subject": "ya 2lby",
+    "body": "kolo mn 3nek",
+    "preview": "kolo mn 3nek",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-16T05:27:56.6494159",
+    "priority": 2,
+    "attachments": []
+  }
+]
