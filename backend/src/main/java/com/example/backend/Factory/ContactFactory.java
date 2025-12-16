@@ -13,23 +13,23 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * Factory for creating Contact entities
- * Encapsulates contact creation logic and ensures consistent initialization
+ * Factory for creating Contacts
+ * Encapsulates contact creation logic and allow extensibility in the future
  */
 @Component
 public class ContactFactory {
 
-    private static final String[] AVATAR_COLORS = {
+    //List of colours to select from
+    private static final String[] avatarColors = {
             "#3b82f6", "#8b5cf6", "#ec4899", "#10b981", "#f59e0b", "#ef4444"
     };
 
     private final Random random = new Random();
 
     /**
-     * Creates a new Contact from request DTO
-     *
-     * @param dto The contact request data
-     * @return A fully initialized Contact entity
+     * Creates a new Contact from contact request DTO
+     * @param dto The data of the new contact
+     * @return new created contact
      */
     public Contact createContact(contactRequestDTO dto) {
         Contact contact = new Contact();
@@ -49,16 +49,13 @@ public class ContactFactory {
 
     /**
      * Updates an existing Contact with new data
-     * Note: Keeps the existing ID and color
-     * Preserves primary flags from incoming DTO
-     *
      * @param contact The contact to update
      * @param dto The new contact data
      */
     public void updateContact(Contact contact, contactRequestDTO dto) {
         contact.setName(dto.getName());
 
-        // Update emails - preserve primary flags from DTO
+        // if new emails are sent replace them with the old list and set primary else reset it with empty list
         if (dto.getEmails() != null) {
             contact.setEmail(new ArrayList<>(dto.getEmails()));
             ensurePrimaryEmail(contact.getEmail());
@@ -66,7 +63,7 @@ public class ContactFactory {
             contact.setEmail(new ArrayList<>());
         }
 
-        // Update phones - preserve primary flags from DTO
+        // if new phones are sent replace them with the old list and set primary else reset it with empty list
         if (dto.getPhones() != null) {
             contact.setPhone(new ArrayList<>(dto.getPhones()));
             ensurePrimaryPhone(contact.getPhone());
@@ -79,27 +76,14 @@ public class ContactFactory {
     }
 
     /**
-     * Creates a contact with specific ID (useful for testing or migration)
-     *
-     * @param id The specific ID to use
-     * @param dto The contact request data
-     * @return A fully initialized Contact entity with specified ID
-     */
-    public Contact createContactWithId(String id, contactRequestDTO dto) {
-        Contact contact = createContact(dto);
-        contact.setId(id);
-        return contact;
-    }
-
-    /**
      * Ensures at least one email is marked as primary
      * If no primary exists and list is not empty, marks first as primary
+     * @param emails :List of emails
      */
     private void ensurePrimaryEmail(List<Email> emails) {
         if (emails == null || emails.isEmpty()) {
             return;
         }
-
         boolean hasPrimary = emails.stream().anyMatch(Email::isPrimary);
         if (!hasPrimary) {
             emails.get(0).setPrimary(true);
@@ -109,12 +93,12 @@ public class ContactFactory {
     /**
      * Ensures at least one phone is marked as primary
      * If no primary exists and list is not empty, marks first as primary
+     * @param  phones : list of phones
      */
     private void ensurePrimaryPhone(List<Phone> phones) {
         if (phones == null || phones.isEmpty()) {
             return;
         }
-
         boolean hasPrimary = phones.stream().anyMatch(Phone::isPrimary);
         if (!hasPrimary) {
             phones.get(0).setPrimary(true);
@@ -122,8 +106,7 @@ public class ContactFactory {
     }
 
     /**
-     * Generates initials from name (e.g., "John Doe" -> "JD")
-     *
+     * Generates initials from name
      * @param name The full name
      * @return Uppercase initials
      */
@@ -135,10 +118,9 @@ public class ContactFactory {
 
     /**
      * Generates a random avatar color from predefined palette
-     *
      * @return Hex color code
      */
     private String generateRandomColor() {
-        return AVATAR_COLORS[random.nextInt(AVATAR_COLORS.length)];
+        return avatarColors[random.nextInt(avatarColors.length)];
     }
 }

@@ -6,7 +6,7 @@ import com.example.backend.Exceptions.UserNotFoundException;
 import com.example.backend.Repo.mailRepo;
 import com.example.backend.model.mail;
 import com.example.backend.service.mailService;
-
+import com.example.backend.DTOS.FilterCriteriaDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Path;
 
@@ -54,10 +54,13 @@ public class mailController {
     /**
      * Get all emails from inbox for current user
      */
-    @GetMapping("/inbox")
-    public ResponseEntity<List<mail>> getInboxEmails() {
+// REPLACE the existing @GetMapping("/inbox") with:
+    @PostMapping("/inbox")
+    public ResponseEntity<List<mail>> getInboxEmails(
+            @RequestParam(required = false, defaultValue = "date-desc") String sort,
+            @RequestBody(required = false) FilterCriteriaDTO filters) {
         try {
-            List<mail> emails = mailRepo.getInboxEmails();
+            List<mail> emails = mailService.getInboxEmails(sort, filters);
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             System.err.println("❌ Error getting inbox: " + e.getMessage());
@@ -78,23 +81,29 @@ public class mailController {
     /**
      * Get all sent emails for current user
      */
-    @GetMapping("/sent")
-    public ResponseEntity<List<mail>> getSentEmails() {
+    // REPLACE @GetMapping("/sent") with:
+    @PostMapping("/sent")
+    public ResponseEntity<List<mail>> getSentEmails(
+            @RequestParam(required = false, defaultValue = "date-desc") String sort,
+            @RequestBody(required = false) FilterCriteriaDTO filters) {
         try {
-            List<mail> emails = mailRepo.getSentEmails();
+            List<mail> emails = mailService.getSentEmails(sort, filters);
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+
     /**
      * Get all draft emails for current user
      */
-    @GetMapping("/draft")
-    public ResponseEntity<List<mail>> getDraftEmails() {
+    @PostMapping("/draft")
+    public ResponseEntity<List<mail>> getDraftEmails(
+            @RequestParam(required = false, defaultValue = "date-desc") String sort,
+            @RequestBody(required = false) FilterCriteriaDTO filters) {
         try {
-            List<mail> emails = mailRepo.getDraftEmails();
+            List<mail> emails = mailService.getDraftEmails(sort, filters);
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -104,15 +113,55 @@ public class mailController {
     /**
      * Get all trash emails for current user
      */
-    @GetMapping("/trash")
-    public ResponseEntity<List<mail>> getTrashEmails() {
+    @PostMapping("/trash")
+    public ResponseEntity<List<mail>> getTrashEmails(
+            @RequestParam(required = false, defaultValue = "date-desc") String sort,
+            @RequestBody(required = false) FilterCriteriaDTO filters) {
         try {
-            List<mail> emails = mailRepo.getTrashEmails();
+            List<mail> emails = mailService.getTrashEmails(sort, filters);
             return ResponseEntity.ok(emails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PostMapping("/starred")
+    public ResponseEntity<List<mail>> getStarredEmails(
+            @RequestParam(required = false, defaultValue = "date-desc") String sort,
+            @RequestBody(required = false) FilterCriteriaDTO filters) {
+        try {
+            List<mail> emails = mailService.getStarredEmails(sort, filters);
+            return ResponseEntity.ok(emails);
+        } catch (Exception e) {
+            System.err.println("❌ Error getting starred emails: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * Get custom folder emails with optional filtering and sorting
+     */
+    @PostMapping("/folder/{folderId}")
+    public ResponseEntity<List<mail>> getCustomFolderEmails(
+            @PathVariable String folderId,
+            @RequestParam(required = false, defaultValue = "date-desc") String sort,
+            @RequestBody(required = false) FilterCriteriaDTO filters,
+            HttpServletRequest request) {
+        try {
+            String loggedInUser = getLoggedInUser(request);
+            mailService.setSenderEmail(loggedInUser);
+
+            System.out.println("📁 Getting emails for folder: " + folderId + " with sort: " + sort);
+
+            List<mail> emails = mailService.getCustomFolderEmails(folderId, sort, filters);
+            return ResponseEntity.ok(emails);
+        } catch (Exception e) {
+            System.err.println("❌ Error getting custom folder emails: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
     /**
      * Get a specific email by ID

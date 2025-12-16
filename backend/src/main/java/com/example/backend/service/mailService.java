@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.backend.Repo.mailRepo;
 import com.example.backend.Util.EmailPriorityComparator;
 import com.example.backend.Util.JsonFileManager;
 import com.example.backend.model.mail;
-
+import com.example.backend.DTOS.FilterCriteriaDTO;
+import com.example.backend.service.EmailFilterService;
+import com.example.backend.StrategyPattern.EmailSortContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +40,19 @@ public class mailService {
     // session.getAttribute("currentUser");
 
     private String senderEmail; // Keep this for backward compatibility with setSenderEmail()
-
     private final String BasePath = "data/users/";
     private final JsonFileManager jsonFileManager;
-
-    // Type token for List<mail> - needed for generic FileService methods
     private static final Type MAIL_LIST_TYPE = new TypeToken<List<mail>>() {
     }.getType();
+    // ADD these fields after the existing fields
+    @Autowired
+    private EmailSortContext emailSortContext;
+
+    @Autowired
+    private EmailFilterService emailFilterService;
+
+    @Autowired
+    private mailRepo mailRepo;
 
     public mailService(JsonFileManager jsonFileManager) {
         this.jsonFileManager = jsonFileManager;
@@ -211,4 +221,111 @@ public class mailService {
         String folderPath = BasePath + getLoggedInUser() + "/folder_" + folderId + ".json";
         return jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
     }
+    /**
+     * Get inbox emails with optional filtering and sorting
+ */
+    public List<mail> getInboxEmails(String sort, FilterCriteriaDTO filters) {
+        List<mail> emails = mailRepo.getInboxEmails();
+
+        // Apply filters if provided
+        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+            emails = emailFilterService.applyFilters(emails, filters);
+        }
+
+        // Apply sorting
+        if (sort != null && !sort.isEmpty()) {
+            emails = emailSortContext.sortEmails(emails, sort);
+        }
+
+        return emails;
+    }
+
+    /**
+     * Get sent emails with optional filtering and sorting
+     */
+    public List<mail> getSentEmails(String sort, FilterCriteriaDTO filters) {
+        List<mail> emails = mailRepo.getSentEmails();
+
+        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+            emails = emailFilterService.applyFilters(emails, filters);
+        }
+
+        if (sort != null && !sort.isEmpty()) {
+            emails = emailSortContext.sortEmails(emails, sort);
+        }
+
+        return emails;
+    }
+
+    /**
+     * Get draft emails with optional filtering and sorting
+     */
+    public List<mail> getDraftEmails(String sort, FilterCriteriaDTO filters) {
+        List<mail> emails = mailRepo.getDraftEmails();
+
+        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+            emails = emailFilterService.applyFilters(emails, filters);
+        }
+
+        if (sort != null && !sort.isEmpty()) {
+            emails = emailSortContext.sortEmails(emails, sort);
+        }
+
+        return emails;
+    }
+
+    /**
+     * Get trash emails with optional filtering and sorting
+     */
+    public List<mail> getTrashEmails(String sort, FilterCriteriaDTO filters) {
+        List<mail> emails = mailRepo.getTrashEmails();
+
+        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+            emails = emailFilterService.applyFilters(emails, filters);
+        }
+
+        if (sort != null && !sort.isEmpty()) {
+            emails = emailSortContext.sortEmails(emails, sort);
+        }
+
+        return emails;
+    }
+
+    /**
+     * Get starred emails with optional filtering and sorting
+     */
+    public List<mail> getStarredEmails(String sort, FilterCriteriaDTO filters) {
+        List<mail> emails = mailRepo.getStarredEmails();
+
+        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+            emails = emailFilterService.applyFilters(emails, filters);
+        }
+
+        if (sort != null && !sort.isEmpty()) {
+            emails = emailSortContext.sortEmails(emails, sort);
+        }
+
+        return emails;
+    }
+
+    /**
+     * Get emails from custom folder with optional filtering and sorting
+     */
+    public List<mail> getCustomFolderEmails(String folderId, String sort, FilterCriteriaDTO filters) {
+        String folderPath = BasePath + getLoggedInUser() + "/folder_" + folderId + ".json";
+        List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+
+        // Apply filters if provided
+        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+            emails = emailFilterService.applyFilters(emails, filters);
+        }
+
+        // Apply sorting if provided
+        if (sort != null && !sort.isEmpty()) {
+            emails = emailSortContext.sortEmails(emails, sort);
+        }
+
+        return emails;
+    }
+
 }

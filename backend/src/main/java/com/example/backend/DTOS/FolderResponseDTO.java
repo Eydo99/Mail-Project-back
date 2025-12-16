@@ -15,9 +15,6 @@ public class FolderResponseDTO {
     private String color;
     private int emailCount;
 
-    public FolderResponseDTO() {
-    }
-
     public FolderResponseDTO(String id, String name, String description, String color, int emailCount) {
         this.id = id;
         this.name = name;

@@ -5,19 +5,17 @@ import com.example.backend.DTOS.FolderResponseDTO;
 import com.example.backend.Repo.FolderRepo;
 import com.example.backend.Factory.FolderFactory;
 import com.example.backend.model.Folder;
-import com.example.backend.model.mail;
 import com.example.backend.Util.JsonFileManager;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Service for managing custom folders - Uses Factory Pattern
+ * Service for managing custom folders
+ * uses singleton design pattern using @service
+ * handles all folders logic
  */
 @Service
 public class FolderService {
@@ -30,20 +28,19 @@ public class FolderService {
 
     @Autowired
     private FolderFactory folderFactory;
-
-    private static final Type MAIL_LIST_TYPE = new TypeToken<List<mail>>(){}.getType();
-
     /**
      * Get all folders for a user
+     * @param userEmail : needed to find all folders for current user
+     * @return list of folders
      */
     public List<FolderResponseDTO> getAllFolders(String userEmail) {
         // Auto-create user folder if it doesn't exist
         if (!jsonFileManager.userExists(userEmail)) {
             jsonFileManager.createUserFolder(userEmail);
         }
-
+        //get all folders for the user
         List<Folder> folders = folderRepo.findAll(userEmail);
-
+        //convert folder Model to DTO using the map to dto method
         return folders.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
@@ -51,6 +48,9 @@ public class FolderService {
 
     /**
      * Get folder by ID
+     * @param userEmail : needed to find all folders for current user
+     * @param folderId :the id of the folder
+     * @return wanted folder
      */
     public Optional<FolderResponseDTO> getFolderById(String userEmail, String folderId) {
         return folderRepo.findById(userEmail, folderId)
@@ -59,11 +59,13 @@ public class FolderService {
 
     /**
      * Create new folder
+     * @param userEmail :needed to find all folders for current user
+     * @param dto : the info of the created folder
      */
     public FolderResponseDTO createFolder(String userEmail, FolderRequestDTO dto) {
         // Use factory to create folder
         Folder folder = folderFactory.createFolder(dto);
-
+        //save folder to list of folders in folder.json
         Folder saved = folderRepo.save(userEmail, folder);
 
         // Create empty JSON file for this folder
@@ -75,17 +77,24 @@ public class FolderService {
 
     /**
      * Update folder
+     * @param userEmail : needed to find all folders for current user
+     * @param dto : the info of the updated folder
+     * @param folderId : the id of the folder
+     * @return updated folder or null
      */
     public Optional<FolderResponseDTO> updateFolder(String userEmail, String folderId, FolderRequestDTO dto) {
+        //get folder from folder.json
         Optional<Folder> existing = folderRepo.findById(userEmail, folderId);
 
         if (existing.isPresent()) {
+            //if folder really exists save it in a folder variable
             Folder folder = existing.get();
 
             // Use factory to update folder
             folderFactory.updateFolder(folder, dto);
-
+            //save the new updated folder instead of existing one
             Folder updated = folderRepo.save(userEmail, folder);
+            //convert the folder to dto and return it
             return Optional.of(mapToDTO(updated));
         }
 
@@ -94,12 +103,10 @@ public class FolderService {
 
     /**
      * Delete folder and move emails to inbox
+     * @param userEmail  : needed to find all folders for current user
+     * @param folderId : the id of the folder to be deleted
      */
     public boolean deleteFolder(String userEmail, String folderId) {
-        // Move all emails from this folder to inbox
-        moveAllEmailsToInbox(userEmail, folderId);
-
-        // Delete the folder JSON file
         String folderPath = jsonFileManager.getUserFolderPath(userEmail, "folder_" + folderId);
         jsonFileManager.deleteFile(folderPath);
 
@@ -108,15 +115,10 @@ public class FolderService {
     }
 
     /**
-     * Get all emails in a custom folder
-     */
-    public List<mail> getEmailsByFolder(String userEmail, String folderId) {
-        String folderPath = jsonFileManager.getUserFolderPath(userEmail, "folder_" + folderId);
-        return jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
-    }
-
-    /**
      * Update folder email count
+     * @param userEmail : needed to find all folders for current user
+     * @param folderId :the id of the folder to be updated
+     * @param count :the new number of mails inside the folder
      */
     public void updateFolderCount(String userEmail, String folderId, int count) {
         folderRepo.updateEmailCount(userEmail, folderId, count);
@@ -124,45 +126,18 @@ public class FolderService {
 
     /**
      * Increment folder email count
+     * @param userEmail : needed to find all folders for current user
+     * @param folderId :the id of the folder to be updated
+     * @param increment :the number of mails to be added
      */
     public void incrementFolderCount(String userEmail, String folderId, int increment) {
         folderRepo.incrementEmailCount(userEmail, folderId, increment);
     }
 
     /**
-     * Recalculate email count for a folder
-     */
-    public void recalculateFolderCount(String userEmail, String folderId) {
-        List<mail> emails = getEmailsByFolder(userEmail, folderId);
-        updateFolderCount(userEmail, folderId, emails.size());
-    }
-
-    /**
-     * Move all emails from a folder to inbox (when folder is deleted)
-     */
-    private void moveAllEmailsToInbox(String userEmail, String folderId) {
-        String folderPath = jsonFileManager.getUserFolderPath(userEmail, "folder_" + folderId);
-        String inboxPath = jsonFileManager.getUserFolderPath(userEmail, "inbox");
-
-        List<mail> folderEmails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
-
-        if (!folderEmails.isEmpty()) {
-            // Get inbox emails
-            List<mail> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
-
-            // Clear custom folder reference from emails
-            folderEmails.forEach(email -> email.setCustomFolderId(null));
-
-            // Add to inbox
-            inboxEmails.addAll(folderEmails);
-
-            // Save inbox
-            jsonFileManager.writeListToFile(inboxPath, inboxEmails);
-        }
-    }
-
-    /**
      * Map Folder entity to DTO
+     * @param folder :folder to be converted to DTO response
+     * @return Folder response dto
      */
     private FolderResponseDTO mapToDTO(Folder folder) {
         return new FolderResponseDTO(

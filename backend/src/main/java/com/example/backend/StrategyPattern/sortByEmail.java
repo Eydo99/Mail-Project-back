@@ -6,9 +6,11 @@ import java.util.List;
 
 public class sortByEmail implements contactSortStrategy {
 
+
     @Override
     public void sort(List<Contact> contacts)
     {
+        //sort contacts by email
         contacts.sort((a,b)->
         {
             String emailA = a.getEmail().get(0).getAddress().toLowerCase();

@@ -3,7 +3,7 @@ package com.example.backend.model;
 import lombok.Getter;
 import lombok.Setter;
 
-
+//lombok annotations for generating getters and setters
 @Getter
 @Setter
 public class Folder {
@@ -13,14 +13,5 @@ public class Folder {
     private String color;
     private int emailCount;
 
-    public Folder() {
-    }
-
-    public Folder(String id, String name, String description, String color) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.color = color;
-        this.emailCount = 0;
-    }
+    public Folder() {}
 }

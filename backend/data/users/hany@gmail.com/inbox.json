@@ -22,29 +22,5 @@
     "timestamp": "2025-12-15T03:04:09.2427395",
     "priority": 3,
     "attachments": []
-  },
-  {
-    "id": 80,
-    "from": "shefoo@gmail.com",
-    "subject": "low",
-    "body": "low",
-    "preview": "low",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-15T03:11:51.1609888",
-    "priority": 4,
-    "attachments": []
-  },
-  {
-    "id": 97,
-    "from": "belal@gmail.com",
-    "subject": "belal test ",
-    "body": "hellllllo",
-    "preview": "hellllllo",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-15T14:53:44.8559584",
-    "priority": 3,
-    "attachments": []
   }
 ]

@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": "d2e21417-9f24-4bb3-9f11-f179fd7caff2",
+    "name": "eydo",
+    "email": [
+      {
+        "address": "eyadamr1644@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "01283698365",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#10b981",
+    "initials": "E"
+  }
+]

@@ -9,12 +9,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.Map;
+import static com.example.backend.controller.FolderController.getStringMap;
+
 
 @RestController
 @RequestMapping("/api/contacts")
@@ -24,16 +23,28 @@ public class ContactController {
     @Autowired
     private ContactService service;
 
-    // REMOVE THIS:
-    // @Autowired
-    // private HttpSession session;
-
+    /**
+     * helper method to get current loggedIn user from local storage
+     * @param request : the HTTP servlet request
+     * @return loggedIn email in local storage
+     */
     private String getLoggedInUser(HttpServletRequest request) {
         String email = (String) request.getSession().getAttribute("currentUser");
         System.out.println("ContactController - Getting logged in user: " + email);
         System.out.println("Session ID: " + request.getSession().getId());
         return email;
     }
+
+
+    /**
+     * get all contacts
+     * @param page : current page
+     * @param size : current no of contacts
+     * @param search : search criteria
+     * @param sortBy : sortBy criteria
+     * @param request : the HTTP servlet request
+     * @return list of contacts
+     */
 
     @GetMapping
     public PaginatedContactResponse getContacts(@RequestParam int page,
@@ -44,6 +55,12 @@ public class ContactController {
         return service.getContacts(getLoggedInUser(request), page, size, search, sortBy);
     }
 
+    /**
+     * creates a new contact
+     * @param dto : data of the new contact
+     * @param request : the HTTP servlet request
+     * @return contact
+     */
     @PostMapping
     public ResponseEntity<contactResponseDTO> addContact(@Valid @RequestBody contactRequestDTO dto,
                                                          HttpServletRequest request) {
@@ -51,6 +68,12 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    /**
+     * update an exisitn contact
+     * @param id : id of contact to be updated
+     * @param dto :the updated data
+     * @param request: the HTTP servlet request
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateContact(@PathVariable String id,
                                               @Valid @RequestBody contactRequestDTO dto,
@@ -59,6 +82,11 @@ public class ContactController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * delete a contact
+     * @param id : id of contact to be deleted
+     * @param request :the HTTP servlet request
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteContact(@PathVariable String id,
                                               HttpServletRequest request) {
@@ -66,15 +94,14 @@ public class ContactController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * handles @valid when the argument is not valid
+     * @param ex : the exception to be  handled
+     * @return map ot the exceptions that need to be handled
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
+        return getStringMap(ex);
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
+
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -193,11 +194,30 @@ public class mailRepo {
             throw new RuntimeException("Failed to permanently delete email", e);
         }
     }
+
+    // ADD this method to mailRepo.java after getDraftEmails()
+
     /**
-     * Get emails from custom folder
+     * Get all starred emails from inbox and sent folders
      */
-    public List<mail> getCustomFolderEmails(String folderId) {
-        String folderPath = BasePath + getLoggedInUser() + "/folder_" + folderId + ".json";
-        return jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+    public List<mail> getStarredEmails() {
+        String inboxPath = BasePath + getLoggedInUser() + "/inbox.json";
+        String sentPath = BasePath + getLoggedInUser() + "/sent.json";
+
+        List<mail> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
+        List<mail> sentEmails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
+
+        List<mail> allEmails = new ArrayList<>();
+        if (inboxEmails != null) {
+            allEmails.addAll(inboxEmails);
+        }
+        if (sentEmails != null) {
+            allEmails.addAll(sentEmails);
+        }
+
+        // Filter only starred emails
+        return allEmails.stream()
+                .filter(mail::isStarred)
+                .collect(Collectors.toList());
     }
 }

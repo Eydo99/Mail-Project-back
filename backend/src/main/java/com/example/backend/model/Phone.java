@@ -16,6 +16,6 @@ public class Phone {
     private String number;
 
     @JsonProperty("isPrimary")
-    @SerializedName("isPrimary")  // Keep this for Gson (used in file storage)
+    @SerializedName("isPrimary")  // Keep this for Gson
     private boolean isPrimary;
 }

@@ -60,10 +60,10 @@ public class JsonFileManager {
 
     /**
      * Reads objects from a JSON file and converts them to List<T>
-     * <T> Type of objects to read
-     * filePath: Path to the JSON file
-     * type: Type token for deserialization
-     * return List of objects, or empty list if file doesn't exist or error occurs
+     * T> Type of objects to read
+     * @param filePath: Path to the JSON file
+     * @param type: Type token for deserialization
+     * @return List of objects, or empty list if file doesn't exist or error occurs
      */
     public <T> List<T> readListFromFile(String filePath, Type type) {
         //create file object
@@ -94,9 +94,9 @@ public class JsonFileManager {
     /**
      * Writes a list of objects to a JSON file
      *  <T> : Type of objects to write
-     * filePath: Path to the JSON file
-     * items: List of objects to write
-     * true: if successful, false otherwise
+     * @param filePath: Path to the JSON file
+     * @param items: List of objects to write
+     * @return true: if successful, false otherwise
      */
     public <T> boolean writeListToFile(String filePath, List<T> items) {
         try {
@@ -118,44 +118,33 @@ public class JsonFileManager {
         }
     }
 
-    /**
-     * Checks if a file exists
-     * filePath: Path to check
-     * return true if file exists, false otherwise
-     */
-    public boolean fileExists(String filePath) {
-        return new File(filePath).exists();
-    }
+
 
     /**
-     * Creates a user folder structure with default JSON files
-     * Creates: inbox.json, sent.json, trash.json, draft.json
-     *
-     * @param email User's email address
+     * Creates a user folder  with default JSON files
+     * Creates:inbox.json, sent.json, trash.json, draft.json,folders.json,contacts.json
+     * @param email: User's email address
      * @return true if successful, false otherwise
      */
     public boolean createUserFolder(String email) {
         try {
-            // Create user directory
+            // Create user directory at the given path
             Path userPath = Paths.get(basePath + email);
             Files.createDirectories(userPath);
             System.out.println("Created user folder: " + userPath);
 
-            // Create default folder files (inbox, sent, trash, draft)
+            // Create default folder files (inbox, sent, trash, draft,contacts,folders)
             String[] folders = { "inbox.json", "sent.json", "trash.json", "draft.json","contacts.json","folders.json" };
-
             for (String folder : folders) {
+                //get file path
                 File file = new File(userPath.toString(), folder);
-
                 if (!file.exists()) {
                     // Create empty JSON file (empty array)
                     writeListToFile(file.getPath(), new ArrayList<>());
                     System.out.println("Created file: " + file.getName());
                 }
             }
-
             return true;
-
         } catch (IOException e) {
             System.err.println("Error creating user folder: " + email);
             e.printStackTrace();
@@ -164,30 +153,19 @@ public class JsonFileManager {
     }
 
     /**
-     * Builds the full path to a user's folder file
-     *
-     * @param email  User's email
-     * @param folder Folder name (inbox, sent, trash, draft)
-     * @return Full file path (e.g., "data/users/omar@mail.com/inbox.json")
+     * Build the full path to a user's folder file
+     * @param email:  User's email
+     * @param folder: Folder name (inbox, sent, trash, draft)
+     *@ return Full file path
      */
     public String getUserFolderPath(String email, String folder) {
         return basePath + email + "/" + folder + ".json";
     }
 
-    /**
-     * Gets the base directory path for a user
-     *
-     * @param email User's email
-     * @return Base directory path (e.g., "data/users/omar@mail.com/")
-     */
-    public String getUserBasePath(String email) {
-        return basePath + email + "/";
-    }
 
     /**
      * Deletes a file
-     *
-     * @param filePath Path to the file to delete
+     * @param filePath: Path to the file to delete
      * @return true if successful, false otherwise
      */
     public boolean deleteFile(String filePath) {
@@ -206,8 +184,7 @@ public class JsonFileManager {
 
     /**
      * Checks if a user folder exists
-     *
-     * @param email User's email
+     * @param email: User's email
      * @return true if folder exists, false otherwise
      */
     public boolean userExists(String email) {

@@ -10,15 +10,17 @@ import lombok.Setter;
 @Setter
 public class Email {
 
+  //jackson annotation for mapping
   @JsonProperty("id")
   private String id;
 
+  //ensure that the address field is not blank and triggered with @valid
   @NotBlank(message = "Email address cannot be empty")
   @jakarta.validation.constraints.Email(message = "Invalid email format")
   @JsonProperty("address")
   private String address;
 
   @JsonProperty("isPrimary")
-  @SerializedName("isPrimary")  // Keep this for Gson (used in file storage)
+  @SerializedName("isPrimary")  // Keep this for Gson
   private boolean isPrimary;
 }
