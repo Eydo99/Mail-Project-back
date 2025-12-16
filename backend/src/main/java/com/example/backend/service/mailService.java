@@ -98,6 +98,7 @@ public class mailService {
 
         return sortedEmails;
     }
+    
 
     /**
      * Compose and send a new email
@@ -291,22 +292,24 @@ public class mailService {
         return emails;
     }
 
-    /**
-     * Get starred emails with optional filtering and sorting
-     */
-    public List<mail> getStarredEmails(String sort, FilterCriteriaDTO filters) {
-        List<mail> emails = mailRepo.getStarredEmails();
-
-        if (filters != null && emailFilterService.hasActiveFilters(filters)) {
-            emails = emailFilterService.applyFilters(emails, filters);
-        }
-
-        if (sort != null && !sort.isEmpty()) {
-            emails = emailSortContext.sortEmails(emails, sort);
-        }
-
-        return emails;
+/**
+ * Get starred emails with optional filtering and sorting
+ */
+public List<mail> getStarredEmails(String sort, FilterCriteriaDTO filters) {
+    List<mail> emails = mailRepo.getStarredEmails();
+    
+    // Apply filters if provided
+    if (filters != null && emailFilterService.hasActiveFilters(filters)) {
+        emails = emailFilterService.applyFilters(emails, filters);
     }
+
+    // Apply sorting if provided
+    if (sort != null && !sort.isEmpty()) {
+        emails = emailSortContext.sortEmails(emails, sort);
+    }
+
+    return emails;
+}
 
     /**
      * Get emails from custom folder with optional filtering and sorting

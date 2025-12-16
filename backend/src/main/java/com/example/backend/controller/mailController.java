@@ -126,17 +126,43 @@ public class mailController {
     }
 
     @PostMapping("/starred")
-    public ResponseEntity<List<mail>> getStarredEmails(
-            @RequestParam(required = false, defaultValue = "date-desc") String sort,
-            @RequestBody(required = false) FilterCriteriaDTO filters) {
-        try {
-            List<mail> emails = mailService.getStarredEmails(sort, filters);
-            return ResponseEntity.ok(emails);
-        } catch (Exception e) {
-            System.err.println("❌ Error getting starred emails: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+public ResponseEntity<List<mail>> getStarredEmails(
+        @RequestParam(required = false, defaultValue = "date-desc") String sort,
+        @RequestBody(required = false) FilterCriteriaDTO filters) {
+    try {
+        List<mail> emails = mailService.getStarredEmails(sort, filters);
+        return ResponseEntity.ok(emails);
+    } catch (Exception e) {
+        System.err.println("❌ Error getting starred: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+}
+/**
+ * Toggle star status
+ */
+@PutMapping("/{id}/star")
+public ResponseEntity<Map<String, String>> toggleStar(
+        @PathVariable int id,
+        @RequestParam String folder,
+        HttpServletRequest request) {
+    try {
+        String loggedInUser = getLoggedInUser(request);
+        System.out.println("⭐ Toggling star for email " + id + " in folder " + folder + " for user: " + loggedInUser);
+        
+        boolean success = mailRepo.toggleStar(id, folder);
+        if (success) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Star toggled successfully");
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.notFound().build();
+    } catch (Exception e) {
+        System.err.println("❌ Error toggling star: " + e.getMessage());
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Failed to toggle star: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+}
 
     /**
      * Get custom folder emails with optional filtering and sorting
@@ -265,19 +291,56 @@ public ResponseEntity<Map<String, Object>> composeMail(@RequestBody mailContentD
 }
 
     @PostMapping("/draft/save")
-    public ResponseEntity<String> saveDraft(@RequestBody mailContentDTO mail,
-                                           HttpServletRequest request) {
-        try {
-            String loggedInUser = getLoggedInUser(request);
-            mailService.setSenderEmail(loggedInUser);
-            
-            mailService.saveDraft(mail);
-            return ResponseEntity.ok("Email saved to draft successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to save email");
+public ResponseEntity<String> saveDraft(@RequestBody mailContentDTO mail,
+                                       HttpServletRequest request) {
+    try {
+        String loggedInUser = getLoggedInUser(request);
+        mailService.setSenderEmail(loggedInUser);
+        
+        // Process attachments - decode base64 and save files (SAME AS COMPOSE)
+        if (mail.getAttachements() != null && !mail.getAttachements().isEmpty()) {
+            for (attachementDTO attachment : mail.getAttachements()) {
+                try {
+                    // Skip if already has a file path (not base64)
+                    if (attachment.getFilePath().length() < 500) {
+                        // Already a file path, skip processing
+                        continue;
+                    }
+                    
+                    // Decode base64 from filePath
+                    byte[] fileBytes = Base64.getDecoder().decode(attachment.getFilePath());
+
+                    // Generate unique filename
+                    String savedFilename = UUID.randomUUID().toString() + "_" + attachment.getFilename();
+
+                    // Save to disk
+                    String uploadDir = "data/uploads/";
+                    File directory = new File(uploadDir);
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
+
+                    java.nio.file.Path filePath = Paths.get(uploadDir + savedFilename);
+                    Files.write(filePath, fileBytes);
+
+                    // Update filePath to the actual server path
+                    attachment.setFilePath(uploadDir + savedFilename);
+                    
+                    System.out.println("✅ Saved attachment: " + savedFilename);
+
+                } catch (Exception e) {
+                    System.err.println("❌ Error saving attachment: " + e.getMessage());
+                }
+            }
         }
+        
+        mailService.saveDraft(mail);
+        return ResponseEntity.ok("Email saved to draft successfully");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Failed to save email");
     }
+}
 
     /**
      * Delete an email (move to trash)

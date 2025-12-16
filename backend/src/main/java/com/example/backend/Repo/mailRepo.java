@@ -1,5 +1,6 @@
 package com.example.backend.Repo;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -200,24 +201,130 @@ public class mailRepo {
     /**
      * Get all starred emails from inbox and sent folders
      */
-    public List<mail> getStarredEmails() {
-        String inboxPath = BasePath + getLoggedInUser() + "/inbox.json";
-        String sentPath = BasePath + getLoggedInUser() + "/sent.json";
+    // In your mailRepo class, update the getStarredEmails() method to include folder information
 
-        List<mail> inboxEmails = jsonFileManager.readListFromFile(inboxPath, MAIL_LIST_TYPE);
-        List<mail> sentEmails = jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
-
-        List<mail> allEmails = new ArrayList<>();
-        if (inboxEmails != null) {
-            allEmails.addAll(inboxEmails);
+public List<mail> getStarredEmails() {
+    String currentUser = getLoggedInUser();
+    List<mail> starredEmails = new ArrayList<>();
+    
+    // Search through all folders for starred emails
+    String[] folders = {"inbox", "sent", "draft"};
+    
+    for (String folder : folders) {
+        String folderPath = BasePath + currentUser + "/" + folder + ".json";
+        List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+        
+        if (emails != null) {
+            for (mail email : emails) {
+                if (email.isStarred()) {
+                    // IMPORTANT: Set the folder property so frontend knows where email actually lives
+                    email.setFolder(folder);
+                    starredEmails.add(email);
+                }
+            }
         }
-        if (sentEmails != null) {
-            allEmails.addAll(sentEmails);
-        }
-
-        // Filter only starred emails
-        return allEmails.stream()
-                .filter(mail::isStarred)
-                .collect(Collectors.toList());
     }
+    
+    // Also check custom folders
+    File userDir = new File(BasePath + currentUser);
+    if (userDir.exists() && userDir.isDirectory()) {
+        File[] files = userDir.listFiles((dir, name) -> name.startsWith("folder_") && name.endsWith(".json"));
+        
+        if (files != null) {
+            for (File file : files) {
+                // Extract just the ID part from "folder_123.json"
+                String fileName = file.getName().replace(".json", "");
+                String folderPath = file.getAbsolutePath();
+                List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+                
+                if (emails != null) {
+                    for (mail email : emails) {
+                        if (email.isStarred()) {
+                            // Set folder as "folder_X" to match file naming (e.g., "folder_123")
+                            email.setFolder(fileName);  // CHANGED: Use fileName directly instead of concatenating
+                            starredEmails.add(email);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return starredEmails;
+}
+    /**
+ * Toggle star status and manage starred folder
+ */
+public boolean toggleStar(int id, String folder) {
+    try {
+        String currentUser = getLoggedInUser();
+        String folderPath = BasePath + currentUser + "/" + folder + ".json";
+        String starredPath = BasePath + currentUser + "/starred.json";
+
+        synchronized (folderLock) {
+            // Get the email from the source folder
+            List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
+            
+            if (emails == null) {
+                emails = new ArrayList<>();
+            }
+
+            mail emailToToggle = null;
+            for (mail email : emails) {
+                if (email.getId() == id) {
+                    emailToToggle = email;
+                    break;
+                }
+            }
+
+            if (emailToToggle == null) {
+                System.out.println("Email not found with ID: " + id);
+                return false;
+            }
+
+            // Toggle the starred status
+            emailToToggle.setStarred(!emailToToggle.isStarred());
+            
+            // Update the original folder
+            jsonFileManager.writeListToFile(folderPath, emails);
+
+            // Manage starred folder
+            List<mail> starredEmails = jsonFileManager.readListFromFile(starredPath, MAIL_LIST_TYPE);
+            if (starredEmails == null) {
+                starredEmails = new ArrayList<>();
+            }
+
+            if (emailToToggle.isStarred()) {
+                // Add to starred folder (create a copy)
+                mail starredCopy = createMailCopy(emailToToggle);
+                starredEmails.add(starredCopy);
+            } else {
+                // Remove from starred folder
+                starredEmails.removeIf(email -> email.getId() == id);
+            }
+
+            jsonFileManager.writeListToFile(starredPath, starredEmails);
+            
+            return true;
+        }
+    } catch (Exception e) {
+        System.err.println("Error toggling star: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}
+
+/**
+ * Create a copy of a mail object
+ */
+private mail createMailCopy(mail original) {
+    try {
+        return (mail) original.clone();
+    } catch (CloneNotSupportedException e) {
+        System.err.println("Error cloning mail object: " + e.getMessage());
+        e.printStackTrace();
+        // Fallback to manual copy if clone fails
+        return createMailCopy(original);
+    }
+}    
 }
