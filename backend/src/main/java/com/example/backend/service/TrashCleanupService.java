@@ -25,9 +25,6 @@ public class TrashCleanupService {
         this.jsonFileManager = jsonFileManager;
     }
 
-    /**
-     * Automatically runs every day at 2 AM
-     */
     //@Scheduled(cron = "0 */2 * * * *")
     @Scheduled(cron = "0 0 2 * * *")
     public void cleanupOldTrashEmails() {
@@ -78,12 +75,10 @@ public class TrashCleanupService {
                     .filter(email -> {
                         LocalDateTime trashedDate = email.getTrashedAt();
 
-                        // If no trashedAt date (old emails), use timestamp
                         if (trashedDate == null) {
                             trashedDate = email.getTimestamp();
                         }
 
-                        // Keep emails that were trashed AFTER the cutoff date
                         return trashedDate.isAfter(cutoffDate);
                     })
                     .collect(Collectors.toList());

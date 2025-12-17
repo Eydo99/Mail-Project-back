@@ -5,5 +5,12 @@
     "description": "t",
     "color": "#8B4513",
     "emailCount": 0
+  },
+  {
+    "id": "704b3071-aafc-45f2-9ae1-46b95cf04e18",
+    "name": "folder",
+    "description": "f",
+    "color": "#ec4899",
+    "emailCount": 1
   }
 ]

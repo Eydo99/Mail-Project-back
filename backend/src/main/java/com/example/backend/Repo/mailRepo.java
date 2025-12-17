@@ -58,9 +58,7 @@ public class mailRepo {
         String sentPath = BasePath + getLoggedInUser() + "/sent.json";
         return jsonFileManager.readListFromFile(sentPath, MAIL_LIST_TYPE);
     }
-    /**
-     * Get all trash emails
-     */
+
     public List<mail> getTrashEmails() {
         String trashPath = BasePath + getLoggedInUser() + "/trash.json";
         return jsonFileManager.readListFromFile(trashPath, MAIL_LIST_TYPE);
@@ -71,9 +69,7 @@ public class mailRepo {
     }
     
 
-    /**
-     * Get specific email by ID from a folder
-     */
+
     public mail getEmailById(int id, String folder) {
         String folderPath = BasePath + getLoggedInUser() + "/" + folder + ".json";
         List<mail> emails = jsonFileManager.readListFromFile(folderPath, MAIL_LIST_TYPE);
@@ -198,9 +194,6 @@ public class mailRepo {
 
     // ADD this method to mailRepo.java after getDraftEmails()
 
-    /**
-     * Get all starred emails from inbox and sent folders
-     */
     // In your mailRepo class, update the getStarredEmails() method to include folder information
 
 public List<mail> getStarredEmails() {
@@ -252,9 +245,7 @@ public List<mail> getStarredEmails() {
     
     return starredEmails;
 }
-    /**
-     * Toggle star status - DEBUGGED VERSION with detailed logging
-     */
+
     public boolean toggleStar(int id, String folder) {
         System.out.println("=== TOGGLE STAR START ===");
         System.out.println("Email ID: " + id);

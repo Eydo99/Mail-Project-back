@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "id": 227,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "mn belal",
+    "body": "enta 3my",
+    "preview": "enta 3my",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-17T22:13:01.3298306",
+    "priority": 1,
+    "attachments": [],
+    "trashedAt": "2025-12-17T22:13:25.1425156"
+  },
+  {
+    "id": 229,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "test",
+    "body": "\u0027\u0027\u0027",
+    "preview": "\u0027\u0027\u0027",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-17T22:14:39.7887429",
+    "priority": 3,
+    "attachments": [],
+    "trashedAt": "2025-12-17T22:16:10.9661985"
+  },
+  {
+    "id": 230,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "aaaa",
+    "body": "11",
+    "preview": "11",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-17T22:18:49.4590815",
+    "priority": 3,
+    "attachments": [
+      {
+        "filename": "Lab1 Assembly Report Ahmed Sherif.pdf",
+        "filePath": "data/uploads/71055e96-39b8-42c1-ad8b-0ad4209cc4ff_Lab1 Assembly Report Ahmed Sherif.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 53906
+      }
+    ],
+    "trashedAt": "2025-12-17T22:22:02.0722817"
+  }
+]
