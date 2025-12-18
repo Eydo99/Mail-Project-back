@@ -18,19 +18,17 @@ public class SubjectFilter extends AbstractEmailFilter {
 
     @Override
     public List<mail> apply(List<mail> emails) {
+        //if no subject exists then move to the next filter
         if (subjectContains == null || subjectContains.trim().isEmpty()) {
             return passToNext(emails);
         }
 
         String term = subjectContains.toLowerCase().trim();
-
+        //filter the list of mails based on the subject field in the filter modal
         List<mail> filtered = emails.stream()
-                .filter(email ->
-                        email.getSubject() != null &&
-                                email.getSubject().toLowerCase().contains(term)
-                )
+                .filter(email -> email.getSubject() != null && email.getSubject().toLowerCase().contains(term))
                 .collect(Collectors.toList());
-
+        //after filtering pass it to the next filter
         return passToNext(filtered);
     }
 }

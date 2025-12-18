@@ -132,5 +132,23 @@
     ],
     "colour": "#ec4899",
     "initials": "Z"
+  },
+  {
+    "id": "76f11a3a-7dd4-4c72-abc9-08c173d7a7ca",
+    "name": "ahmed sherif",
+    "email": [
+      {
+        "address": "shefoo@gmail.com",
+        "isPrimary": true
+      }
+    ],
+    "phone": [
+      {
+        "number": "5325",
+        "isPrimary": true
+      }
+    ],
+    "colour": "#8b5cf6",
+    "initials": "AS"
   }
 ]
