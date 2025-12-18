@@ -43,5 +43,42 @@
     "timestamp": "2025-12-17T22:48:24.2076908",
     "priority": 3,
     "attachments": []
+  },
+  {
+    "id": 272,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "ya 7bebty",
+    "body": "kolo mn 3nek",
+    "preview": "kolo mn 3nek",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-18T05:47:16.242164",
+    "priority": 3,
+    "attachments": [
+      {
+        "filename": "AUR-ROV-Power Board.pdf",
+        "filePath": "data/uploads/72fda8e7-9a10-4c4e-8f97-8ecdd58168c3_AUR-ROV-Power Board.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 282190
+      }
+    ]
+  },
+  {
+    "id": 273,
+    "to": [
+      "shefoo@gmail.com"
+    ],
+    "from": "belal@gmail.com",
+    "subject": "tesst",
+    "body": "remove duplicates",
+    "preview": "remove duplicates",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-18T05:53:33.6124244",
+    "priority": 3,
+    "attachments": []
   }
 ]
