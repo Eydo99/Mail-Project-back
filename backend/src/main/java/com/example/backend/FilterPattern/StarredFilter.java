@@ -1,5 +1,3 @@
-// backend/src/main/java/com/example/backend/FilterPattern/StarredFilter.java
-
 package com.example.backend.FilterPattern;
 
 import com.example.backend.model.mail;
@@ -18,14 +16,16 @@ public class StarredFilter extends AbstractEmailFilter {
 
     @Override
     public List<mail> apply(List<mail> emails) {
+        //if isStarred not defined  then move to the next filter
         if (isStarred == null) {
             return passToNext(emails);
         }
 
+        //filter the list of mails based on the sender field in the filter modal
         List<mail> filtered = emails.stream()
                 .filter(email -> email.isStarred() == isStarred)
                 .collect(Collectors.toList());
-
+        //after filtering pass it to the next filter
         return passToNext(filtered);
     }
 }

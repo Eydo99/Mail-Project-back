@@ -1,4 +1,4 @@
-// backend/src/main/java/com/example/backend/FilterPattern/SenderFilter.java
+
 
 package com.example.backend.FilterPattern;
 
@@ -16,20 +16,21 @@ public class SenderFilter extends AbstractEmailFilter {
         this.sender = sender;
     }
 
+
     @Override
     public List<mail> apply(List<mail> emails) {
+        //if no sender exists then move to the next filter
         if (sender == null || sender.trim().isEmpty()) {
             return passToNext(emails);
         }
 
         String senderLower = sender.toLowerCase().trim();
 
+        //filter the list of mails based on the sender field in the filter modal
         List<mail> filtered = emails.stream()
-                .filter(email ->
-                        (email.getFrom() != null && email.getFrom().toLowerCase().contains(senderLower))
-                )
+                .filter(email -> (email.getFrom() != null && email.getFrom().toLowerCase().contains(senderLower)))
                 .collect(Collectors.toList());
-
+        //after filtering pass it to the next filter
         return passToNext(filtered);
     }
 }

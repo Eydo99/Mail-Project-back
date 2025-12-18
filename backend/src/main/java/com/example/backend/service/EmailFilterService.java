@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service to build and apply filter chain
+ * Service to build and apply filters
+ * apply chain of responsibility
  */
 @Service
 public class EmailFilterService {

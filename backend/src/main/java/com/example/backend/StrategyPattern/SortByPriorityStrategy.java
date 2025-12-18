@@ -18,13 +18,14 @@ public class SortByPriorityStrategy implements EmailSortStrategy {
 
     @Override
     public void sort(List<mail> emails) {
+        //check if list is empty or null
         if (emails == null || emails.isEmpty()) {
             return;
         }
 
-        // Create comparator based on sort order
+        //define a comparator and its rules
         Comparator<mail> comparator = Comparator.comparingInt(mail::getPriority);
-
+        //if sort in descending reverse the list
         if (!ascending) {
             comparator = comparator.reversed();
         }

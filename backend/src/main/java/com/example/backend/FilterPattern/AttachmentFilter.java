@@ -18,14 +18,15 @@ public class AttachmentFilter extends AbstractEmailFilter {
 
     @Override
     public List<mail> apply(List<mail> emails) {
+        //if no attachments exists then move to the next filter
         if (hasAttachment == null) {
             return passToNext(emails);
         }
-
+        //filter the list of mails based on the hasAttachments field in the filter modal
         List<mail> filtered = emails.stream()
                 .filter(email -> email.isHasAttachment() == hasAttachment)
                 .collect(Collectors.toList());
-
+        //after filtering pass it to the next filter
         return passToNext(filtered);
     }
 }

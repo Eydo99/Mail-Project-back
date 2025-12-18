@@ -5,8 +5,8 @@ import com.example.backend.model.mail;
 import java.util.List;
 
 /**
- * Strategy Pattern for Email Sorting
- * Define a family of sorting algorithms
+ * interface for emails sort strategies
+ * implements the strategy pattern
  */
 public interface EmailSortStrategy {
     /**
@@ -16,8 +16,8 @@ public interface EmailSortStrategy {
     void sort(List<mail> emails);
 
     /**
-     * Get the name of this sorting strategy
-     * @return Strategy name (e.g., "date", "sender", "subject")
+     * Get the name of the sorting strategy
+     * @return Strategy name
      */
     String getStrategyName();
 }
