@@ -1,116 +1,166 @@
 [
   {
-    "id": 138,
+    "id": 240,
+    "from": "hany@gmail.com",
+    "subject": "test mn eyad",
+    "body": "kolo 48al",
+    "preview": "kolo 48al",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-18T03:23:48.2679136",
+    "priority": 3,
+    "attachments": [],
+    "trashedAt": "2025-12-18T04:01:00.9588281"
+  },
+  {
+    "id": 238,
+    "from": "hany@gmail.com",
+    "subject": "test array",
+    "body": "brod 3la el reply 1",
+    "preview": "brod 3la el reply 1",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-18T03:22:21.7359813",
+    "priority": 3,
+    "attachments": [],
+    "trashedAt": "2025-12-18T04:01:00.9646275"
+  },
+  {
+    "id": 241,
     "to": [
-      "eyadamr4121@gmail.com"
+      "hany@gmail.com"
     ],
     "from": "eyadamr1644@gmail.com",
-    "subject": "msa msa mn eyad1644",
-    "body": "eh el klam",
-    "preview": "eh el klam",
+    "subject": "bngrb el sent",
+    "body": "ngrb",
+    "preview": "ngrb",
     "starred": false,
-    "hasAttachment": true,
-    "timestamp": "2025-12-16T23:55:10.8195087",
+    "hasAttachment": false,
+    "timestamp": "2025-12-18T03:32:15.5849961",
+    "priority": 2,
+    "attachments": [],
+    "trashedAt": "2025-12-18T04:11:31.6657777"
+  },
+  {
+    "id": 244,
+    "to": [
+      "hany@gmail.com"
+    ],
+    "from": "eyadamr1644@gmail.com",
+    "subject": "bngbr el duplicate",
+    "body": "toz",
+    "preview": "toz",
+    "starred": false,
+    "hasAttachment": false,
+    "timestamp": "2025-12-18T03:32:47.4934314",
     "priority": 1,
+    "attachments": [],
+    "trashedAt": "2025-12-18T04:11:47.8583871"
+  },
+  {
+    "id": 254,
+    "to": [
+      "bigad@gmail.com"
+    ],
+    "from": "eyadamr1644@gmail.com",
+    "subject": "test lw aktr mn 1",
+    "body": "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+    "preview": "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-18T03:51:46.3471456",
+    "priority": 4,
     "attachments": [
       {
+        "filename": "multiplication.asm",
+        "filePath": "data/uploads/937e6dd9-5ba0-4a30-8736-5851bd5e9242_multiplication.asm",
+        "mimeType": "text/plain",
+        "fileSize": 1055
+      },
+      {
+        "filename": "String Instructions.s",
+        "filePath": "data/uploads/f05254d4-ab06-4812-b2f6-1464ad0cd3b6_String Instructions.s",
+        "mimeType": "text/plain",
+        "fileSize": 2805
+      },
+      {
+        "filename": "Assembly 2.pdf",
+        "filePath": "data/uploads/6aab09df-1a12-446e-8d0b-f9e5684edcc6_Assembly 2.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 239795
+      },
+      {
         "filename": "Lab 2.pdf",
-        "filePath": "data/uploads/a6110fb4-25a6-4326-a180-1654b7b5f035_Lab 2.pdf",
+        "filePath": "data/uploads/4a797aab-92a1-4d9c-ab5d-13e27d145360_Lab 2.pdf",
         "mimeType": "application/pdf",
         "fileSize": 87092
       },
       {
         "filename": "AUR-ROV-Power Board.pdf",
-        "filePath": "data/uploads/a81a2871-0572-4d32-b8fb-64a7997ac1d4_AUR-ROV-Power Board.pdf",
+        "filePath": "data/uploads/f6dc7447-3611-481d-ab15-7be0053bda9c_AUR-ROV-Power Board.pdf",
         "mimeType": "application/pdf",
         "fileSize": 282190
+      },
+      {
+        "filename": "OBJ_PCB_ROV-Power-Board_2025-12-15.zip",
+        "filePath": "data/uploads/01165539-c99e-4efb-9366-d2d3190585e0_OBJ_PCB_ROV-Power-Board_2025-12-15.zip",
+        "mimeType": "application/x-zip-compressed",
+        "fileSize": 4609605
+      },
+      {
+        "filename": "sheet 6.discrete.pdf",
+        "filePath": "data/uploads/c0c5a4fa-85a0-424d-af26-1aa230e73c0e_sheet 6.discrete.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 1769630
+      },
+      {
+        "filename": "sheet 7.discrete.pdf",
+        "filePath": "data/uploads/96b627b1-ca2f-40e3-9c4e-0751621f1ed0_sheet 7.discrete.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 1672027
       }
     ],
-    "trashedAt": "2025-12-16T23:55:42.507171"
+    "trashedAt": "2025-12-18T04:15:45.9501498"
   },
   {
-    "id": 155,
+    "id": 259,
     "to": [
-      "eyadamr4121@gmail.com"
+      "hany@gmail.com"
     ],
     "from": "eyadamr1644@gmail.com",
-    "subject": "a3tkd kda tmm",
-    "body": "wla eh",
-    "preview": "wla eh",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-17T01:31:39.846658",
+    "subject": "kolo bono",
+    "body": "kolo",
+    "preview": "kolo",
+    "starred": true,
+    "hasAttachment": true,
+    "timestamp": "2025-12-18T03:59:52.6607067",
     "priority": 3,
-    "attachments": [],
-    "trashedAt": "2025-12-17T01:31:49.9819232"
-  },
-  {
-    "id": 178,
-    "from": "eyadamr4121@gmail.com",
-    "subject": "polling",
-    "body": "to7fa gdn kmaaaan",
-    "preview": "to7fa gdn kmaaaan",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-17T01:59:17.51495",
-    "priority": 3,
-    "attachments": [],
-    "trashedAt": "2025-12-17T02:08:27.2087884"
-  },
-  {
-    "id": 180,
-    "from": "eyadamr4121@gmail.com",
-    "subject": "test 7aga mohma",
-    "body": "ah tmaaaaam",
-    "preview": "ah tmaaaaam",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-17T02:10:58.0784511",
-    "priority": 3,
-    "attachments": [],
-    "trashedAt": "2025-12-17T02:25:04.5927832"
-  },
-  {
-    "id": 177,
-    "from": "eyadamr4121@gmail.com",
-    "subject": "polling",
-    "body": "ah kda b2a to7fa awy",
-    "preview": "ah kda b2a to7fa awy",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-17T01:59:03.4766518",
-    "priority": 3,
-    "attachments": [],
-    "trashedAt": "2025-12-17T02:25:04.6092285"
-  },
-  {
-    "id": 193,
-    "to": [
-      "eyadamr4121@gmail.com"
+    "attachments": [
+      {
+        "filename": "OIP.png",
+        "filePath": "data/uploads/9e994cef-63e1-4119-a163-d5f683620e0a_OIP.png",
+        "mimeType": "image/png",
+        "fileSize": 25814
+      },
+      {
+        "filename": "my wife.webp",
+        "filePath": "data/uploads/68376641-ef90-427a-8bcd-a7f311c1cd1d_my wife.webp",
+        "mimeType": "image/webp",
+        "fileSize": 28034
+      },
+      {
+        "filename": "4yaka (1).svg",
+        "filePath": "data/uploads/8e73ee6f-557c-4595-892b-5396a532f75d_4yaka (1).svg",
+        "mimeType": "image/svg+xml",
+        "fileSize": 244521
+      },
+      {
+        "filename": "4yaka.svg",
+        "filePath": "data/uploads/788c62a3-38fc-4624-9181-bdbf363cd4e1_4yaka.svg",
+        "mimeType": "image/svg+xml",
+        "fileSize": 244521
+      }
     ],
-    "from": "eyadamr1644@gmail.com",
-    "subject": "ya 2lby",
-    "body": "a7a ezay",
-    "preview": "a7a ezay",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-17T02:53:14.2476906",
-    "priority": 3,
-    "attachments": [],
-    "trashedAt": "2025-12-17T03:00:59.6762618"
-  },
-  {
-    "id": 196,
-    "to": [],
-    "from": "eyadamr1644@gmail.com",
-    "subject": "ya 2lby",
-    "body": "a7a ezay",
-    "preview": "a7a ezay",
-    "starred": false,
-    "hasAttachment": false,
-    "timestamp": "2025-12-17T03:00:59.7058577",
-    "priority": 3,
-    "attachments": [],
-    "trashedAt": "2025-12-17T03:01:11.4591223"
+    "trashedAt": "2025-12-18T04:16:31.960487"
   }
 ]

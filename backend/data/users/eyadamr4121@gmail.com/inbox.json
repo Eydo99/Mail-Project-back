@@ -327,5 +327,24 @@
         "fileSize": 282190
       }
     ]
+  },
+  {
+    "id": 234,
+    "from": "eyadamr1644@gmail.com",
+    "subject": "mn eydo1644",
+    "body": "kolo gmeel",
+    "preview": "kolo gmeel",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-18T02:19:39.586734",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "classdiagram1.svg",
+        "filePath": "data/uploads/644d167b-ff2e-4a3f-ae1e-796d559617ea_classdiagram1.svg",
+        "mimeType": "image/svg+xml",
+        "fileSize": 81116
+      }
+    ]
   }
 ]
