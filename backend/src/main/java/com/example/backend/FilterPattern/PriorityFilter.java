@@ -8,7 +8,6 @@ import java.util.PriorityQueue;
 
 /**
  * Filter emails by priority levels using a PriorityQueue
- * Filters by specified priorities and returns them sorted by priority
  */
 public class PriorityFilter extends AbstractEmailFilter {
     private final List<Integer> priorities;
@@ -19,14 +18,13 @@ public class PriorityFilter extends AbstractEmailFilter {
 
     @Override
     public List<mail> apply(List<mail> emails) {
+        //if no priorities exist then move to the next filter
         if (priorities == null || priorities.isEmpty()) {
             return passToNext(emails);
         }
 
         // Create a PriorityQueue that sorts emails by priority (lowest number = highest priority)
-        PriorityQueue<mail> pq = new PriorityQueue<>(
-                Comparator.comparingInt(mail::getPriority)
-        );
+        PriorityQueue<mail> pq = new PriorityQueue<>(Comparator.comparingInt(mail::getPriority));
 
         // Add only emails that match the specified priorities
         for (mail email : emails) {
@@ -40,7 +38,7 @@ public class PriorityFilter extends AbstractEmailFilter {
         while (!pq.isEmpty()) {
             filtered.add(pq.poll());
         }
-
+        //after filtering pass it to the next filter
         return passToNext(filtered);
     }
 }

@@ -9,5 +9,10 @@ import java.util.List;
  * implements the strategy pattern
  */
 public interface contactSortStrategy {
+
+    /**
+     * Sort contacts based on specific criteria
+     * @param contacts List of emails to sort
+     */
     void sort(List<Contact> contacts);
 }

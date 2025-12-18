@@ -19,19 +19,21 @@ public class SortByDateStrategy implements EmailSortStrategy {
 
     @Override
     public void sort(List<mail> emails) {
+        //check if list is empty or null
         if (emails == null || emails.isEmpty()) {
             return;
         }
-
+        //define a comparator and its rules
         Comparator<mail> comparator = Comparator.comparing(
                 mail::getTimestamp,
+                //if mail.getTimeStamp()=null put last
                 Comparator.nullsLast(Comparator.naturalOrder())
         );
-
+        //if sort in descending reverse the list
         if (!ascending) {
             comparator = comparator.reversed();
         }
-
+        //apply the comparator on the emails list
         Collections.sort(emails, comparator);
     }
 
