@@ -1,0 +1,400 @@
+@startuml Complete Email Management System
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam linetype ortho
+skinparam nodesep 70
+skinparam ranksep 90
+
+skinparam class {
+    BackgroundColor<<service>> LightGreen
+    BackgroundColor<<factory>> LightYellow
+    BackgroundColor<<model>> LightBlue
+    BackgroundColor<<dto>> LightCyan
+    BackgroundColor<<util>> LightGray
+    BackgroundColor<<strategy>> Wheat
+    BackgroundColor<<filter>> LightPink
+    BackgroundColor<<interface>> PowderBlue
+    BackgroundColor<<abstract>> Silver
+    BackgroundColor<<command>> Khaki
+    BackgroundColor<<repository>> Lavender
+    BackgroundColor<<facade>> Thistle
+    BackgroundColor<<controller>> LightSalmon
+    BackgroundColor<<exception>> MistyRose
+}
+
+title Complete Email Management System Architecture
+
+' ============ CONTROLLER LAYER (2 rows) ============
+package "Controller Layer" {
+    together {
+        class AuthController <<controller>> {
+            - facade: AuthFacade
+            + signup()
+            + login()
+        }
+
+        class ContactController <<controller>> {
+            - service: ContactService
+            + getContacts()
+            + addContact()
+        }
+
+        class FolderController <<controller>> {
+            - folderService: FolderService
+            + getAllFolders()
+            + createFolder()
+        }
+    }
+
+    together {
+        class mailController <<controller>> {
+            - mailService: mailService
+            + getInboxEmails()
+            + composeMail()
+        }
+
+        class UserProfileController <<controller>> {
+            - profileFacade: UserProfileFacade
+            + getProfile()
+            + updateProfile()
+        }
+
+        class AttachmentController <<controller>> {
+            + serveFile()
+        }
+    }
+}
+
+' ============ FACADE LAYER ============
+package "Facade Layer" {
+    class AuthFacade <<facade>> {
+        - fileManager: JsonFileManager
+        + signup()
+        + login()
+    }
+
+    class UserProfileFacade <<facade>> {
+        - commandManager: ProfileCommandManager
+        + getProfile()
+        + updateProfile()
+        + undo()
+        + redo()
+    }
+}
+
+' ============ SERVICE LAYER (2 rows) ============
+package "Service Layer" {
+    together {
+        class ContactService <<service>> {
+            - contactRepo: contactRepo
+            - contactFactory: ContactFactory
+            + getContacts()
+            + addContact()
+        }
+
+        class mailService <<service>> {
+            - emailSortContext: EmailSortContext
+            - emailFilterService: EmailFilterService
+            + composeMail()
+            + getInboxEmails()
+        }
+
+        class FolderService <<service>> {
+            - folderRepo: FolderRepo
+            - folderFactory: FolderFactory
+            + getAllFolders()
+            + createFolder()
+        }
+    }
+
+    together {
+        class EmailFilterService <<service>> {
+            + applyFilters()
+            + hasActiveFilters()
+        }
+
+        class ProfileCommandManager <<service>> {
+            - undoStacks: Map
+            + undo()
+            + redo()
+        }
+
+        class TrashCleanupService <<service>> {
+            + cleanupOldTrashEmails()
+        }
+    }
+}
+
+' ============ REPOSITORY LAYER ============
+package "Repository Layer" {
+    class contactRepo <<repository>> {
+        - jsonFileManager: JsonFileManager
+        + findAll()
+        + saveAll()
+    }
+
+    class mailRepo <<repository>> {
+        - jsonFileManager: JsonFileManager
+        + getInboxEmails()
+        + deleteEmail()
+    }
+
+    class FolderRepo <<repository>> {
+        - jsonFileManager: JsonFileManager
+        + findAll()
+        + save()
+    }
+}
+
+' ============ FACTORY LAYER ============
+package "Factory Layer" {
+    class ContactFactory <<factory>> {
+        + createContact()
+        + updateContact()
+    }
+
+    class FolderFactory <<factory>> {
+        + createFolder()
+        + updateFolder()
+    }
+
+    class mailFactory <<factory>> {
+        + createNewMail()
+    }
+}
+
+' ============ PATTERN LAYER (2 columns) ============
+package "Strategy & Filter Patterns" {
+    together {
+        interface contactSortStrategy <<interface>> {
+            + sort()
+        }
+
+        class sortByName <<strategy>> {
+            + sort()
+        }
+
+        class sortByEmail <<strategy>> {
+            + sort()
+        }
+    }
+
+    together {
+        interface EmailSortStrategy <<interface>> {
+            + sort()
+        }
+
+        class SortByDateStrategy <<strategy>> {
+            + sort()
+        }
+
+        class SortBySenderStrategy <<strategy>> {
+            + sort()
+        }
+
+        class EmailSortContext <<strategy>> {
+            + sortEmails()
+        }
+    }
+
+    together {
+        interface EmailFilter <<interface>> {
+            + apply()
+        }
+
+        abstract class AbstractEmailFilter <<abstract>> {
+            + setNext()
+            + apply()
+        }
+    }
+
+    together {
+        class SearchFilter <<filter>> {
+            + apply()
+        }
+
+        class DateRangeFilter <<filter>> {
+            + apply()
+        }
+
+        class SenderFilter <<filter>> {
+            + apply()
+        }
+
+        class PriorityFilter <<filter>> {
+            + apply()
+        }
+    }
+}
+
+' ============ MODEL LAYER (2 rows) ============
+package "Model Layer" {
+    together {
+        class Contact <<model>> {
+            - id: String
+            - name: String
+        }
+
+        class Email <<model>> {
+            - address: String
+            - isPrimary: boolean
+        }
+
+        class Phone <<model>> {
+            - number: String
+            - isPrimary: boolean
+        }
+
+        class Folder <<model>> {
+            - id: String
+            - name: String
+        }
+    }
+
+    together {
+        class mail <<model>> {
+            - id: int
+            - subject: String
+            - starred: boolean
+        }
+
+        class UserInfo <<model>> {
+            + email: String
+        }
+
+        class InfoPlus <<model>> {
+            + jobTitle: String
+        }
+
+        class DispatcherSettings <<model>> {
+            + dispatcherModeEnabled: boolean
+        }
+    }
+}
+
+' ============ DTO LAYER (3 rows) ============
+package "DTO Layer" {
+    together {
+        class contactRequestDTO <<dto>> {
+            - name: String
+        }
+
+        class contactResponseDTO <<dto>> {
+            - id: String
+        }
+
+        class FolderRequestDTO <<dto>> {
+            - name: String
+        }
+
+        class FolderResponseDTO <<dto>> {
+            - id: String
+        }
+    }
+
+    together {
+        class mailContentDTO <<dto>> {
+            - subject: String
+        }
+
+        class attachementDTO <<dto>> {
+            - filename: String
+        }
+
+        class FilterCriteriaDTO <<dto>> {
+            - searchTerm: String
+        }
+    }
+
+    together {
+        class LoginRequest <<dto>> {
+            + email: String
+        }
+
+        class SignupRequest <<dto>> {
+            + email: String
+        }
+
+        class ProfileUpdateRequest <<dto>> {
+            + fullName: String
+        }
+    }
+}
+
+' ============ UTILITY LAYER ============
+package "Utility Layer" {
+    class JsonFileManager <<util>> {
+        + readListFromFile()
+        + writeListToFile()
+    }
+
+    class ProfileChange <<command>> {
+        + email: String
+        + fieldName: String
+    }
+}
+
+' ============ RELATIONSHIPS ============
+
+' Controller to Facade
+AuthController -down-> AuthFacade
+UserProfileController -down-> UserProfileFacade
+
+' Controller to Service
+ContactController -down-> ContactService
+FolderController -down-> FolderService
+mailController -down-> mailService
+
+' Facade to Service/Utility
+AuthFacade -down-> JsonFileManager
+UserProfileFacade -down-> ProfileCommandManager
+
+' Service to Repository
+ContactService -down-> contactRepo
+mailService -down-> mailRepo
+FolderService -down-> FolderRepo
+
+' Service to Factory
+ContactService -right-> ContactFactory
+FolderService -right-> FolderFactory
+
+' Service to Strategy/Filter
+mailService -down-> EmailSortContext
+mailService -down-> EmailFilterService
+ContactService .down.> contactSortStrategy
+
+' Repository to Utility
+contactRepo -down-> JsonFileManager
+mailRepo -down-> JsonFileManager
+FolderRepo -down-> JsonFileManager
+
+' Factory to Model
+ContactFactory .down.> Contact : <<create>>
+FolderFactory .down.> Folder : <<create>>
+mailFactory .down.> mail : <<create>>
+
+' Strategy Pattern
+contactSortStrategy <|.down. sortByName
+contactSortStrategy <|.down. sortByEmail
+EmailSortStrategy <|.down. SortByDateStrategy
+EmailSortStrategy <|.down. SortBySenderStrategy
+EmailSortContext o-down-> EmailSortStrategy
+
+' Filter Chain
+EmailFilter <|.down. AbstractEmailFilter
+AbstractEmailFilter <|-- SearchFilter
+AbstractEmailFilter <|-- DateRangeFilter
+AbstractEmailFilter <|-- SenderFilter
+AbstractEmailFilter <|-- PriorityFilter
+EmailFilterService .down.> EmailFilter
+
+' Model Compositions
+Contact *-down-> Email
+Contact *-down-> Phone
+mail *-down-> attachementDTO
+InfoPlus *-down-> DispatcherSettings
+
+' Command Pattern
+ProfileCommandManager *-down-> ProfileChange
+
+@enduml

@@ -1,14 +1,13 @@
 package com.example.backend.StrategyPattern;
 
-
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import com.example.backend.model.mail;
 
 /**
- * Sort emails by priority (1=Urgent, 2=High, 3=Medium, 4=Low)
+ * Sort emails by priority (1=Urgent, 2=High, 3=Medium, 4=Low) using PriorityQueue
  */
 public class SortByPriorityStrategy implements EmailSortStrategy {
     private final boolean ascending;
@@ -23,13 +22,26 @@ public class SortByPriorityStrategy implements EmailSortStrategy {
             return;
         }
 
+        // Create comparator based on sort order
         Comparator<mail> comparator = Comparator.comparingInt(mail::getPriority);
 
         if (!ascending) {
             comparator = comparator.reversed();
         }
 
-        Collections.sort(emails, comparator);
+        // Create PriorityQueue with the comparator
+        PriorityQueue<mail> pq = new PriorityQueue<>(comparator);
+
+        // Add all emails to the priority queue
+        pq.addAll(emails);
+
+        // Clear the original list
+        emails.clear();
+
+        // Extract emails from priority queue in sorted order
+        while (!pq.isEmpty()) {
+            emails.add(pq.poll());
+        }
     }
 
     @Override

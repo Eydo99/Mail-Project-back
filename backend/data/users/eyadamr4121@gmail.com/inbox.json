@@ -302,5 +302,30 @@
     "timestamp": "2025-12-17T03:10:51.16552",
     "priority": 3,
     "attachments": []
+  },
+  {
+    "id": 233,
+    "from": "eyadamr1644@gmail.com",
+    "subject": "bgrb",
+    "body": "oh yeah",
+    "preview": "oh yeah",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-18T01:18:15.7792492",
+    "priority": 3,
+    "attachments": [
+      {
+        "filename": "Lab 2.pdf",
+        "filePath": "data/uploads/b964e9f7-0a6c-4350-8240-72b87eaf3b9a_Lab 2.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 87092
+      },
+      {
+        "filename": "AUR-ROV-Power Board.pdf",
+        "filePath": "data/uploads/42d04072-0056-4597-b6e0-0a81b7a5f703_AUR-ROV-Power Board.pdf",
+        "mimeType": "application/pdf",
+        "fileSize": 282190
+      }
+    ]
   }
 ]
