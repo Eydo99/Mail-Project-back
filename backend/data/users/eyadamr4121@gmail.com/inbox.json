@@ -346,5 +346,36 @@
         "fileSize": 81116
       }
     ]
+  },
+  {
+    "id": 275,
+    "from": "eyadamr1644@gmail.com",
+    "subject": "bgrb kol 7aga",
+    "body": "ef",
+    "preview": "ef",
+    "starred": false,
+    "hasAttachment": true,
+    "timestamp": "2025-12-18T06:16:08.086508",
+    "priority": 1,
+    "attachments": [
+      {
+        "filename": "4yaka.svg",
+        "filePath": "data/uploads/6a79a82a-7013-42a9-b250-0a59322dc27c_4yaka.svg",
+        "mimeType": "image/svg+xml",
+        "fileSize": 244521
+      },
+      {
+        "filename": "a7a.svg",
+        "filePath": "data/uploads/c3744cd0-7cb2-4ee4-8f5a-40c470ea4c75_a7a.svg",
+        "mimeType": "image/svg+xml",
+        "fileSize": 319341
+      },
+      {
+        "filename": "11.svg",
+        "filePath": "data/uploads/6ba0b204-7e85-4eed-a196-f37a2cce76a7_11.svg",
+        "mimeType": "image/svg+xml",
+        "fileSize": 109480
+      }
+    ]
   }
 ]

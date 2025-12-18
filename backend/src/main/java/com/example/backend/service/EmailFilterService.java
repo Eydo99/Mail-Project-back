@@ -18,8 +18,12 @@ public class EmailFilterService {
 
     /**
      * Apply all filters to emails based on criteria
+     * @param emails : list of emails to apply filters in
+     * @param criteria : filters to apply on mails
+     * @return list of filtered mails
      */
     public List<mail> applyFilters(List<mail> emails, FilterCriteriaDTO criteria) {
+        //if no filters applied or no emails then return it as it is
         if (criteria == null || emails == null || emails.isEmpty()) {
             return emails;
         }
@@ -33,6 +37,8 @@ public class EmailFilterService {
 
     /**
      * Build the chain of responsibility for filters
+     * @param criteria:filters to apply on mails
+     * @return chain of filters
      */
     private EmailFilter buildFilterChain(FilterCriteriaDTO criteria) {
         // Create all filters
@@ -59,6 +65,8 @@ public class EmailFilterService {
 
     /**
      * Check if any filters are active
+     * @param criteria : filters to apply on mails
+     * @return if there is any active filters
      */
     public boolean hasActiveFilters(FilterCriteriaDTO criteria) {
         if (criteria == null) {
