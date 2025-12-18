@@ -21,10 +21,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -211,6 +213,12 @@ public ResponseEntity<Map<String, String>> toggleStar(
     @PostMapping("/compose")
 public ResponseEntity<Map<String, Object>> composeMail(@RequestBody mailContentDTO mailContent) {
     try {
+          Queue<String> recipientsQueue = mailContent.getRecipients();
+        if (recipientsQueue != null && !recipientsQueue.isEmpty()) {
+            Set<String> uniqueRecipients = new LinkedHashSet<>(recipientsQueue);
+            recipientsQueue = new LinkedList<>(uniqueRecipients);
+            mailContent.setRecipients(recipientsQueue);
+        }
         // Process attachments - decode base64 and save files
         if (mailContent.getAttachements() != null && !mailContent.getAttachements().isEmpty()) {
             for (attachementDTO attachment : mailContent.getAttachements()) {
@@ -240,7 +248,7 @@ public ResponseEntity<Map<String, Object>> composeMail(@RequestBody mailContentD
             }
         }
 
-        Queue<String> recipientsQueue = mailContent.getRecipients();
+        
         List<String> successfulRecipients = new ArrayList<>();
         List<String> failedRecipients = new ArrayList<>();
 
